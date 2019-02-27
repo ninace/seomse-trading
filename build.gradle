@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'seomse_trading'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile fileTree(dir: 'dependencies/jdbc', include: '*.jar')
+    compile fileTree(dir: 'dependencies/json', include: '*.jar')
+    compile fileTree(dir: 'dependencies/log', include: '*.jar')
+    compile fileTree(dir: 'dependencies/seomse', include: '*.jar')
+}
+
