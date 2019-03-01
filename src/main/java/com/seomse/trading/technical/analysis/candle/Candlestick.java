@@ -151,14 +151,27 @@ public class Candlestick {
                 // 위그림자가 보합길이보다 길고
         ){
 
+            if(absChange < steadyGap){
+                //몸통이 보합걸이보다 작으면
+                type = Type.DOJI;
+                return;
+            }
+
+
             double upperRate = upperShadow/absChange;
 
             double lowerRate = lowerShadow/absChange;
 
 
             if(upperRate > 2.0 && lowerRate > 2.0){
-
+                // 위아래꼬리가 몸통보다 많이길면 길면
+                type = Type.HIGH_WAVE;
+            }else{
+                // 위아래꼬리가 길면
+                type = Type.SPINNING_TOPS;
             }
+            return;
+
 
 
 
