@@ -1,5 +1,9 @@
 package com.seomse.trading.test;
 
+import com.seomse.jdbc.naming.JdbcNaming;
+
+import java.util.List;
+
 /**
  * <pre>
  *  파 일 명 : CandleMakeTest.java
@@ -16,6 +20,20 @@ package com.seomse.trading.test;
 public class CandleMakeTest {
 
     public static void main(String[] args) {
+        //1분봉 만들기
+
+        List<TradeDataNo> tradeDataList = JdbcNaming.getObjList(TradeDataNo.class
+                ,"DT_ORDER BETWEEN TO_DATE('20190207','YYYYMMDD') AND TO_DATE('20190218','YYYYMMDD')"
+                ," DT_ORDER , TP_ORDER , VL_OUTPUT ASC");
+
+
+        int size = tradeDataList.size();
+        for(int i=0 ; i<size ; i++){
+            TradeDataNo tradeDataNo  =  tradeDataList.get(i);
+
+
+
+        }
 
 
 

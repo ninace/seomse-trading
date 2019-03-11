@@ -18,4 +18,5 @@ public enum PriceChangeType {
     , RISE //상승
     , FALL //하락
     , HOLD //보합
+
 }
