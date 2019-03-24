@@ -28,11 +28,6 @@ public class TradeCandle extends Candlestick {
 
     private static final Logger logger = LoggerFactory.getLogger(TradeCandle.class);
 
-    /**
-     * 평균가
-     */
-    private double average= -1.0;
-
 
     /**
      * 거래량
@@ -43,18 +38,10 @@ public class TradeCandle extends Candlestick {
      * 평균가격 얻기
      * @return 평균가격
      */
-    @Deprecated
     public double getAverage() {
-        return average;
+        return priceTotal / volume;
     }
 
-    /**
-     * 평균가격설정
-     * @param average 평균가격
-     */
-    public void setAverage(double average) {
-        this.average = average;
-    }
 
     /**
      * 거래량 얻기
@@ -78,6 +65,7 @@ public class TradeCandle extends Candlestick {
      */
     private int tradeCount = -1;
 
+    double priceTotal = 0.0;
     /**
      * 거래 정보 리스트
      */
@@ -91,10 +79,27 @@ public class TradeCandle extends Candlestick {
 
         if(tradeList == null){
             tradeList = new ArrayList<>();
-        }
+            setOpen(trade.getPrice());
+            setClose(trade.getPrice());
+            high = trade.getPrice();
+            low = trade.getPrice();
+        }else{
 
+            if(high < trade.getPrice()){
+                high = trade.getPrice();
+            } else if(low > trade.getPrice()){
+                low =  trade.getPrice();
+            }
+            setClose(trade.getPrice());
+        }
         tradeList.add(trade);
+        tradeCount = tradeList.size();
+
+        volume += trade.getVolume();
+        priceTotal += trade.getVolume() * trade.getPrice();
     }
+
+
 
     /**
      * 거래 회수(건수) 얻기
@@ -114,7 +119,7 @@ public class TradeCandle extends Candlestick {
             return;
         }
 
-        double priceTotal = 0.0;
+        priceTotal = 0.0;
 
         tradeCount = tradeList.size();
 
@@ -147,13 +152,6 @@ public class TradeCandle extends Candlestick {
                 low =  trade.getPrice();
             }
         }
-
-        if(volume > 0.0 && priceTotal > 0.0) {
-            average = priceTotal / volume;
-        }else{
-            logger.error("volume or price total error volume -> " + volume + ", price total -> " + priceTotal);
-        }
-
 
         setHigh(high);
         setLow(low);

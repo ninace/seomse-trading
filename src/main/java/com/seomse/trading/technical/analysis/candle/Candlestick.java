@@ -235,24 +235,24 @@ public class Candlestick {
     /**
      * 시가
      */
-    private double open = -1.0;
+    protected double open = -1.0;
 
     /**
      * 종가
      */
-    private double close = -1.0;
+    protected double close = -1.0;
 
 
     /**
      * 고가
      */
-    private double high = -1.0;
+    protected double high = -1.0;
 
 
     /**
      * 저가
      */
-    private double low = -1.0;
+    protected double low = -1.0;
 
 
 

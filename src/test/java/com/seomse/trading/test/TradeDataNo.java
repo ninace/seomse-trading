@@ -1,6 +1,7 @@
 package com.seomse.trading.test;
 
 import com.seomse.jdbc.annotation.DateTime;
+import com.seomse.jdbc.annotation.Table;
 
 /**
  * <pre>
@@ -15,6 +16,7 @@ import com.seomse.jdbc.annotation.DateTime;
  * </pre>
  * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
  */
+@Table(name="TB_COIN_TRADE_DATA_BM")
 public class TradeDataNo {
 
     private Long PRC_COIN;
