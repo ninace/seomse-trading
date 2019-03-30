@@ -33,6 +33,10 @@ class FirstTradeAdd implements TradeAdd {
     public void addTrade(Trade trade){
 
 
+        long timeGap = tradeCandles.getTimeGap();
+
+        //
+
         trade.getTime();
 //        tradeCandles.get
 

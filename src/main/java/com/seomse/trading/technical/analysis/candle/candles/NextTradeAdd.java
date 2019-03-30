@@ -28,5 +28,8 @@ class NextTradeAdd implements TradeAdd {
 
     public void addTrade(Trade trade){
 
+
+
+
     }
 }

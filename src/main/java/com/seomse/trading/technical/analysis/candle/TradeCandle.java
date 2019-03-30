@@ -25,9 +25,7 @@ import java.util.List;
  */
 public class TradeCandle extends Candlestick {
 
-
     private static final Logger logger = LoggerFactory.getLogger(TradeCandle.class);
-
 
     /**
      * 거래량
@@ -99,8 +97,6 @@ public class TradeCandle extends Candlestick {
         priceTotal += trade.getVolume() * trade.getPrice();
     }
 
-
-
     /**
      * 거래 회수(건수) 얻기
      * 거래량과 다름 회수별 거래량이 존재
@@ -112,6 +108,7 @@ public class TradeCandle extends Candlestick {
 
     /**
      * 거래정보를 이용하여 캔들 데이터 설정
+     * trade 를 한번에 추가했을때 사용
      */
     public void setCandleToTrade(){
         if(tradeList == null  || tradeList.size() == 0){
