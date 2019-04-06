@@ -44,7 +44,6 @@ public class TimeGap {
             }else{
                 return false;
             }
-
         }
 
     }
@@ -55,6 +54,8 @@ public class TimeGap {
      * @return startTime
      */
     public static long getStartTime(long timeGap){
+
+
 
 
 
