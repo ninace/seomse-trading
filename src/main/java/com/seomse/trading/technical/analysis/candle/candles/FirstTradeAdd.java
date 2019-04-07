@@ -7,7 +7,7 @@ import com.seomse.trading.technical.analysis.candle.TradeCandle;
 /**
  * <pre>
  *  파 일 명 : FirstTradeAdd.java
- *  설    명 : trade정보 처음 추가용
+ *  설    명 : trade 정보 처음 추가용
  *
  *  작 성 자 : macle
  *  작 성 일 : 2019.03
@@ -34,11 +34,11 @@ class FirstTradeAdd implements TradeAdd {
 
 
         long timeGap = tradeCandles.getTimeGap();
-
         //
-
         trade.getTime();
 //        tradeCandles.get
+
+
 
         TradeCandle tradeCandle = new TradeCandle();
         tradeCandle.addTrade(trade);

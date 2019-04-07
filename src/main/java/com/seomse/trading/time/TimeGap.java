@@ -1,5 +1,7 @@
 package com.seomse.trading.time;
 
+import java.util.Calendar;
+
 /**
  * <pre>
  *  파 일 명 : TimeGap.java
@@ -31,6 +33,7 @@ public class TimeGap {
                 return false;
             }
         }else if(timeGap < Times.HOUR_24){
+            //24시간 보다 작은단위 gap 설정 유효성
             if( Times.HOUR_24 % timeGap == 0){
                 return true;
             }else{
@@ -38,7 +41,6 @@ public class TimeGap {
             }
         }else{
             //그다음은 하루단위의 봉만 생성
-
             if(timeGap % Times.HOUR_24 == 0){
                 return true;
             }else{
@@ -51,15 +53,40 @@ public class TimeGap {
     /**
      * 처음 시작할때의 시작시간 얻기
      * @param timeGap timeGap
+     * @param startTime startTime
      * @return startTime
      */
-    public static long getStartTime(long timeGap){
+    public static long getStartTime(long timeGap, long startTime){
+
+        if(timeGap < Times.HOUR_1){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(startTime);
+
+
+            calendar.add(Calendar.HOUR_OF_DAY, 20);
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+
+            System.out.println(hour);
+
+
+
+        }
+
+
 
 
 
 
 
         return 0;
+    }
+
+    public static void main(String[] args) {
+
+        getStartTime(60000L, 1554576718234L);
+
+
     }
 
 
