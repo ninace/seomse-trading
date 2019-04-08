@@ -55,25 +55,16 @@ public class TimeGap {
     /**
      * 처음 시작할때의 시작시간 얻기
      * @param timeGap timeGap
-     * @param startTime startTime
+     * @param tradeStartTime tradeStartTime
      * @return startTime
      */
-    public static long getStartTime(long timeGap, long startTime){
+    public static long getStartTime(long timeGap, long tradeStartTime){
 
         if(timeGap < Times.HOUR_1){
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(startTime);
+//            long hourStart = time- time% Times.HOUR_1;
+//
+//            long gap = time - hourStart;
 
-
-            calendar.add(Calendar.HOUR_OF_DAY, 20);
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-
-
-
-            System.out.println(hour);
-
-
-            calendar.getTime();
 
         }
 
@@ -89,17 +80,36 @@ public class TimeGap {
     public static void main(String[] args) {
 
 
-        getStartTime(60000L, 1554576718234L);
+        long time = 1554576718234L;
+
+        long timeGap = 6000L;
+
+//        getStartTime(60000L, 1554576718234L);
 
 
-        Date date  = new Date(1554576718234L);
+        Date date  = new Date(time);
 
-
-       ;
 
 
         System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date));
 
+
+        //밀리세컨드 버리기
+
+        long hourStart = time- time% Times.HOUR_1;
+
+        long gap = time - hourStart;
+
+
+        long startTime = hourStart + gap - gap%timeGap;
+
+
+
+        date  = new Date(startTime);
+
+
+
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date));
 
 
 
