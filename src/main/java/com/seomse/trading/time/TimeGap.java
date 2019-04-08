@@ -1,6 +1,8 @@
 package com.seomse.trading.time;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * <pre>
@@ -67,9 +69,11 @@ public class TimeGap {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
 
+
             System.out.println(hour);
 
 
+            calendar.getTime();
 
         }
 
@@ -84,7 +88,20 @@ public class TimeGap {
 
     public static void main(String[] args) {
 
+
         getStartTime(60000L, 1554576718234L);
+
+
+        Date date  = new Date(1554576718234L);
+
+
+       ;
+
+
+        System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(date));
+
+
+
 
 
     }
