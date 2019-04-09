@@ -4,9 +4,8 @@ import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.time.Times;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,8 +24,7 @@ import java.util.List;
  */
 public class TradeCandles {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(TradeCandles.class);
+    public static final int DEFAULT_SAVE_COUNT = 1000;
 
     public static final TradeCandle [] EMPTY_CANDLES = new TradeCandle[0];
 
@@ -34,9 +32,9 @@ public class TradeCandles {
     //24시간으로 나눌 수 있는 값만 설정 가능
     private long timeGap ;
 
-    private int saveCount = 50;
+    private int saveCount = DEFAULT_SAVE_COUNT;
 
-    TradeAdd tradeAdd = new FirstTradeAdd(this);
+    TradeAdd tradeAdd ;
 
     List<TradeCandle> candleList = new LinkedList<>();
     TradeCandle [] candles = EMPTY_CANDLES;
@@ -45,7 +43,7 @@ public class TradeCandles {
 
     /**
      * 생성자
-     * @param timeGap
+     * @param timeGap timeGap
      */
     public TradeCandles(long timeGap ){
         //24시간 이하의 값에서는 24보다 낮은 값만 구할 수 있음
@@ -54,11 +52,66 @@ public class TradeCandles {
             throw new RuntimeException("24 hour % timeGap 0: "  +  Times.HOUR_24%timeGap );
         }
         this.timeGap = timeGap;
+        tradeAdd = new FirstTradeAdd(this);
+    }
+
+
+    /**
+     * 생성자
+     * 처음부터 많은 켄들이 한번에 추가될 경우
+     * @param timeGap timeGap
+     * @param candles ready candles
+     */
+    public TradeCandles(long timeGap, TradeCandle [] candles, int saveCount ){
+        if(timeGap < Times.HOUR_24 &&
+                Times.HOUR_24%timeGap != 0){
+            throw new RuntimeException("24 hour % timeGap 0: "  +  Times.HOUR_24%timeGap );
+        }
+
+        this.timeGap = timeGap;
+        this.saveCount = saveCount;
+
+
+        if(candles == null || candles.length == 0){
+            tradeAdd = new FirstTradeAdd(this);
+            return;
+        }
+
+        lastCandle = candles[candles.length-1];
+
+
+        tradeAdd = new NextTradeAdd(this);
+        if(candles.length <= saveCount) {
+            candleList.addAll(Arrays.asList(candles));
+            this.candles = candles;
+        }else{
+
+            //noinspection ManualArrayToCollectionCopy
+            for (int i = candles.length - saveCount ; i < candles.length; i++) {
+                candleList.add(candles[i]);
+            }
+            this.candles = candleList.toArray(new  TradeCandle[0]);
+        }
     }
 
     /**
+     * add candle
+     * @param tradeCandle add trade candle
+     */
+    public void addCandle(TradeCandle tradeCandle){
+        candleList.add(tradeCandle);
+        if(candleList.size() > saveCount){
+            candleList.remove(0);
+        }
+        this.candles = candleList.toArray(new TradeCandle[0]);
+        lastCandle = tradeCandle;
+    }
+
+
+    /**
      * 거래정보 추가
-     * @param trade
+     * trade add
+     * @param trade trade
      */
     public void addTrade(Trade trade){
         tradeAdd.addTrade(trade);
@@ -66,9 +119,25 @@ public class TradeCandles {
 
     /**
      * 타임 갭 얻기
-     * @return
+     * timeGap get
+     * @return timeGap
      */
     public long getTimeGap() {
         return timeGap;
     }
+
+    /**
+     * 캔들 저장 count 설정
+     * candle save count set
+     * @param saveCount candle save count
+     */
+    public void setSaveCount(int saveCount) {
+        this.saveCount = saveCount;
+    }
+
+    public static void main(String[] args) {
+
+
+    }
+
 }

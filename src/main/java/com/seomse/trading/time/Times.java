@@ -14,7 +14,8 @@ package com.seomse.trading.time;
  */
 public class Times {
 
-    public static final long HOUR_24 = 1000*60*60*24;
-
     public static final long HOUR_1 = 1000*60*60;
+
+    public static final long HOUR_24 = HOUR_1*24;
+
 }

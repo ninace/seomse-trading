@@ -2,6 +2,7 @@ package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
+import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 /**
@@ -33,18 +34,27 @@ class FirstTradeAdd implements TradeAdd {
     public void addTrade(Trade trade){
 
 
+        if(tradeCandles.candleList.size() != 0){
+            //이미 추가된 켄들이 있을경우
+            tradeCandles.tradeAdd = new NextTradeAdd(tradeCandles);
+            tradeCandles.tradeAdd.addTrade(trade);
+            return;
+        }
+
         long timeGap = tradeCandles.getTimeGap();
-        //
-        trade.getTime();
-//        tradeCandles.get
 
-
+        long startTime = CandleTimeGap.getStartTime(timeGap, trade.getTime());
 
         TradeCandle tradeCandle = new TradeCandle();
+        tradeCandle.setStartTime(startTime);
+        tradeCandle.setEndTime(startTime + timeGap);
+
         tradeCandle.addTrade(trade);
 
-        tradeCandles.lastCandle = tradeCandle;
-        tradeCandles.candleList.add(tradeCandle);
+
+
+        tradeCandles.addCandle(tradeCandle);
         tradeCandles.tradeAdd = new NextTradeAdd(tradeCandles);
+
     }
 }
