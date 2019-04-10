@@ -28,7 +28,6 @@ public class TradeCandles {
 
     public static final TradeCandle [] EMPTY_CANDLES = new TradeCandle[0];
 
-
     //24시간으로 나눌 수 있는 값만 설정 가능
     private long timeGap ;
 
@@ -159,5 +158,25 @@ public class TradeCandles {
         tradeCandle.addTrade(trade);
         addCandle(tradeCandle);
     }
+
+    /**
+     * 설정된 캔들 저장 건수 얻기
+     * candle save count get
+     * @return candle saveCount
+     */
+    public int getSaveCount() {
+        return saveCount;
+    }
+
+    /**
+     * 길어얻기
+     * candles length
+     * @return candles length
+     */
+    public int length(){
+        return candles.length;
+    }
+
+
 
 }
