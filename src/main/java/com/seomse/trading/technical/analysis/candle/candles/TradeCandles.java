@@ -177,6 +177,15 @@ public class TradeCandles {
         return candles.length;
     }
 
+    /**
+     * 캔들 배열 얻기
+     * candles get
+     * @return candles
+     */
+    public TradeCandle [] getCandles() {
+        return candles;
+    }
+
 
 
 }

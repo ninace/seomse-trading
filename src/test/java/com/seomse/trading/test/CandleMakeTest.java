@@ -2,10 +2,12 @@ package com.seomse.trading.test;
 
 import com.seomse.jdbc.naming.JdbcNaming;
 import com.seomse.trading.Trade;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-
+import java.util.Date;
 /**
  * <pre>
  *  파 일 명 : CandleMakeTest.java
@@ -28,7 +30,7 @@ public class CandleMakeTest {
         //1분봉 만들기
         TradeCandles tradeCandles = new TradeCandles(60000L);
 
-
+        tradeCandles.setEmptyCandleContinue(true);
         List<TradeDataNo> tradeDataList = JdbcNaming.getObjList(TradeDataNo.class
                 ,"DT_TRADE BETWEEN TO_DATE('20190207','YYYYMMDD') AND TO_DATE('20190218','YYYYMMDD')"
                 ," DT_TRADE ASC");
@@ -57,8 +59,15 @@ public class CandleMakeTest {
         }
 
 
+        System.out.println("tradeCandles " + tradeCandles.length());
 
+        TradeCandle[] candles = tradeCandles.getCandles();
 
+        for (int i = 0; i <candles.length ; i++) {
+
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getStartTime()))
+            +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow());
+        }
 
 
     }

@@ -19,16 +19,17 @@ import com.seomse.jdbc.annotation.Table;
 @Table(name="TB_COIN_TRADE_DATA_BM")
 public class TradeDataNo {
 
-    private Long PRC_COIN;
+    private Double PRC_COIN;
     @DateTime
     private Long DT_TRADE;
-    private Integer VL_TRADE;
+    private Double VL_TRADE;
     private String TP_TRADE;
-    public Long getPRC_COIN() {
+
+    public Double getPRC_COIN() {
         return PRC_COIN;
     }
 
-    public void setPRC_COIN(Long PRC_COIN) {
+    public void setPRC_COIN(Double PRC_COIN) {
         this.PRC_COIN = PRC_COIN;
     }
 
@@ -40,11 +41,11 @@ public class TradeDataNo {
         this.DT_TRADE = DT_TRADE;
     }
 
-    public Integer getVL_TRADE() {
+    public Double getVL_TRADE() {
         return VL_TRADE;
     }
 
-    public void setVL_TRADE(Integer VL_TRADE) {
+    public void setVL_TRADE(Double VL_TRADE) {
         this.VL_TRADE = VL_TRADE;
     }
 
