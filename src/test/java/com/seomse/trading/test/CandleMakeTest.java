@@ -28,11 +28,11 @@ public class CandleMakeTest {
 
 
         //1분봉 만들기
-        TradeCandles tradeCandles = new TradeCandles(60000L);
-
-        tradeCandles.setEmptyCandleContinue(true);
+        TradeCandles tradeCandles = new TradeCandles(60000L * 5);
+        tradeCandles.setSaveCount(2000);
+        tradeCandles.setEmptyCandleContinue(false);
         List<TradeDataNo> tradeDataList = JdbcNaming.getObjList(TradeDataNo.class
-                ,"DT_TRADE BETWEEN TO_DATE('20190207','YYYYMMDD') AND TO_DATE('20190218','YYYYMMDD')"
+                ,"DT_TRADE BETWEEN TO_DATE('20190210','YYYYMMDD') AND TO_DATE('20190218','YYYYMMDD') "
                 ," DT_TRADE ASC");
 
 
@@ -65,8 +65,18 @@ public class CandleMakeTest {
 
         for (int i = 0; i <candles.length ; i++) {
 
+            //0.5%
+            double shortGap = candles[i].getOpen()*0.0005;
+            double steadyGap = candles[i].getOpen()*0.0002;
+
+            candles[i].setType(shortGap,steadyGap );
+
             System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getStartTime()))
-            +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow());
+            +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow() + ", " + candles[i].getVolume() + ", " + candles[i].getTradeCount() + ", "
+             +       candles[i].getAverage()+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + " " + candles[i].getType().toString());
+
+
+
         }
 
 

@@ -302,12 +302,17 @@ public class Candlestick {
     }
 
     /**
-     * 변화량 얻기
+     * 가격 변화량 얻기
      *
      * @return 변화량
      */
     public double change() {
         return close - open;
+    }
+
+    public double getChangePercent(){
+        return change()/open;
+
     }
 
     /**

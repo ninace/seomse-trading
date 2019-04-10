@@ -39,36 +39,35 @@ class NextTradeAdd implements TradeAdd {
         long nextStartTime =  tradeCandles.lastCandle.getEndTime();
         long nextEndTime  = nextStartTime + timeGap;
         if(trade.getTime() < nextEndTime){
-
-            double lastPrice = tradeCandles.lastCandle.getClose();
-
-            if(tradeCandles.isEmptyCandleContinue) {
-                do {
-                    TradeCandle nextTradeCandle = new TradeCandle();
-
-                    nextTradeCandle.setOpen(lastPrice);
-                    nextTradeCandle.setClose(lastPrice);
-                    nextTradeCandle.setHigh(lastPrice);
-                    nextTradeCandle.setClose(lastPrice);
-                    nextTradeCandle.setStartTime(nextStartTime);
-                    nextTradeCandle.setEndTime(nextEndTime);
-
-                    tradeCandles.addCandle(nextTradeCandle);
-                    nextStartTime = nextEndTime;
-                    nextEndTime = nextStartTime + timeGap;
-                } while (trade.getTime() >= nextEndTime);
-            }else{
-                tradeCandles.addTradeNewCandle(trade, nextStartTime, nextEndTime);
-                return;
-            }
+            tradeCandles.addTradeNewCandle(trade, nextStartTime, nextEndTime);
+            return;
         }
 
+        double lastPrice = tradeCandles.lastCandle.getClose();
+
         if(tradeCandles.isEmptyCandleContinue) {
+            do {
+                TradeCandle nextTradeCandle = new TradeCandle();
+
+                nextTradeCandle.setOpen(lastPrice);
+                nextTradeCandle.setClose(lastPrice);
+                nextTradeCandle.setHigh(lastPrice);
+                nextTradeCandle.setLow(lastPrice);
+                nextTradeCandle.setStartTime(nextStartTime);
+                nextTradeCandle.setEndTime(nextEndTime);
+
+                tradeCandles.addCandle(nextTradeCandle);
+                nextStartTime = nextEndTime;
+                nextEndTime = nextStartTime + timeGap;
+            } while (trade.getTime() >= nextEndTime);
+
             tradeCandles.addTradeNewCandle(trade, nextStartTime , nextEndTime);
         }else{
             long startTime = CandleTimeGap.getStartTime(timeGap, trade.getTime());
             tradeCandles.addTradeNewCandle(trade, startTime , startTime + timeGap);
         }
+
+
 
 
 
