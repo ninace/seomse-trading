@@ -2,6 +2,7 @@ package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
+import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.time.Times;
 
@@ -133,6 +134,21 @@ public class TradeCandles {
      */
     public void setSaveCount(int saveCount) {
         this.saveCount = saveCount;
+    }
+
+    /**
+     * 캔들을 추가로 생성하여 트레이드 정보 입력
+     * @param trade trade
+     * @param startTime startTime
+     * @param endTime endTime
+     */
+    void addTradeNewCandle(Trade trade, long startTime, long endTime){
+
+        TradeCandle tradeCandle = new TradeCandle();
+        tradeCandle.setStartTime(startTime);
+        tradeCandle.setEndTime(endTime);
+        tradeCandle.addTrade(trade);
+        addCandle(tradeCandle);
     }
 
     public static void main(String[] args) {
