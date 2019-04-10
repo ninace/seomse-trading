@@ -30,7 +30,7 @@ public class TradeCandle extends Candlestick {
     /**
      * 거래량
      */
-    private double volume= -1.0;
+    private double volume = 0.0;
 
     /**
      * 평균가격 얻기
@@ -61,7 +61,7 @@ public class TradeCandle extends Candlestick {
      * 거래 횟수(건수)
      * 한명이 대량 거래를 한건지를 측정하기위한 변수
      */
-    private int tradeCount = -1;
+    private int tradeCount = 0;
 
     double priceTotal = 0.0;
     /**
@@ -149,7 +149,6 @@ public class TradeCandle extends Candlestick {
                 low =  trade.getPrice();
             }
         }
-
         setHigh(high);
         setLow(low);
     }

@@ -42,6 +42,9 @@ public class TradeCandles {
 
     TradeCandle lastCandle = null;
 
+
+    boolean isEmptyCandleContinue = false;
+
     /**
      * 생성자
      * @param timeGap timeGap
@@ -56,6 +59,13 @@ public class TradeCandles {
         tradeAdd = new FirstTradeAdd(this);
     }
 
+    /**
+     * 빈켄들 정보로 이어지게 할지 여부 설정
+     *@param emptyCandleContinue isEmptyCandleContinue
+     */
+    public void setEmptyCandleContinue(boolean emptyCandleContinue) {
+        isEmptyCandleContinue = emptyCandleContinue;
+    }
 
     /**
      * 생성자

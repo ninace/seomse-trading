@@ -3,6 +3,7 @@ package com.seomse.trading.technical.analysis.candle.candles;
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
 import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 /**
  * <pre>
@@ -34,16 +35,46 @@ class NextTradeAdd implements TradeAdd {
             tradeCandles.lastCandle.addTrade(trade);
             return;
         }
-
-        long nextEndTime  = tradeCandles.lastCandle.getEndTime() + tradeCandles.getTimeGap();
+        long timeGap = tradeCandles.getTimeGap();
+        long nextStartTime =  tradeCandles.lastCandle.getEndTime();
+        long nextEndTime  = nextStartTime + timeGap;
         if(trade.getTime() < nextEndTime){
-            tradeCandles.addTradeNewCandle(trade, tradeCandles.lastCandle.getEndTime() , nextEndTime);
-            return ;
+
+            double lastPrice = tradeCandles.lastCandle.getClose();
+
+            if(tradeCandles.isEmptyCandleContinue) {
+                for(;;){
+                    TradeCandle nextTradeCandle = new TradeCandle();
+
+
+                    nextTradeCandle.setOpen(lastPrice);
+                    nextTradeCandle.setClose(lastPrice);
+                    nextTradeCandle.setHigh(lastPrice);
+                    nextTradeCandle.setClose(lastPrice);
+                    nextTradeCandle.setStartTime(nextStartTime);
+                    nextTradeCandle.setEndTime(nextEndTime);
+
+                    tradeCandles.addCandle(nextTradeCandle);
+                    nextStartTime = nextEndTime;
+                    nextEndTime =  nextStartTime + timeGap;
+                    if(trade.getTime()  < nextEndTime)  {
+                        break;
+                    }
+                }
+            }else{
+                tradeCandles.addTradeNewCandle(trade, nextStartTime, nextEndTime);
+                return;
+            }
         }
 
-        long timeGap = tradeCandles.getTimeGap();
-        long startTime = CandleTimeGap.getStartTime(timeGap, trade.getTime());
-        tradeCandles.addTradeNewCandle(trade, startTime , startTime + timeGap);
+        if(tradeCandles.isEmptyCandleContinue) {
+            tradeCandles.addTradeNewCandle(trade, nextStartTime , nextEndTime);
+        }else{
+            long startTime = CandleTimeGap.getStartTime(timeGap, trade.getTime());
+            tradeCandles.addTradeNewCandle(trade, startTime , startTime + timeGap);
+        }
+
+
 
 
     }
