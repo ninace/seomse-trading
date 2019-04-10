@@ -1,6 +1,4 @@
 
-
-
 package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.PriceChangeType;
@@ -34,7 +32,7 @@ public class Candlestick {
         , LOWER_SHADOW //아래 그림자 캔들 -- 망치형(Hammer)저점 --  교수형(Hanging man)고점
         , HIGH_WAVE //위 아래에 그림자가 있는캔들 (긴거)
         , SPINNING_TOPS //위 아래에 그림자가 있는 캔들 (짧은거)
-        , DOJI // 십자캔들
+        , @SuppressWarnings("SpellCheckingInspection") DOJI // 십자캔들
 
     }
 
@@ -61,9 +59,6 @@ public class Candlestick {
     public void setType(double shortGap, double steadyGap){
 
         double height = height();
-
-
-
         //길이가 보합세보다 작을때
         if(height <= steadyGap){
             type = Type.STEADY;
@@ -171,15 +166,7 @@ public class Candlestick {
                 type = Type.SPINNING_TOPS;
             }
             return;
-
-
-
-
         }
-
-
-
-
 
         //유형을 정하지 못하고 이 부분까지 온경우
         //긴캔들 짧은캔들
@@ -190,23 +177,6 @@ public class Candlestick {
             //몸통길이가 sortGap 길면 긴캔들
             type = Type.LONG;
         }
-
-
-
-
-
-//      double upperShadow = high - close;
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -423,7 +393,6 @@ public class Candlestick {
         candlestick.setType(0.0,10.0);
 
         System.out.println(candlestick.getType());
-
 
         System.out.println(Math.abs(-9));
 

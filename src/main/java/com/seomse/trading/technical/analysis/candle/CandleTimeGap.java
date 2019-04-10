@@ -2,7 +2,9 @@ package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.time.Times;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * <pre>
@@ -38,18 +40,10 @@ public class CandleTimeGap {
 
         if(timeGap < Times.HOUR_24){
             //24시간 보다 작은단위 gap 설정 유효성
-            if( Times.HOUR_24 % timeGap == 0){
-                return true;
-            }else{
-                return false;
-            }
+            return Times.HOUR_24 % timeGap == 0;
         }else{
             //그다음은 하루단위의 봉만 생성
-            if(timeGap % Times.HOUR_24 == 0){
-                return true;
-            }else{
-                return false;
-            }
+            return timeGap % Times.HOUR_24 == 0;
         }
 
     }
@@ -82,43 +76,34 @@ public class CandleTimeGap {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         if(timeGap < Times.HOUR_24){
-
-
             long gap = firstTradeTime - calendar.getTimeInMillis();
-
-//            System.out.println("gap: " +  TimeUtil.getTimeValue(gap));
-
-            long startTime = calendar.getTimeInMillis() + gap - gap%timeGap;
-
-            return startTime;
+            return calendar.getTimeInMillis() + gap - gap%timeGap;
         }else{
-
-
             return calendar.getTimeInMillis();
         }
 
     }
 
 
-//        public static void main(String[] args) {
-//
-//
-//            long time = 1554576718234L + Times.HOUR_1*4;
-//
-//            long timeGap = Times.HOUR_1*30;
-//
-//
-//
-//
-//            //24시간은 표준시 문제로
-//
-//            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(getStartTime(timeGap, time ))));
-//            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(time)));
-//
-//
-//
-//
-//
-//    }
+        public static void main(String[] args) {
+
+
+            long time = 1554576718234L + Times.HOUR_1*4;
+
+            long timeGap = Times.HOUR_1*30;
+
+
+
+
+            //24시간은 표준시 문제로
+
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(getStartTime(timeGap, time ))));
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(time)));
+
+
+
+
+
+    }
 
 }

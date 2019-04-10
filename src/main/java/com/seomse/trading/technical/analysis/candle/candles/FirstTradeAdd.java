@@ -24,7 +24,7 @@ class FirstTradeAdd implements TradeAdd {
 
     /**
      * 생성자
-     * @param tradeCandles
+     * @param tradeCandles tradeCandles
      */
     FirstTradeAdd(TradeCandles tradeCandles){
         this.tradeCandles = tradeCandles;

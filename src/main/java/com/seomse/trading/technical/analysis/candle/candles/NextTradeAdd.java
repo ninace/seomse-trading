@@ -23,7 +23,7 @@ class NextTradeAdd implements TradeAdd {
 
     /**
      * 생성자
-     * @param tradeCandles
+     * @param tradeCandles tradeCandles
      */
     NextTradeAdd(TradeCandles tradeCandles){
         this.tradeCandles = tradeCandles;
@@ -43,9 +43,8 @@ class NextTradeAdd implements TradeAdd {
             double lastPrice = tradeCandles.lastCandle.getClose();
 
             if(tradeCandles.isEmptyCandleContinue) {
-                for(;;){
+                do {
                     TradeCandle nextTradeCandle = new TradeCandle();
-
 
                     nextTradeCandle.setOpen(lastPrice);
                     nextTradeCandle.setClose(lastPrice);
@@ -56,11 +55,8 @@ class NextTradeAdd implements TradeAdd {
 
                     tradeCandles.addCandle(nextTradeCandle);
                     nextStartTime = nextEndTime;
-                    nextEndTime =  nextStartTime + timeGap;
-                    if(trade.getTime()  < nextEndTime)  {
-                        break;
-                    }
-                }
+                    nextEndTime = nextStartTime + timeGap;
+                } while (trade.getTime() >= nextEndTime);
             }else{
                 tradeCandles.addTradeNewCandle(trade, nextStartTime, nextEndTime);
                 return;

@@ -16,7 +16,7 @@ public interface TradeAdd {
 
     /**
      * trade 추가
-     * @param trade
+     * @param trade trade
      */
     void addTrade(Trade trade);
 }

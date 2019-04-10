@@ -2,7 +2,6 @@ package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
-import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.time.Times;
 
@@ -159,11 +158,6 @@ public class TradeCandles {
         tradeCandle.setEndTime(endTime);
         tradeCandle.addTrade(trade);
         addCandle(tradeCandle);
-    }
-
-    public static void main(String[] args) {
-
-
     }
 
 }
