@@ -27,7 +27,7 @@ public class CandleMakeTest {
 
 
 
-        //1분봉 만들기
+        //분봉 만들기
         TradeCandles tradeCandles = new TradeCandles(60000L * 5);
         tradeCandles.setSaveCount(2000);
         tradeCandles.setEmptyCandleContinue(false);
@@ -73,7 +73,7 @@ public class CandleMakeTest {
 
             System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getStartTime()))
             +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow() + ", " + candles[i].getVolume() + ", " + candles[i].getTradeCount() + ", "
-             +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " + candles[i].getType().toString());
+             +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " +  candles[i].strength() + ", " + candles[i].getType().toString());
 
 
 

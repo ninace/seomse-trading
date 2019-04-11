@@ -31,6 +31,16 @@ public class TradeCandle extends Candlestick {
      * 거래량
      */
     private double volume = 0.0;
+    /**
+     * 매수량
+     */
+    private double buyVolume = 0.0;
+
+    /**
+     * 매도량
+     */
+    private double sellVolume = 0.0;
+
 
     /**
      * 평균가격 얻기
@@ -93,6 +103,12 @@ public class TradeCandle extends Candlestick {
         tradeList.add(trade);
         tradeCount = tradeList.size();
 
+        if(trade.getType() == Trade.Type.BUY){
+            buyVolume+=trade.getVolume();
+        }else{
+            sellVolume+=trade.getVolume();
+        }
+
         volume += trade.getVolume();
         priceTotal += trade.getVolume() * trade.getPrice();
     }
@@ -136,6 +152,7 @@ public class TradeCandle extends Candlestick {
 
         for (Trade trade:
                 tradeList) {
+
             volume += trade.getVolume();
 
 
@@ -148,9 +165,40 @@ public class TradeCandle extends Candlestick {
             if(low > trade.getPrice()){
                 low =  trade.getPrice();
             }
+
+            if(trade.getType() == Trade.Type.BUY){
+                buyVolume+=trade.getVolume();
+            }else{
+                sellVolume+=trade.getVolume();
+            }
         }
         setHigh(high);
         setLow(low);
+    }
+
+    //1.0 == 100% , 100.0 == 10000%
+    public static final double MAX_STRENGTH = 100.0;
+
+    /**
+     * 체결강도 얻기
+     * max -> MAX_STRENGTH
+     * @return 체결 강도
+     */
+    public double strength(){
+
+        if(sellVolume<0){
+            //10000%
+            return MAX_STRENGTH;
+        }
+
+        double strength = buyVolume/sellVolume;
+        if(strength > MAX_STRENGTH){
+
+            return MAX_STRENGTH;
+        }
+
+        return strength;
+
     }
 
     /**
