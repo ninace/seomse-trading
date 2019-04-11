@@ -63,7 +63,7 @@ public class CandleMakeTest {
 
         TradeCandle[] candles = tradeCandles.getCandles();
 
-        for (int i = 0; i <candles.length ; i++) {
+        for (int i = 0; i<candles.length ; i++) {
 
             //0.5%
             double shortGap = candles[i].getOpen()*0.0005;
