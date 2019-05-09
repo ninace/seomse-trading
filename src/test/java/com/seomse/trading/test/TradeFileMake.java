@@ -24,7 +24,7 @@ public class TradeFileMake {
 
 
 
-        String outPath = "meta/trades";
+        String tradeFilePath = "meta/trades";
 
         List<TradeDataNo> tradeDataList = JdbcNaming.getObjList(TradeDataNo.class
                 ,"DT_TRADE BETWEEN TO_DATE('20190101','YYYYMMDD') AND TO_DATE('20190429','YYYYMMDD') "
@@ -44,7 +44,7 @@ public class TradeFileMake {
         }
 
 
-        FileUtil.fileOutput(sb.toString(), outPath, false);
+        FileUtil.fileOutput(sb.toString(), tradeFilePath, false);
 
 
 

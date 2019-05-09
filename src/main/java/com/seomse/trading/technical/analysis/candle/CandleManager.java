@@ -2,8 +2,6 @@ package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,18 +21,16 @@ import java.util.Map;
  */
 public class CandleManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(CandleManager.class);
+//    private static final Logger logger = LoggerFactory.getLogger(CandleManager.class);
 
     private Map<Long, TradeCandles> candleMap = new HashMap<>();
 
     private TradeCandles [] tradeCandles;
     /**
      * 생성자
-     * @param trades 거래정보 배열
      * @param candleTimes 캔들 생성을위한 캔들 생성 기준 타임 배열
      */
-    public CandleManager(Trade [] trades, long [] candleTimes){
-
+    public CandleManager( long [] candleTimes){
 
         TradeCandles [] tradeCandles = new TradeCandles[candleTimes.length];
 
@@ -44,14 +40,9 @@ public class CandleManager {
         }
 
         this.tradeCandles = tradeCandles;
-
-        // 순서정보가 명확해야 할 경우를 위한 for
-        //noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i <trades.length ; i++) {
-            addTrade(trades[i]);
-        }
-        logger.debug("candle manager create complete: " + trades.length + ", " + candleTimes.length);
     }
+
+
 
 
     /**

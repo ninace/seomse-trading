@@ -65,7 +65,6 @@ public class Candlestick {
             return;
         }
 
-
         double change = change();
 
         double absChange = Math.abs(change);
@@ -82,7 +81,6 @@ public class Candlestick {
             upperShadow = high - close;
             lowerShadow = open - low;
         }
-
 
         //위 그림자 캔들
         if(upperShadow > lowerShadow
