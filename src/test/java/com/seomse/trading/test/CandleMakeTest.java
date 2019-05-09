@@ -27,12 +27,12 @@ public class CandleMakeTest {
 
 
 
-        //분봉 만들기
-        TradeCandles tradeCandles = new TradeCandles(60000L * 5);
-        tradeCandles.setSaveCount(2000);
+        //10분봉 만들기
+        TradeCandles tradeCandles = new TradeCandles(60000L * 10);
+        tradeCandles.setSaveCount(5000);
         tradeCandles.setEmptyCandleContinue(false);
         List<TradeDataNo> tradeDataList = JdbcNaming.getObjList(TradeDataNo.class
-                ,"DT_TRADE BETWEEN TO_DATE('20190210','YYYYMMDD') AND TO_DATE('20190218','YYYYMMDD') "
+                ,"DT_TRADE BETWEEN TO_DATE('20190101','YYYYMMDD') AND TO_DATE('20190425','YYYYMMDD') "
                 ," DT_TRADE ASC");
 
 

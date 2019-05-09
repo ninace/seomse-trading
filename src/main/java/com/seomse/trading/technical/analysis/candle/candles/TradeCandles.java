@@ -49,9 +49,9 @@ public class TradeCandles {
      */
     public TradeCandles(long timeGap ){
         //24시간 이하의 값에서는 24보다 낮은 값만 구할 수 있음
-        if(timeGap < Times.HOUR_24 &&
-                Times.HOUR_24%timeGap != 0){
-            throw new RuntimeException("24 hour % timeGap 0: "  +  Times.HOUR_24%timeGap );
+        if(timeGap < Times.DAY_1 &&
+                Times.DAY_1%timeGap != 0){
+            throw new RuntimeException("24 hour % timeGap 0: "  +  Times.DAY_1%timeGap );
         }
         this.timeGap = timeGap;
         tradeAdd = new FirstTradeAdd(this);
@@ -72,9 +72,9 @@ public class TradeCandles {
      * @param candles ready candles
      */
     public TradeCandles(long timeGap, TradeCandle [] candles, int saveCount ){
-        if(timeGap < Times.HOUR_24 &&
-                Times.HOUR_24%timeGap != 0){
-            throw new RuntimeException("24 hour % timeGap 0: "  +  Times.HOUR_24%timeGap );
+        if(timeGap < Times.DAY_1 &&
+                Times.DAY_1%timeGap != 0){
+            throw new RuntimeException("24 hour % timeGap 0: "  +  Times.DAY_1%timeGap );
         }
 
         this.timeGap = timeGap;

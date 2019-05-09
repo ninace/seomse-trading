@@ -27,7 +27,7 @@ public class CandleManager {
 
     private Map<Long, TradeCandles> candleMap = new HashMap<>();
 
-    private TradeCandles [] tradeCandlesArray;
+    private TradeCandles [] tradeCandles;
     /**
      * 생성자
      * @param trades 거래정보 배열
@@ -36,14 +36,14 @@ public class CandleManager {
     public CandleManager(Trade [] trades, long [] candleTimes){
 
 
-        TradeCandles [] tradeCandlesArray = new TradeCandles[candleTimes.length];
+        TradeCandles [] tradeCandles = new TradeCandles[candleTimes.length];
 
         for (int i = 0; i <candleTimes.length ; i++) {
-            tradeCandlesArray[i] = new TradeCandles(candleTimes[i]);
-            candleMap.put(candleTimes[i], tradeCandlesArray[i]);
+            tradeCandles[i] = new TradeCandles(candleTimes[i]);
+            candleMap.put(candleTimes[i], tradeCandles[i]);
         }
 
-        this.tradeCandlesArray = tradeCandlesArray;
+        this.tradeCandles = tradeCandles;
 
         // 순서정보가 명확해야 할 경우를 위한 for
         //noinspection ForLoopReplaceableByForEach
@@ -59,7 +59,7 @@ public class CandleManager {
      * @param trade 거래 정보
      */
     public void addTrade(Trade trade){
-        for(TradeCandles tradeCandles : tradeCandlesArray){
+        for(TradeCandles tradeCandles : tradeCandles){
             tradeCandles.addTrade(trade);
         }
     }
@@ -72,5 +72,8 @@ public class CandleManager {
     public TradeCandles getCandles(long time){
         return candleMap.get(time);
     }
+
+
+
 
 }
