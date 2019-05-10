@@ -51,17 +51,10 @@ public class Trade {
      * @param price 가격
      * @param volume 거래량
      */
-    public Trade(Type type, double price, double volume ){
+    public Trade(Type type, double price, double volume, long time ){
         this.type = type;
         this.price = price;
         this.volume = volume;
-    }
-
-    /**
-     * 시간설정
-     * @param time 시간
-     */
-    public void setTime(long time) {
         this.time = time;
     }
 

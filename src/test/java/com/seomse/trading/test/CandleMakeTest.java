@@ -53,8 +53,7 @@ public class CandleMakeTest {
                 e.printStackTrace();;
             }
 
-            Trade trade = new Trade(tpye, tradeDataNo.getPRC_COIN(), tradeDataNo.getVL_TRADE());
-            trade.setTime(tradeDataNo.getDT_TRADE());
+            Trade trade = new Trade(tpye, tradeDataNo.getPRC_COIN(), tradeDataNo.getVL_TRADE(), tradeDataNo.getDT_TRADE());
             tradeCandles.addTrade(trade);
         }
 
