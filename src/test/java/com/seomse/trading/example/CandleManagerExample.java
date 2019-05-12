@@ -73,9 +73,9 @@ public class CandleManagerExample {
 
                 double price = Double.parseDouble(values[2]);
 
-                double volumn = Double.parseDouble(values[3]);
+                double volume = Double.parseDouble(values[3]);
 
-                Trade trade = new Trade(type, price, volumn, time);
+                Trade trade = new Trade(type, price, volume, time);
 
                 candleManager.addTrade(trade);
 
@@ -106,17 +106,7 @@ public class CandleManagerExample {
                     +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow() + ", " + candles[i].getVolume() + ", " + candles[i].getTradeCount() + ", "
                     +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " +  String.format("%.2f",candles[i].strength()*100.0)  + "%, " + candles[i].getType().toString());
 
-
-
         }
-
-
-
-
-
-
-
-
 
 
     }
