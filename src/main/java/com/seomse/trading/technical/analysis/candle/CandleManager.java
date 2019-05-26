@@ -42,7 +42,15 @@ public class CandleManager {
         this.tradeCandles = tradeCandles;
     }
 
-
+    /**
+     * 저장개수 설정
+     * @param saveCount 저장개수
+     */
+    public void setSaveCount(int saveCount) {
+        for (TradeCandles tradeCandle : tradeCandles) {
+            tradeCandle.setSaveCount(saveCount);
+        }
+    }
 
 
     /**
