@@ -32,7 +32,7 @@ public class Candlestick {
         , LOWER_SHADOW //아래 그림자 캔들 -- 망치형(Hammer)저점 --  교수형(Hanging man)고점
         , HIGH_WAVE //위 아래에 그림자가 있는캔들 (긴거)
         , SPINNING_TOPS //위 아래에 그림자가 있는 캔들 (짧은거)
-        , @SuppressWarnings("SpellCheckingInspection") DOJI // 십자캔들
+        , @SuppressWarnings({"SpellCheckingInspection", "RedundantSuppression"}) DOJI // 십자캔들
 
     }
 
