@@ -382,27 +382,5 @@ public class Candlestick {
     }
 
 
-    public static void main(String[] args) {
-
-        Candlestick candlestick = new Candlestick();
-
-
-        candlestick.setHigh(10.0);
-        candlestick.setOpen(1.0);
-        candlestick.setLow(-1.0);
-        candlestick.setClose(9.0);
-
-
-        candlestick.setType(0.0,10.0);
-
-        System.out.println(candlestick.getType());
-
-        System.out.println(Math.abs(-9));
-
-    }
-
-
-
-
 }
 

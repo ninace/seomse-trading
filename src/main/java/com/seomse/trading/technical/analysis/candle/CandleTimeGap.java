@@ -137,29 +137,4 @@ public class CandleTimeGap {
 
     }
 
-        public static void main(String[] args) {
-
-
-//            long time = 1554576718234L + Times.HOUR_1*4;
-//
-//            long timeGap = Times.HOUR_1*30;
-//
-//
-//
-//
-//            //24시간은 표준시 문제로
-//
-//            out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(getStartTime(timeGap, time ))));
-//            out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date(time)));
-
-
-            for(long time : DEFAULT_SCALPING){
-                System.out.println(time);
-            }
-
-//            out.println(Times.WEEK_1);
-
-
-    }
-
 }
