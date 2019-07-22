@@ -39,6 +39,8 @@ public class TradeCandles {
     TradeCandle [] candles = EMPTY_CANDLES;
 
     TradeCandle lastCandle = null;
+    double shortGapPercent;
+    double steadyGapPercent;
 
 
     boolean isEmptyCandleContinue = false;
@@ -186,6 +188,19 @@ public class TradeCandles {
         return candles;
     }
 
+    /**
+     * 짧은캔들 기준 변화률 설정
+     * @param shortGapPercent 짧은 캔들 기준 변화률
+     */
+    public void setShortGapPercent(double shortGapPercent) {
+        this.shortGapPercent = shortGapPercent;
+    }
 
-
+    /**
+     * 보합 기준 변화률 설정
+     * @param steadyGapPercent 보합 기준 변화률
+     */
+    public void setSteadyGapPercent(double steadyGapPercent) {
+        this.steadyGapPercent = steadyGapPercent;
+    }
 }

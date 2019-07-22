@@ -45,6 +45,7 @@ public class CandleManagerExample {
 
         BufferedReader br = null;
         String line = null;
+
         try{
 
             br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(tradeFilePath))));
@@ -97,8 +98,8 @@ public class CandleManagerExample {
         for (int i = 0; i<candles.length ; i++) {
 
             //0.5%
-            double shortGap = candles[i].getOpen()*0.0005;
-            double steadyGap = candles[i].getOpen()*0.0002;
+            double shortGap = candles[i].getOpen()*0.005;
+            double steadyGap = candles[i].getOpen()*0.002;
 
             candles[i].setType(shortGap,steadyGap );
 
