@@ -86,20 +86,45 @@ public class HammerPattern implements CandlePattern {
                 continue;
             }
 
-            TradeCandle lastCandle = candles[i-1];
+//            TradeCandle lastCandle = candles[i-1];
 
             //과거의 모양이 지속적인 하락이었는 지를 인식하기
             //시점의 가격이 마지막 가격보다 낮으면 음봉
-            if( tradeCandle.getClose() < lastCandle.getClose()){
+            if(tradeCandle.getOpen() > tradeCandle.getClose()){
                 //양봉이 아니면
                 continue;
             }
 
+            //몸통길이 계산하기
 
 
         }
 
         return CandlePatternPoint.EMPTY_POINT;
+    }
+
+
+
+    public static CandlePatternPoint getPoint(TradeCandle [] candles, int index){
+
+        TradeCandle tradeCandle = candles[index];
+        //아래그림자가 아니면
+        if(tradeCandle.getType() != Candlestick.Type.LOWER_SHADOW){
+            return null;
+        }
+
+//            TradeCandle lastCandle = candles[i-1];
+
+        //과거의 모양이 지속적인 하락이었는 지를 인식하기
+        //시점의 가격이 마지막 가격보다 낮으면 음봉
+        if(tradeCandle.getOpen() > tradeCandle.getClose()){
+            //양봉이 아니면
+            return null;
+        }
+
+
+
+        return null;
     }
 
 
