@@ -115,13 +115,34 @@ public class HammerPattern implements CandlePattern {
 
 //            TradeCandle lastCandle = candles[i-1];
 
-        //과거의 모양이 지속적인 하락이었는 지를 인식하기
+
         //시점의 가격이 마지막 가격보다 낮으면 음봉
         if(tradeCandle.getOpen() > tradeCandle.getClose()){
             //양봉이 아니면
             return null;
         }
 
+        //몸통길이 계산하기
+        //몸통길이는 종가 - 시가
+
+        //몸통 길이
+        double trunkLength = tradeCandle.getClose() - tradeCandle.getOpen();
+
+
+        //아래 꼬리길이
+        double lowerTailLength = 0.0;
+
+
+        //꼬리는 시가나 종가중 낮은것 - 저가 = 시가 종가
+        //양봉이어야 하므로
+
+
+
+
+
+
+
+        //과거의 모양이 지속적인 하락이었는 지를 인식하기
 
 
         return null;
