@@ -203,4 +203,21 @@ public class TradeCandles {
     public void setSteadyGapPercent(double steadyGapPercent) {
         this.steadyGapPercent = steadyGapPercent;
     }
+
+
+    /**
+     * 짧은캔들 gap percent
+     * @return shot gap percent
+     */
+    public double getShortGapPercent() {
+        return shortGapPercent;
+    }
+
+    /**
+     * 보합 gap percent
+     * @return steady gap percent
+     */
+    public double getSteadyGapPercent() {
+        return steadyGapPercent;
+    }
 }

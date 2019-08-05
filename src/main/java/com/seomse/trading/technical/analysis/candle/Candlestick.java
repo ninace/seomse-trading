@@ -150,11 +150,8 @@ public class Candlestick {
                 return;
             }
 
-
             double upperRate = upperShadow/absChange;
-
             double lowerRate = lowerShadow/absChange;
-
 
             if(upperRate > 2.0 && lowerRate > 2.0){
                 // 위아래꼬리가 몸통보다 많이길면 길면
@@ -175,8 +172,6 @@ public class Candlestick {
             //몸통길이가 sortGap 길면 긴캔들
             type = Type.LONG;
         }
-
-
     }
 
     /**
@@ -221,9 +216,6 @@ public class Candlestick {
      * 저가
      */
     protected double low = -1.0;
-
-
-
 
     /**
      * 시가 얻기
@@ -312,6 +304,23 @@ public class Candlestick {
         return change()/open;
 
     }
+
+    /**
+     * 위꼬리 길이 얻기
+     * @return 위 꼬리 길이
+     */
+    public double getUpperTail(){
+        return high - Math.max(open, close);
+    }
+
+    /**
+     * 아래꼬리 길이 얻기
+     * @return 아래 꼬리 길이
+     */
+    public double getLowerTail(){
+        return Math.min(open, close) - low;
+    }
+
 
     /**
      * 시작시간
