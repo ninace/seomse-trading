@@ -224,4 +224,21 @@ public class TradeCandle extends Candlestick {
     }
 
 
+
+    private boolean isEndTrade = false;
+
+    /**
+     * 거래종료여부
+     * @return 거래종료여부
+     */
+    public boolean isEndTrade() {
+        return isEndTrade;
+    }
+
+    /**
+     * 거래종료여부 설정
+     */
+    public void setEndTrade() {
+        isEndTrade = true;
+    }
 }

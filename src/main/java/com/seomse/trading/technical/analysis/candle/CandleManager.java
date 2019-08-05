@@ -21,7 +21,8 @@ import java.util.Map;
  */
 public class CandleManager {
 
-//    private static final Logger logger = LoggerFactory.getLogger(CandleManager.class);
+
+
 
     private Map<Long, TradeCandles> candleMap = new HashMap<>();
 

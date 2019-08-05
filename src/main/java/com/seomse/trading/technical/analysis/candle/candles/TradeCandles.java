@@ -15,7 +15,7 @@ import java.util.List;
  *  설    명 : TradeCandle N개의
  *
  *  작 성 자 : macle
- *  작 성 일 : 2019.03 ~ 2019.04
+ *  작 성 일 : 2019.08.05
  *  버    전 : 1.0
  *  수정이력 :
  *  기타사항 :
@@ -25,6 +25,8 @@ import java.util.List;
 public class TradeCandles {
 
     public static final int DEFAULT_SAVE_COUNT = 1000;
+
+    private static final CandleChangeObserver [] EMPTY_OBSERVER = new CandleChangeObserver[0];
 
     public static final TradeCandle [] EMPTY_CANDLES = new TradeCandle[0];
 
@@ -42,8 +44,41 @@ public class TradeCandles {
     double shortGapPercent;
     double steadyGapPercent;
 
-
     boolean isEmptyCandleContinue = false;
+
+
+    private final Object observerLock = new Object();
+    private CandleChangeObserver [] observers = EMPTY_OBSERVER;
+
+    private List<CandleChangeObserver> observerList = new LinkedList<>();
+
+    /**
+     * 캔들 변화 인지 옵져버 추가
+     * @param candleChangeObserver candle change observer
+     */
+    public void addChangeObserver(CandleChangeObserver candleChangeObserver){
+        synchronized (observerLock) {
+            if (observerList.contains(candleChangeObserver)) {
+                return;
+            }
+            observerList.add(candleChangeObserver);
+            observers = observerList.toArray(new CandleChangeObserver[0]);
+        }
+    }
+
+    /**
+     * 캔들 변화 인지 옵저버 제거
+     * @param candleChangeObserver candle change observer
+     */
+    public void removeObserver(CandleChangeObserver candleChangeObserver){
+        synchronized (observerLock) {
+            if (!observerList.contains(candleChangeObserver)) {
+                return;
+            }
+            observerList.remove(candleChangeObserver);
+            observers = observerList.toArray(new CandleChangeObserver[0]);
+        }
+    }
 
     /**
      * 생성자
@@ -110,12 +145,32 @@ public class TradeCandles {
      * @param tradeCandle add trade candle
      */
     public void addCandle(TradeCandle tradeCandle){
+        TradeCandle lastEndCandle = null;
+
+        if(candles.length  > 0){
+            candles[candles.length-1].setEndTrade();
+
+            if(tradeCandle.isEndTrade()){
+                lastEndCandle = tradeCandle;
+            }else{
+                lastEndCandle =  candles[candles.length-1];
+            }
+        }
+
         candleList.add(tradeCandle);
-        if(candleList.size() > saveCount){
+
+        while(candleList.size() <= saveCount) {
             candleList.remove(0);
         }
         this.candles = candleList.toArray(new TradeCandle[0]);
         lastCandle = tradeCandle;
+
+        CandleChangeObserver [] observers = this.observers;
+
+        for(CandleChangeObserver observer : observers){
+
+            observer.changeCandle(lastEndCandle, tradeCandle);
+        }
     }
 
 
@@ -203,7 +258,6 @@ public class TradeCandles {
     public void setSteadyGapPercent(double steadyGapPercent) {
         this.steadyGapPercent = steadyGapPercent;
     }
-
 
     /**
      * 짧은캔들 gap percent

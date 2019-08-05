@@ -2,6 +2,7 @@ package com.seomse.trading.technical.analysis.pattern.rise;
 
 import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePattern;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
@@ -37,7 +38,6 @@ public class HammerPattern implements CandlePattern {
 
     private TradeCandles tradeCandles;
 
-
     /**
      * 캔들 배열 설정
      * 캔들배열이 설정될
@@ -49,15 +49,82 @@ public class HammerPattern implements CandlePattern {
 
     private CandlePatternPoint lastPoint;
 
+    private TradeCandle lastCheckCandle = null;
 
     /**
      * 마지막 지점 분석해 놓기
      */
-    public void analysisLastPoint(){
+    public CandlePatternPoint analysisLastPoint(){
         //최신 데이터 분석에는 마지막 지점만 필요하므로 마지막 지점만 분석해놓는다
         //초기 생성할때 실행
+        TradeCandle [] candles = tradeCandles.getCandles();
+
+        if(candles.length == 0){
+            return null;
+        }
+        lastCheckCandle = candles[candles.length-1];
+
+        for(int i=candles.length-1 ; i > -1 ; i--){
+            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+            if(point != null){
+                lastPoint = point;
+                return lastPoint ;
+            }
+        }
+        return lastPoint;
     }
 
+    private CandleChangeObserver candleChangeObserver = null;
+    //옵져버 설정
+    void setObserver(){
+        candleChangeObserver = (lastEndCandle, newCandle) -> changeLastCandle(lastEndCandle);
+
+        tradeCandles.addChangeObserver(candleChangeObserver);
+    }
+
+    //설정된 옵져버 제거
+    void removeObserver(){
+        if(candleChangeObserver == null){
+            return ;
+        }
+
+        tradeCandles.removeObserver(candleChangeObserver);
+    }
+
+    /**
+     * 마지막 캔들 지점 변경
+     * 패턴발생시 패턴정보 객체 리턴
+     * 패턴발생하지 않으면 null 리턴
+     * @param lastEndCandle lastEndCandle
+     */
+    public void changeLastCandle(TradeCandle lastEndCandle) {
+        if (lastEndCandle == null) {
+            return;
+        }
+
+        if (lastEndCandle == lastCheckCandle) {
+            return;
+        }
+
+        lastCheckCandle = lastEndCandle;
+
+        TradeCandle[] candles = tradeCandles.getCandles();
+
+        for (int i = candles.length - 1; i > -1; i--) {
+            TradeCandle tradeCandle = candles[i];
+            if(tradeCandle == lastEndCandle){
+                CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+                if(point != null){
+                    //캔들 발생했을때 알림 받게 해야함
+                    //매수 시점을 알려줘야함
+                    lastPoint = point;
+                }
+                break;
+            }
+
+        }
+
+    }
 
 
     /**
@@ -83,7 +150,6 @@ public class HammerPattern implements CandlePattern {
         List<CandlePatternPoint> pointList = null;
 
         for (int i = 5; i <candles.length ; i++) {
-            TradeCandle tradeCandle = candles[i];
             CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
 
             if(point == null)
@@ -202,6 +268,15 @@ public class HammerPattern implements CandlePattern {
 
         double score = upperTail/(absChange*2.0);
         return new CandlePatternPoint(candles[index], score);
+    }
+
+    public static void main(String[] args) {
+        int [] arrays = {5,4,3,2,1};
+
+        for(int i=arrays.length-1 ; i>-1 ; i--){
+            System.out.println(arrays[i]);
+        }
+
     }
 
 }

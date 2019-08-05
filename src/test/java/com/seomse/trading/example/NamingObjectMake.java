@@ -23,7 +23,7 @@ public class NamingObjectMake {
 		//설정 로드용
 		
 		try{
-			Config.getConfig("");
+			Config.getConfig("a");
 			String tableName = "TB_COIN_TRADE_DATA_BM";
 			System.out.println("@Table(name=\"" +  tableName+ "\")\n");
 			//다른DB사용시
