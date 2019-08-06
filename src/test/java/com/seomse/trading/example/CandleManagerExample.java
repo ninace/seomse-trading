@@ -1,14 +1,11 @@
 package com.seomse.trading.example;
 
-import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.trading.Trade;
 import com.seomse.trading.technical.analysis.candle.CandleManager;
 import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.time.Times;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,35 +29,27 @@ import java.util.Date;
  */
 public class CandleManagerExample {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(CandleManagerExample.class);
-
-
-    public static void main(String[] args) {
-
+    public static CandleManager makeCandleManager(){
 
         CandleManager candleManager = new CandleManager(CandleTimeGap.DEFAULT_SCALPING);
 
         String tradeFilePath = "meta/trades";
 
         BufferedReader br = null;
-        String line = null;
+        String line;
 
+        //noinspection TryFinallyCanBeTryWithResources
         try{
 
             br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(tradeFilePath))));
 
             while ((line = br.readLine()) != null) {
 
-
-
                 String [] values = line.split(",");
 
                 if(values.length <4){
                     continue;
                 }
-
-
 
                 Trade.Type type;
 
@@ -84,17 +73,20 @@ public class CandleManagerExample {
             }
 
         }catch(Exception e){
-            logger.error(ExceptionUtil.getStackTrace(e));
+            throw new RuntimeException(e);
         }finally{
-            try{if(br != null)br.close();}catch(Exception e){logger.error(ExceptionUtil.getStackTrace(e));}
+            //noinspection CatchMayIgnoreException
+            try{if(br != null)br.close();}catch(Exception e){}
         }
 
+        return candleManager;
+    }
 
-
+    public static void main(String[] args) {
+        CandleManager candleManager = makeCandleManager();
         TradeCandles TradeCandles = candleManager.getCandles(Times.MINUTE_10);
-
         TradeCandle[] candles = TradeCandles.getCandles();
-
+        //noinspection ForLoopReplaceableByForEach
         for (int i = 0; i<candles.length ; i++) {
 
             //0.5%
@@ -108,7 +100,6 @@ public class CandleManagerExample {
                     +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " +  String.format("%.2f",candles[i].strength()*100.0)  + "%, " + candles[i].getType().toString());
 
         }
-
 
     }
 

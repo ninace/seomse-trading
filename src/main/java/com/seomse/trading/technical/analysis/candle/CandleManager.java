@@ -3,8 +3,10 @@ package com.seomse.trading.technical.analysis.candle;
 import com.seomse.trading.Trade;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <pre>
@@ -74,6 +76,21 @@ public class CandleManager {
     }
 
 
+    /**
+     * 캔들 기준 시간 배열 얻기
+     * @return 캔들 기준 시간 배열
+     */
+    public long [] getTimes(){
+        long [] times = new long[candleMap.size()];
+        Set<Long> keys = candleMap.keySet();
+        int index = 0;
+        for(Long time : keys){
+            times[index] = time;
+            index ++;
+        }
+        Arrays.sort(times);
+        return times;
+    }
 
 
 }
