@@ -78,7 +78,6 @@ public class HammerPattern implements CandlePattern {
     //옵져버 설정
     void setObserver(){
         candleChangeObserver = (lastEndCandle, newCandle) -> changeLastCandle(lastEndCandle);
-
         tradeCandles.addChangeObserver(candleChangeObserver);
     }
 
@@ -121,7 +120,6 @@ public class HammerPattern implements CandlePattern {
                 }
                 break;
             }
-
         }
 
     }
@@ -173,7 +171,7 @@ public class HammerPattern implements CandlePattern {
 
 
     /**
-     * 캔들의 배열이 바뀔 수 있으므로 array로 직접 받음
+     * 캔들의 배열이 바뀔 수 있으므로 array 로 직접 받음
      * @param candles 캔들 배열
      * @param index 기준위치
      * @param shortGapPercent 짧은 캔들 기준 확률
@@ -257,7 +255,6 @@ public class HammerPattern implements CandlePattern {
                 //종가가 shortGap보다 하락률이 클경우
                 minusShortGapCount++;
             }
-
         }
 
         if(minusCount < 4 || minusShortGapCount < 3) {
@@ -265,18 +262,7 @@ public class HammerPattern implements CandlePattern {
             return null;
         }
 
-
         double score = upperTail/(absChange*2.0);
         return new CandlePatternPoint(candles[index], score);
     }
-
-    public static void main(String[] args) {
-        int [] arrays = {5,4,3,2,1};
-
-        for(int i=arrays.length-1 ; i>-1 ; i--){
-            System.out.println(arrays[i]);
-        }
-
-    }
-
 }
