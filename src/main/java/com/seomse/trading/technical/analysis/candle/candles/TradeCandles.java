@@ -2,8 +2,11 @@ package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
+import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.time.Times;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -24,6 +27,8 @@ import java.util.List;
  */
 public class TradeCandles {
 
+    private static final Logger logger = LoggerFactory.getLogger(TradeCandles.class);
+
     public static final int DEFAULT_SAVE_COUNT = 1000;
 
     private static final CandleChangeObserver [] EMPTY_OBSERVER = new CandleChangeObserver[0];
@@ -41,11 +46,10 @@ public class TradeCandles {
     TradeCandle [] candles = EMPTY_CANDLES;
 
     TradeCandle lastCandle = null;
-    double shortGapPercent;
-    double steadyGapPercent;
+    double shortGapPercent = -1.0;
+    double steadyGapPercent = -1.0;
 
     boolean isEmptyCandleContinue = false;
-
 
     private final Object observerLock = new Object();
     private CandleChangeObserver [] observers = EMPTY_OBSERVER;
@@ -64,6 +68,25 @@ public class TradeCandles {
             observerList.add(candleChangeObserver);
             observers = observerList.toArray(new CandleChangeObserver[0]);
         }
+    }
+
+    /**
+     * 캔들 배열의 유형을 설정
+     * shortGapPercent
+     * steadyGapPercent
+     * 설정하고 실행하여야 한다.
+     */
+    public void setCandleType(){
+        if(steadyGapPercent == -1.0 || shortGapPercent == -1.0){
+            logger.error("shortGapPercent, steadyGapPercent set: " +shortGapPercent +", " + steadyGapPercent);
+            return;
+        }
+
+        TradeCandle [] candles = this.candles;
+        for(TradeCandle candle : candles){
+            candle.setType(shortGapPercent, steadyGapPercent );
+        }
+
     }
 
     /**
@@ -140,6 +163,8 @@ public class TradeCandles {
         }
     }
 
+
+
     /**
      * add candle
      * @param tradeCandle add trade candle
@@ -150,7 +175,15 @@ public class TradeCandles {
         if(candles.length  > 0){
             candles[candles.length-1].setEndTrade();
 
+            //캔들유형 설정
+            if(shortGapPercent != -1.0 && steadyGapPercent != -1.0 && candles[candles.length-1].getType() == Candlestick.Type.UNDEFINED){
+                candles[candles.length-1].setType(shortGapPercent, steadyGapPercent);
+            }
+
             if(tradeCandle.isEndTrade()){
+                if(shortGapPercent != -1.0 && steadyGapPercent != -1.0){
+                    candles[candles.length-1].setType(shortGapPercent, steadyGapPercent);
+                }
                 lastEndCandle = tradeCandle;
             }else{
                 lastEndCandle =  candles[candles.length-1];
