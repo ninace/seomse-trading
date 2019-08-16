@@ -29,9 +29,12 @@ public class PatternSimulator {
     public static void main(String[] args) {
 
 
-        int nextCount = 5;
+        int nextCount = 3;
 
         CandleManager candleManager = CandleManagerExample.makeCandleManager();
+
+
+        candleManager.setSaveCount(5000);
 
         long [] times = candleManager.getTimes();
 
@@ -39,7 +42,6 @@ public class PatternSimulator {
 
         for(long time : times){
 
-            logger.debug("candle time : " + time);
 
             TradeCandles tradeCandles = candleManager.getCandles(time);
 
@@ -74,7 +76,10 @@ public class PatternSimulator {
             }
 
             TradeCandle[] candles = tradeCandles.getCandles();
+            logger.debug("candle time : " + time  + ", pattern count: " + points.length);
 
+            int pattenCount = 0;
+            int upCount = 0;
 
             for (int i = 0; i < points.length ; i++) {
                 CandlePatternPoint candlePatternPoint = points[i];
@@ -93,12 +98,27 @@ public class PatternSimulator {
                     continue;
                 }
 
-                int end = candleIndex + nextCount;
+                if(candleIndex == points.length-1){
+                    continue;
+                }
 
 
+                TradeCandle nextCandle =  candles[candleIndex+1];
+                pattenCount++;
+                if(patternCandle.getClose() < nextCandle.getClose()){
+                    upCount++;
 
+                    logger.info("패턴 성공: " + patternCandle.getEndTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
+
+
+                }else{
+                    logger.info("패턴 실패: " + patternCandle.getEndTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
+                }
 
             }
+
+
+            logger.info("pattenCount " + pattenCount + "upCount " + upCount + " percent " + (double)upCount/(double)pattenCount);
 
         }
 

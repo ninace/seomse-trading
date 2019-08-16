@@ -192,7 +192,7 @@ public class TradeCandles {
 
         candleList.add(tradeCandle);
 
-        while(candleList.size() <= saveCount) {
+        while(candleList.size() >= saveCount) {
             candleList.remove(0);
         }
         this.candles = candleList.toArray(new TradeCandle[0]);
