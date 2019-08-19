@@ -1,5 +1,6 @@
 package com.seomse.trading.technical.analysis.pattern.rise;
 
+import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
@@ -37,6 +38,11 @@ public class HammerPattern implements CandlePattern {
 
 
     private TradeCandles tradeCandles;
+    @Override
+    public PriceChangeType getPriceChangeType() {
+        return null;
+    }
+
 
     /**
      * 캔들 배열 설정

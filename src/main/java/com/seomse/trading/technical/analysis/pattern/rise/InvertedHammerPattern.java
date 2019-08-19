@@ -1,5 +1,6 @@
 package com.seomse.trading.technical.analysis.pattern.rise;
 
+import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
@@ -160,6 +161,11 @@ public class InvertedHammerPattern implements CandlePattern {
         CandlePatternPoint [] result = pointList.toArray(new CandlePatternPoint[pointList.size()]);
         pointList.clear();
         return result;
+    }
+
+    @Override
+    public PriceChangeType getPriceChangeType() {
+        return null;
     }
 
 

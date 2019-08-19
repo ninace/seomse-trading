@@ -1,4 +1,7 @@
 package com.seomse.trading.technical.analysis.pattern;
+
+import com.seomse.trading.PriceChangeType;
+
 /**
  * <pre>
  *  파 일 명 : CandlePattern.java
@@ -16,6 +19,7 @@ package com.seomse.trading.technical.analysis.pattern;
  */
 public interface CandlePattern {
 
+
     /**
      * 최근 발생 지점
      * 실시간 분석에 사용
@@ -29,5 +33,12 @@ public interface CandlePattern {
      * @return 캔슬이 발생된 모든 지점( 배열)
      */
     CandlePatternPoint [] getPoints();
+
+
+    /**
+     * 가격변화 예측유형
+     * @return
+     */
+    PriceChangeType getPriceChangeType();
 
 }
