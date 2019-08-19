@@ -13,4 +13,5 @@ package com.seomse.trading.technical.analysis.pattern.rectangle;
  * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
  */
 public class DowntrendRectangle {
+
 }
