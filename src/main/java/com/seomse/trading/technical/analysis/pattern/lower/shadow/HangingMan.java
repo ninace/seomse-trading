@@ -1,4 +1,4 @@
-package com.seomse.trading.technical.analysis.pattern.fall;
+package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 /**
  * <pre>
  *  파 일 명 : HangingMan.java

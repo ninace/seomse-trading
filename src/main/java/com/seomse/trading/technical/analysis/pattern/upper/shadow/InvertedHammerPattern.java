@@ -1,4 +1,4 @@
-package com.seomse.trading.technical.analysis.pattern.rise;
+package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
 import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.technical.analysis.candle.Candlestick;

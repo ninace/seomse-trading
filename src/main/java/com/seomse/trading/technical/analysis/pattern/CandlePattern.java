@@ -37,7 +37,7 @@ public interface CandlePattern {
 
     /**
      * 가격변화 예측유형
-     * @return
+     * @return 가격 변화 예층 유형( 상승, 하락, 보합)
      */
     PriceChangeType getPriceChangeType();
 
