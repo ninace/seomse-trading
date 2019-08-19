@@ -69,6 +69,16 @@ public class Candlestick {
 
         double absChange = Math.abs(change);
 
+        if(absChange < open*steadyGap){
+            priceChangeType = PriceChangeType.HOLD;
+        }else{
+            if(change > 0){
+                priceChangeType = PriceChangeType.RISE;
+            }else{
+                priceChangeType = PriceChangeType.FALL;
+            }
+        }
+
 
         double upperShadow;
         double lowerShadow;
@@ -130,7 +140,6 @@ public class Candlestick {
             }
 
         }
-
 
         //위 아래 그림자캔들
         if(

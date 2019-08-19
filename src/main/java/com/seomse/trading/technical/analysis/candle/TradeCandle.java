@@ -186,7 +186,7 @@ public class TradeCandle extends Candlestick {
      */
     public double strength(){
 
-        if(sellVolume<0){
+        if(sellVolume <= 0){
             //10000%
             return MAX_STRENGTH;
         }

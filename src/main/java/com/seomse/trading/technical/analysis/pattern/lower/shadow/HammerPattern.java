@@ -7,6 +7,7 @@ import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePattern;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
+import com.seomse.trading.technical.analysis.trend.line.DownTrendLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
  *
  *
  *  작 성 자 : macle
- *  작 성 일 : 2019.07.22
+ *  작 성 일 : 2019.08.19
  *  버    전 : 1.0
  *  수정이력 :
  *  기타사항 :
@@ -40,7 +41,7 @@ public class HammerPattern implements CandlePattern {
     private TradeCandles tradeCandles;
     @Override
     public PriceChangeType getPriceChangeType() {
-        return null;
+        return PriceChangeType.RISE;
     }
 
 
@@ -127,9 +128,7 @@ public class HammerPattern implements CandlePattern {
                 break;
             }
         }
-
     }
-
 
     /**
      * 최근 발생 지점
@@ -185,10 +184,6 @@ public class HammerPattern implements CandlePattern {
      */
     public static CandlePatternPoint getPoint(TradeCandle [] candles, int index, double shortGapPercent){
 
-        //5개의 기록이 없으면 패턴을 인식할 수 없음
-        if(index < 5){
-            return null;
-        }
 
         TradeCandle tradeCandle = candles[index];
         //아래 그림자가 아니면
@@ -208,64 +203,35 @@ public class HammerPattern implements CandlePattern {
         //몸통 길이 (변화량의 절대값)
         double absChange = Math.abs(tradeCandle.change());
 
-
         //몸통이 아래꼬리보다 긴걸로 계산한다
         //양봉이면 아래꼬리는
         double lowerTail = tradeCandle.getLowerTail();
 
-        if(absChange < lowerTail *2.0){
-            //몸통이 아래꼬리보다 2배이상 커야한다
+        if(absChange*2.0 > lowerTail){
+            //아래꼬리가 몸통의 2배보다 커야한다
             return null;
         }
 
-        //위꼬리는 몸통보다 2배이상 커야한다다
         double upperTail = tradeCandle.getUpperTail();
-        if(upperTail < absChange*2.0){
+        if(upperTail*2 > absChange ){
+            //위꼬리는 몸통보다 2배이상 작아야한다.
             return null;
         }
 
-        //과거의 모양이 지속적인 하락이었는 지를 인식하기 (최근 7개로 계산하기)
-        int startIndex = index - 7;
+        //하락추세 점수 (최근 7개의 봉)
+        double downTrendLineScore= DownTrendLine.score(candles, index, 7 , shortGapPercent);
 
-        if(startIndex  < 0){
-            startIndex = 0;
-        }
-
-        //긴음봉 3개이상 (short gap 보다 큰거)
-        //전체적인 하락율이 short gap*5 보다 커야하고
-        //음봉 4개이상
-        double startPrice = candles[0].getOpen();
-        double endPrice = candles[index-1].getClose();
-
-        double validGap = startPrice * shortGapPercent * 5.0;
-
-        if(endPrice > startPrice - validGap){
-            //시작가격의 short gap * 5 보다 하락율이 높지 않으면
+        if(downTrendLineScore < 1.0){
+            //최근 7개의 봉이 하락추세이면
             return null;
         }
 
-        //shrotGap 보다 큰 하락율을 기록한 건수
-        int minusShortGapCount = 0;
-        int minusCount =0;
-        for(int i=startIndex ; i<index ; i++){
-
-            if(candles[i].getClose() > candles[i].getOpen()){
-                continue;
-            }
-            minusCount++;
-
-            if(candles[i].getOpen() - candles[i].getOpen()*shortGapPercent > candles[i].getClose()){
-                //종가가 shortGap보다 하락률이 클경우
-                minusShortGapCount++;
-            }
+        //하락추세점수 가중치 1.5점
+        if(downTrendLineScore > 1.5){
+            downTrendLineScore = 1.5;
         }
 
-        if(minusCount < 4 || minusShortGapCount < 3) {
-            //음봉 건수 유효성성
-            return null;
-        }
-
-        double score = upperTail/(absChange*2.0);
+        double score = lowerTail/(absChange*2.0) * downTrendLineScore;
         return new CandlePatternPoint(candles[index], score);
     }
 }
