@@ -4,7 +4,7 @@ import com.seomse.trading.technical.analysis.candle.CandleManager;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
-import com.seomse.trading.technical.analysis.pattern.rise.HammerPattern;
+import com.seomse.trading.technical.analysis.pattern.lower.shadow.HammerPattern;
 import com.seomse.trading.time.Times;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
