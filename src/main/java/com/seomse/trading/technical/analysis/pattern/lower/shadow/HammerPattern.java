@@ -1,14 +1,12 @@
 package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
 import com.seomse.trading.PriceChangeType;
-import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePattern;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
-import com.seomse.trading.technical.analysis.trend.line.TrendLineDown;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,19 +36,18 @@ import java.util.List;
  */
 public class HammerPattern implements CandlePattern {
 
-
     private TradeCandles tradeCandles;
     @Override
     public PriceChangeType getPriceChangeType() {
         return PriceChangeType.RISE;
     }
 
-
     /**
      * 캔들 배열 설정
      * 캔들배열이 설정될
      * @param tradeCandles 캔들 배열
      */
+    @Override
     public void setCandles(TradeCandles tradeCandles){
         this.tradeCandles = tradeCandles;
     }
@@ -59,28 +56,27 @@ public class HammerPattern implements CandlePattern {
 
     private TradeCandle lastCheckCandle = null;
 
-    /**
-     * 마지막 지점 분석해 놓기
-     */
-    public CandlePatternPoint analysisLastPoint(){
-        //최신 데이터 분석에는 마지막 지점만 필요하므로 마지막 지점만 분석해놓는다
-        //초기 생성할때 실행
+
+    @Override
+    public void initRealTime() {
         TradeCandle [] candles = tradeCandles.getCandles();
 
         if(candles.length == 0){
-            return null;
+            return ;
         }
         lastCheckCandle = candles[candles.length-1];
 
         for(int i=candles.length-1 ; i > -1 ; i--){
-            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+            CandlePatternPoint point = HammerPattern.getPoint(candles, i, tradeCandles.getShortGapPercent());
             if(point != null){
                 lastPoint = point;
-                return lastPoint ;
+                return ;
             }
         }
-        return lastPoint;
+
+        setObserver();
     }
+
 
     private CandleChangeObserver candleChangeObserver = null;
     //옵져버 설정
@@ -120,7 +116,7 @@ public class HammerPattern implements CandlePattern {
         for (int i = candles.length - 1; i > -1; i--) {
             TradeCandle tradeCandle = candles[i];
             if(tradeCandle == lastEndCandle){
-                CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+                CandlePatternPoint point = HammerPattern.getPoint(candles, i, tradeCandles.getShortGapPercent());
                 if(point != null){
                     //캔들 발생했을때 알림 받게 해야함
                     //매수 시점을 알려줘야함
@@ -131,10 +127,6 @@ public class HammerPattern implements CandlePattern {
         }
     }
 
-    @Override
-    public void initRealTime() {
-
-    }
 
     /**
      * 최근 발생 지점
@@ -154,12 +146,10 @@ public class HammerPattern implements CandlePattern {
     @Override
     public CandlePatternPoint [] getPoints(){
         TradeCandle [] candles = tradeCandles.getCandles();
-
-
         List<CandlePatternPoint> pointList = null;
 
         for (int i = 5; i <candles.length ; i++) {
-            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+            CandlePatternPoint point = HammerPattern.getPoint(candles, i, tradeCandles.getShortGapPercent());
 
             if(point == null)
                 continue;
@@ -190,9 +180,7 @@ public class HammerPattern implements CandlePattern {
      */
     public static CandlePatternPoint getPoint(TradeCandle [] candles, int index, double shortGapPercent){
 
-
         TradeCandle tradeCandle = candles[index];
-
 
         if(!LowerShadowPattern.isValid(tradeCandle)){
             return null;
@@ -205,33 +193,9 @@ public class HammerPattern implements CandlePattern {
             return null;
         }
 
-
-
         TrendLine trendLine = new TrendLine(TrendLine.Type.DOWN);
 
         double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
-
-        if(downTrendLineScore < 1.0){
-
-            return null;
-        }
-
-        //하락추세점수 가중치 1.5점
-        if(downTrendLineScore > 1.5){
-            downTrendLineScore = 1.5;
-        }
-
-        //몸통길이 계산하기
-        //몸통길이는 종가 - 시가
-        //몸통 길이 (변화량의 절대값)
-        double absChange = Math.abs(tradeCandle.change());
-
-        //몸통이 아래꼬리보다 긴걸로 계산한다
-        //양봉이면 아래꼬리는
-        double lowerTail = tradeCandle.getLowerTail();
-
-
-        double score = lowerTail/(absChange*2.0) * downTrendLineScore;
-        return new CandlePatternPoint(candles[index], score);
+        return LowerShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
     }
 }

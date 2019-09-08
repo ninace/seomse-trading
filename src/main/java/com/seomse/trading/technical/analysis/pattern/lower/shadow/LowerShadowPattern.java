@@ -22,6 +22,8 @@ import com.seomse.trading.technical.analysis.trend.line.TrendLine;
  */
 public class LowerShadowPattern {
 
+
+
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isValid(TradeCandle tradeCandle){
 
