@@ -1,10 +1,9 @@
 package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
-import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.PricePredictType;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
-import com.seomse.trading.technical.analysis.pattern.lower.shadow.LowerShadowPattern;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 
 /**
@@ -37,8 +36,8 @@ public class ShootingStar extends CandlePatternDefault {
 
 
     @Override
-    public PriceChangeType getPriceChangeType() {
-        return PriceChangeType.FALL;
+    public PricePredictType getPricePredictType() {
+        return PricePredictType.FALL;
     }
 
 

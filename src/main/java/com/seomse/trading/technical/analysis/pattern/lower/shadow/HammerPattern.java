@@ -1,6 +1,6 @@
 package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
-import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.PricePredictType;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
@@ -32,8 +32,8 @@ import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 public class HammerPattern extends CandlePatternDefault {
 
     @Override
-    public PriceChangeType getPriceChangeType() {
-        return PriceChangeType.RISE;
+    public PricePredictType getPricePredictType() {
+        return PricePredictType.RISE;
     }
 
 

@@ -1,7 +1,7 @@
 
 package com.seomse.trading.technical.analysis.candle;
 
-import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.PricePredictType;
 
 /**
  * <pre>
@@ -70,12 +70,12 @@ public class Candlestick {
         double absChange = Math.abs(change);
 
         if(absChange < open*steadyGap){
-            priceChangeType = PriceChangeType.HOLD;
+            priceChangeType = PricePredictType.HOLD;
         }else{
             if(change > 0){
-                priceChangeType = PriceChangeType.RISE;
+                priceChangeType = PricePredictType.RISE;
             }else{
-                priceChangeType = PriceChangeType.FALL;
+                priceChangeType = PricePredictType.FALL;
             }
         }
 
@@ -186,13 +186,13 @@ public class Candlestick {
     /**
      * 가격 변화 유형
      */
-    private PriceChangeType priceChangeType = PriceChangeType.UNDEFINED;
+    private PricePredictType priceChangeType = PricePredictType.UNDEFINED;
 
     /**
      * 가격변화유형 얻기
      * @return 가격변화유형
      */
-    public PriceChangeType getPriceChangeType() {
+    public PricePredictType getPriceChangeType() {
         return priceChangeType;
     }
 
@@ -200,7 +200,7 @@ public class Candlestick {
      * 가격변화유형 설정
      * @param priceChangeType 가격변화유형
      */
-    public void setPriceChangeType(PriceChangeType priceChangeType) {
+    public void setPriceChangeType(PricePredictType priceChangeType) {
         this.priceChangeType = priceChangeType;
     }
 
