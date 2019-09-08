@@ -23,14 +23,11 @@ public class TrendLine {
     public enum Type{
         UP
         , DOWN
-
-
     }
 
     private Type type;
 
     private TrendLineCase trendLineCase;
-
 
     /**
      * 생성자
@@ -49,7 +46,6 @@ public class TrendLine {
             default:
                 break;
         }
-
     }
 
     /**
