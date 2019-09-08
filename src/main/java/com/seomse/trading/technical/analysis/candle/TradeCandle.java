@@ -192,6 +192,7 @@ public class TradeCandle extends Candlestick {
         }
 
         double strength = buyVolume/sellVolume;
+        //noinspection ManualMinMaxCalculation
         if(strength > MAX_STRENGTH){
 
             return MAX_STRENGTH;

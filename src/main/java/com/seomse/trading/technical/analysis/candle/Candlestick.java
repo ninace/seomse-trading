@@ -309,12 +309,28 @@ public class Candlestick {
         return close - open;
     }
 
+    /**
+     * 가격 변화량 절대값 얻기
+     * @return 가격 변화량 절대값
+     */
+    public double changeAbs(){
+        return Math.abs(change());
+    }
+
+    /**
+     * 가격 변화율 얻기
+     * @return 가격 변화율
+     */
     public double getChangePercent(){
         return change()/open;
     }
 
-    public double changeAbs(){
-        return Math.abs(change());
+    /**
+     * 가격 변화율 절대값 얻기
+     * @return 가격 변화율 절대값
+     */
+    public double getChangeAbsPercent(){
+        return Math.abs(getChangePercent());
     }
 
 

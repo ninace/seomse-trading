@@ -2,14 +2,9 @@ package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
 import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
-import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
-import com.seomse.trading.technical.analysis.pattern.CandlePattern;
-import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
+import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <pre>
@@ -59,6 +54,12 @@ public class HammerPattern extends CandlePatternDefault {
         if(tradeCandle.getOpen() > tradeCandle.getClose()){
             //양봉이 아니면
             //망치형 캔들은 정확도 높지않아서 양봉이 아니면 무효화 시키는게 좋을것 같음
+            return null;
+        }
+
+        //몸통이 약간은 있어야하므로 너무작은경우 체크 추가
+        if(tradeCandle.getChangeAbsPercent() * 2 < shortGapPercent){
+            //몸통길이가 짧은 캔들 기준값을 절반은 되어야함
             return null;
         }
 

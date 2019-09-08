@@ -1,18 +1,10 @@
 package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
 import com.seomse.trading.PriceChangeType;
-import com.seomse.trading.technical.analysis.candle.Candlestick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
-import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
-import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
-import com.seomse.trading.technical.analysis.pattern.CandlePattern;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
-import com.seomse.trading.technical.analysis.pattern.lower.shadow.LowerShadowPattern;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <pre>
@@ -51,7 +43,6 @@ public class InvertedHammerPattern extends CandlePatternDefault {
         //시점의 가격이 마지막 가격보다 낮으면 음봉
         if(tradeCandle.getOpen() > tradeCandle.getClose()){
             //양봉이 아니면
-            //망치형 캔들은 정확도 높지않아서 양봉이 아니면 무효화 시키는게 좋을것 같음
             return null;
         }
 

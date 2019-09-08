@@ -37,11 +37,10 @@ public class UpperShadowPattern {
         //몸통 길이 (변화량의 절대값)
         double change = tradeCandle.changeAbs();
 
-        //몸통이 아래꼬리보다 긴걸로 계산한다
-        //양봉이면 아래꼬리는
+        // 아래그림자와 다르게 위그림자 캔들은 몸통이 짧아야 하므로 비율을 좀더 준다
         double upperTail = tradeCandle.getUpperTail();
-        if(change*2.0 > upperTail){
-            //위꼬리가 몸통의 2배보다 커야한다
+        if(change*2.5 > upperTail){
+            //위꼬리가 몸통의 2.5배보다 커야한다
             return false;
         }
 
