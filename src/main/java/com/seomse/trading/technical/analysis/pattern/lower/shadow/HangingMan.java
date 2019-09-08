@@ -1,6 +1,7 @@
 package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
 import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.TrendChangeType;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
@@ -32,6 +33,10 @@ public class HangingMan extends CandlePatternDefault {
         return PriceChangeType.FALL;
     }
 
+    @Override
+    public TrendChangeType getTrendChangeType() {
+        return TrendChangeType.REVERSE;
+    }
 
     /**
      * 캔들의 배열이 바뀔 수 있으므로 array 로 직접 받음

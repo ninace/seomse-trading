@@ -1,6 +1,7 @@
 package com.seomse.trading.technical.analysis.pattern;
 
 import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.TrendChangeType;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
 /**
@@ -53,4 +54,9 @@ public interface CandlePattern {
      */
     PriceChangeType getPriceChangeType();
 
+    /**
+     * 추세 변환 예측 유형 얻기
+     * @return 추세 변환 예측유형 (지속, 반전)
+     */
+    TrendChangeType getTrendChangeType();
 }
