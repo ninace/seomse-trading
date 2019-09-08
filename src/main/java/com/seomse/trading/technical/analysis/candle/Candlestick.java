@@ -311,8 +311,12 @@ public class Candlestick {
 
     public double getChangePercent(){
         return change()/open;
-
     }
+
+    public double changeAbs(){
+        return Math.abs(change());
+    }
+
 
     /**
      * 위꼬리 길이 얻기

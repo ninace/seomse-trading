@@ -23,7 +23,11 @@ import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 public class LowerShadowPattern {
 
 
-
+    /**
+     * 아래 그림자 캔들 유효성 검사
+     * @param tradeCandle 캔들
+     * @return 유효성 여부
+     */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isValid(TradeCandle tradeCandle){
 
@@ -35,7 +39,7 @@ public class LowerShadowPattern {
         //몸통길이 계산하기
         //몸통길이는 종가 - 시가
         //몸통 길이 (변화량의 절대값)
-        double absChange = Math.abs(tradeCandle.change());
+        double absChange = tradeCandle.changeAbs();
 
         //몸통이 아래꼬리보다 긴걸로 계산한다
         //양봉이면 아래꼬리는
@@ -56,7 +60,14 @@ public class LowerShadowPattern {
         return true;
     }
 
-
+    /**
+     * 아래 그림자 캔들 정형 점수 생성
+     * @param trendLine 추세선
+     * @param candles 캔들 배열
+     * @param index 체크할 index
+     * @param shortGapPercent 짧은 캔들 기준 확률
+     * @return 패턴 발생 여부 및 정형점수 ( 발생하지 않을경우 null)
+     */
     public static CandlePatternPoint makePoint(TrendLine trendLine, TradeCandle [] candles, int index, double shortGapPercent){
 
         TradeCandle tradeCandle = candles[index];

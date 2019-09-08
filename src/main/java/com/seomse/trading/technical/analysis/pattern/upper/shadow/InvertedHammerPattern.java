@@ -15,12 +15,16 @@ import java.util.List;
  * <pre>
  *  파 일 명 : InvertedHammerPattern.java
  *  설    명 : 역망치형캔들
- *            윗꼬리는 아래꼬리보다 길어야하고
+ *            윗꼬리는 몸통보다 길어야하고 몸통은 너무 두껍지 않아야 한다.
+ *            몸통은 양봉일때 보다 유효하다.
+ *            하락장에서 윗 꼬리가 길고 양봉일때
+ *            상승 반전 또는 조정신호 이긴 하지만
+ *            출현 위치 및 이전 패턴에 따라 무효화 되는 경우도 많다.
  *
  *
  *
  *  작 성 자 : macle
- *  작 성 일 : 2019.07.22
+ *  작 성 일 : 2019.09.08
  *  버    전 : 1.0
  *  수정이력 :
  *  기타사항 :
@@ -170,7 +174,7 @@ public class InvertedHammerPattern implements CandlePattern {
 
     @Override
     public PriceChangeType getPriceChangeType() {
-        return null;
+        return PriceChangeType.RISE;
     }
 
 
