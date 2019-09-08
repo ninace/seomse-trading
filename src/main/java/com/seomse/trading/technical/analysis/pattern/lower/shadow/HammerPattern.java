@@ -7,7 +7,8 @@ import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePattern;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
-import com.seomse.trading.technical.analysis.trend.line.DownTrendLine;
+import com.seomse.trading.technical.analysis.trend.line.TrendLine;
+import com.seomse.trading.technical.analysis.trend.line.TrendLineDown;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +131,11 @@ public class HammerPattern implements CandlePattern {
         }
     }
 
+    @Override
+    public void initRealTime() {
+
+    }
+
     /**
      * 최근 발생 지점
      * 실시간 분석에 사용
@@ -186,8 +192,9 @@ public class HammerPattern implements CandlePattern {
 
 
         TradeCandle tradeCandle = candles[index];
-        //아래 그림자가 아니면
-        if(tradeCandle.getType() != Candlestick.Type.LOWER_SHADOW){
+
+
+        if(!LowerShadowPattern.isValid(tradeCandle)){
             return null;
         }
 
@@ -196,6 +203,22 @@ public class HammerPattern implements CandlePattern {
             //양봉이 아니면
             //망치형 캔들은 정확도 높지않아서 양봉이 아니면 무효화 시키는게 좋을것 같음
             return null;
+        }
+
+
+
+        TrendLine trendLine = new TrendLine(TrendLine.Type.DOWN);
+
+        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
+
+        if(downTrendLineScore < 1.0){
+
+            return null;
+        }
+
+        //하락추세점수 가중치 1.5점
+        if(downTrendLineScore > 1.5){
+            downTrendLineScore = 1.5;
         }
 
         //몸통길이 계산하기
@@ -207,29 +230,6 @@ public class HammerPattern implements CandlePattern {
         //양봉이면 아래꼬리는
         double lowerTail = tradeCandle.getLowerTail();
 
-        if(absChange*2.0 > lowerTail){
-            //아래꼬리가 몸통의 2배보다 커야한다
-            return null;
-        }
-
-        double upperTail = tradeCandle.getUpperTail();
-        if(upperTail*2 > absChange ){
-            //위꼬리는 몸통보다 2배이상 작아야한다.
-            return null;
-        }
-
-        //하락추세 점수 (최근 7개의 봉)
-        double downTrendLineScore= DownTrendLine.score(candles, index, 7 , shortGapPercent);
-
-        if(downTrendLineScore < 1.0){
-            //최근 7개의 봉이 하락추세이면
-            return null;
-        }
-
-        //하락추세점수 가중치 1.5점
-        if(downTrendLineScore > 1.5){
-            downTrendLineScore = 1.5;
-        }
 
         double score = lowerTail/(absChange*2.0) * downTrendLineScore;
         return new CandlePatternPoint(candles[index], score);

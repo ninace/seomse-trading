@@ -4,20 +4,53 @@ import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 /**
  * <pre>
- *  파 일 명 : DownTrendLine.java
- *  설    명 : 하락 추세선
+ *  파 일 명 : TrendLine.java
+ *  설    명 : 추세선
  *
  *
  *  작 성 자 : macle
- *  작 성 일 :
+ *  작 성 일 : 2019.09.05
+ *
  *  버    전 : 1.0
  *  수정이력 :
  *  기타사항 :
  * </pre>
  * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
  */
-public class DownTrendLine {
+public class TrendLine {
 
+
+    public enum Type{
+        UP
+        , DOWN
+
+
+    }
+
+    private Type type;
+
+    private TrendLineCase trendLineCase;
+
+
+    /**
+     * 생성자
+     * @param type 추세선 유형
+     */
+    public TrendLine(Type type){
+        this.type = type;
+
+        switch (type){
+            case UP:
+                trendLineCase = new TrendLineDown();
+                break;
+            case DOWN:
+                trendLineCase = new TrendLineUp();
+                break;
+            default:
+                break;
+        }
+
+    }
 
     /**
      * 하락 기울기
@@ -29,7 +62,7 @@ public class DownTrendLine {
      * @param shortGapPercent 짧은캔들 확률
      * @return 기울기
      */
-    public static double score(TradeCandle[] candles, int index, int leftCount, double shortGapPercent ){
+    public double score(TradeCandle[] candles, int index, int leftCount, double shortGapPercent ){
 
         if(index < 5){
             //기울기를 파악하려고하는 최소건수
@@ -47,8 +80,8 @@ public class DownTrendLine {
             startIndex = 0;
         }
 
-        int minusShortGapCount = 0;
-        int minusCount =0;
+        int shortGapCount = 0;
+        int validCount = 0;
 
 
         //평균 하락율 구하기
@@ -59,36 +92,44 @@ public class DownTrendLine {
 
             changePercentSum += candles[i].getChangePercent();
 
-            if(candles[i].getClose() >= candles[i].getOpen()){
-                //양봉이거나 같으면 넘어감
-                continue;
+            if(!trendLineCase.isCountValid(candles[i])){
+               continue;
             }
 
-            //음봉이면
-            minusCount++;
-            if(candles[i].getChangePercent() *-1.0 > shortGapPercent){
+            //유효하면
+            validCount++;
+            if(Math.abs(candles[i].getChangePercent()) > shortGapPercent){
                 //종가가 shortGap보다 하락률이 클경우
-                minusShortGapCount++;
+                shortGapCount++;
             }
         }
 
         int minShortCount = (int)((double)leftCount*0.45);
-        if(minusCount < minCount || minusShortGapCount < minShortCount) {
-            //음봉 건수 유효성성
+
+        if(validCount < minCount || shortGapCount < minShortCount) {
+            //건수 유효성성
             return -1.0;
         }
 
         int count = index - startIndex;
 
 
-        double avg = changePercentSum*-1.0/(double)(count);
+        double avg = Math.abs(changePercentSum)/(double)(count);
         double half = shortGapPercent*0.5;
 
         if(half >  avg){
             return -1.0;
         }
 
-        return ((candles[index-1].getClose() - candles[startIndex].getOpen()) *-1.0) / half*(double)count;
+        return Math.abs(candles[index-1].getClose() - candles[startIndex].getOpen()) / half*(double)count;
     }
 
+    /**
+     * 트렌드 라인 유형
+     * 상승 하락
+     * @return type -> up or down
+     */
+    public Type getType() {
+        return type;
+    }
 }

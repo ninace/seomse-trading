@@ -119,6 +119,11 @@ public class InvertedHammerPattern implements CandlePattern {
     }
 
 
+    @Override
+    public void initRealTime() {
+
+    }
+
     /**
      * 최근 발생 지점
      * 실시간 분석에 사용

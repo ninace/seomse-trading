@@ -10,7 +10,7 @@ import com.seomse.trading.PriceChangeType;
  *
  *
  *  작 성 자 : macle
- *  작 성 일 : 2019.06.17
+ *  작 성 일 : 2019.09.05
  *  버    전 : 1.0
  *  수정이력 :
  *  기타사항 :
@@ -19,6 +19,11 @@ import com.seomse.trading.PriceChangeType;
  */
 public interface CandlePattern {
 
+
+    /**
+     * 실시간 분석에 필요한 정보들을 초기화
+     */
+    void initRealTime();
 
     /**
      * 최근 발생 지점
