@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'seomse_trading'
+group 'com.seomse.trading'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
