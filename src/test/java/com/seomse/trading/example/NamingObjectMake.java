@@ -21,7 +21,7 @@ public class NamingObjectMake {
 
 	public static void main(String [] args){
 		//설정 로드용
-		
+		//이상하네...
 		try{
 			Config.getConfig("a");
 			String tableName = "TB_COIN_TRADE_DATA_BM";
