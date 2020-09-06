@@ -50,7 +50,7 @@ public class CandleStick {
 
     /**
      * 캔들 유형 얻기
-     * @return 유형
+     * @return Type 유형
      */
     public Type getType() {
         return type;
@@ -59,8 +59,8 @@ public class CandleStick {
 
     /**
      * 유형설정
-     * @param shortGap 짧은 캔들 gap
-     * @param steadyGap 보합세 gap
+     * @param shortGap double 짧은 캔들 gap
+     * @param steadyGap double 보합세 gap
      */
     public void setType(double shortGap, double steadyGap){
 
@@ -196,7 +196,7 @@ public class CandleStick {
 
     /**
      * 가격변화유형 얻기
-     * @return 가격변화유형
+     * @return PriceChangeType 가격변화유형
      */
     public PriceChangeType getPriceChangeType() {
         return priceChangeType;
@@ -204,7 +204,7 @@ public class CandleStick {
 
     /**
      * 가격변화유형 설정
-     * @param priceChangeType 가격변화유형
+     * @param priceChangeType PriceChangeType 가격변화유형
      */
     public void setPriceChangeType(PriceChangeType priceChangeType) {
         this.priceChangeType = priceChangeType;
@@ -235,7 +235,7 @@ public class CandleStick {
     /**
      * 시가 얻기
      * 설정되지않으면 -1.0
-     * @return 시가
+     * @return double 시가
      */
     public double getOpen() {
         return open;
@@ -243,7 +243,7 @@ public class CandleStick {
 
     /**
      * 시가 설정
-     * @param open 시가
+     * @param open double 시가
      */
     public void setOpen(double open) {
         this.open = open;
@@ -251,7 +251,7 @@ public class CandleStick {
 
     /**
      * 종가 얻기
-     * @return 종가
+     * @return double 종가
      */
     public double getClose() {
         return close;
@@ -259,7 +259,7 @@ public class CandleStick {
 
     /**
      * 종가 설정
-     * @param close 종가
+     * @param close double 종가
      */
     public void setClose(double close) {
         this.close = close;
@@ -267,7 +267,7 @@ public class CandleStick {
 
     /**
      * 고가 얻기
-     * @return 고가
+     * @return double 고가
      */
     public double getHigh() {
         return high;
@@ -275,7 +275,7 @@ public class CandleStick {
 
     /**
      * 고가 설정
-     * @param high 고가
+     * @param high double 고가
      */
     public void setHigh(double high) {
         this.high = high;
@@ -283,7 +283,7 @@ public class CandleStick {
 
     /**
      * 저가 얻기
-     * @return 저가
+     * @return double 저가
      */
     public double getLow() {
         return low;
@@ -291,7 +291,7 @@ public class CandleStick {
 
     /**
      * 저가 설정
-     * @param low 저가
+     * @param low double 저가
      */
     public void setLow(double low) {
         this.low = low;
@@ -300,7 +300,7 @@ public class CandleStick {
 
     /**
      * 높이 얻기 (세로길이)
-     * @return 높이(세로길이)
+     * @return double 높이(세로길이)
      */
     public double height() {
         return high - low;
@@ -309,7 +309,7 @@ public class CandleStick {
     /**
      * 가격 변화량 얻기
      *
-     * @return 변화량
+     * @return double 변화량
      */
     public double change() {
         return close - open;
@@ -317,7 +317,7 @@ public class CandleStick {
 
     /**
      * 가격 변화량 절대값 얻기
-     * @return 가격 변화량 절대값
+     * @return double 가격 변화량 절대값
      */
     public double changeAbs(){
         return Math.abs(change());
@@ -325,7 +325,7 @@ public class CandleStick {
 
     /**
      * 가격 변화율 얻기
-     * @return 가격 변화율
+     * @return double 가격 변화율
      */
     public double getChangePercent(){
         return change()/open;
@@ -333,7 +333,7 @@ public class CandleStick {
 
     /**
      * 가격 변화율 절대값 얻기
-     * @return 가격 변화율 절대값
+     * @return double 가격 변화율 절대값
      */
     public double getChangeAbsPercent(){
         return Math.abs(getChangePercent());
@@ -342,7 +342,7 @@ public class CandleStick {
 
     /**
      * 위꼬리 길이 얻기
-     * @return 위 꼬리 길이
+     * @return double 위 꼬리 길이
      */
     public double getUpperTail(){
         return high - Math.max(open, close);
@@ -350,7 +350,7 @@ public class CandleStick {
 
     /**
      * 아래꼬리 길이 얻기
-     * @return 아래 꼬리 길이
+     * @return double 아래 꼬리 길이
      */
     public double getLowerTail(){
         return Math.min(open, close) - low;
@@ -374,8 +374,7 @@ public class CandleStick {
 
     /**
      * 시작시간 얻기
-     *
-     * @return 시작시간
+     * @return long 시작시간
      */
     public long getStartTime() {
         return startTime;
@@ -383,8 +382,7 @@ public class CandleStick {
 
     /**
      * 시작시간 설정
-     *
-     * @param startTime 시작시간
+     * @param startTime long 시작시간
      */
     public void setStartTime(long startTime) {
         this.startTime = startTime;
@@ -392,8 +390,7 @@ public class CandleStick {
 
     /**
      * 끝시간 얻기
-     *
-     * @return 끝시간
+     * @return long 끝시간
      */
     public long getEndTime() {
         return endTime;
@@ -401,8 +398,7 @@ public class CandleStick {
 
     /**
      * 끝시간 설정
-     *
-     * @param endTime 끝시간
+     * @param endTime long 끝시간
      */
     public void setEndTime(long endTime) {
         this.endTime = endTime;
@@ -410,7 +406,7 @@ public class CandleStick {
 
     /**
      * 기준시간 얻기
-     * @return 기준시간
+     * @return long 기준시간
      */
     public long getStandardTime() {
         return standardTime;
@@ -419,7 +415,7 @@ public class CandleStick {
     /**
      * 기준시간 설정
      * 분봉이라고 하면 10시21분을 나타내는기준시간 (key)
-     * @param standardTime 기준시간
+     * @param standardTime long 기준시간
      */
     public void setStandardTime(long standardTime) {
         this.standardTime = standardTime;

@@ -19,8 +19,6 @@ import com.seomse.trading.time.Times;
 
 import java.util.Calendar;
 
-
-
 /**
  * 시간 갭
  * @author macle
@@ -63,7 +61,10 @@ public class CandleTimeGap {
 
     public static final long [] DEFAULT_SCALPING =makeScalpingTime();
 
-
+    /**
+     * 스캘핑에서 사용할 시간
+     * @return long []
+     */
     private static long [] makeScalpingTime(){
         long [] scalpingTimes = new long[DEFAULT_MINUTES.length + DEFAULT_HOURS.length + DEFAULT_DAYS.length + 1];
         System.arraycopy(DEFAULT_MINUTES, 0, scalpingTimes, 0, DEFAULT_MINUTES.length);
@@ -77,19 +78,10 @@ public class CandleTimeGap {
 
     /**
      * 유효한 설정인지 체크
-     * @param timeGap timeGap
-     * @return timeGap 유효성
+     * @param timeGap long timeGap
+     * @return timeGap boolean 유효성
      */
     public static boolean valid(long timeGap){
-
-//        if(timeGap < Times.HOUR_1){
-//            //1시간 보다 작은단위 gap 설정 유효성
-//            if( Times.HOUR_1 % timeGap == 0){
-//                return true;
-//            }else{
-//                return false;
-//            }
-//        }else
 
         if(timeGap < Times.DAY_1){
             //24시간 보다 작은단위 gap 설정 유효성
@@ -103,23 +95,12 @@ public class CandleTimeGap {
 
     /**
      * 처음 시작할때의 시작시간 얻기
-     * @param timeGap timeGap
-     * @param firstTradeTime tradeStartTime
-     * @return startTime
+     * @param timeGap long timeGap
+     * @param firstTradeTime long tradeStartTime
+     * @return long startTime
      */
     public static long getStartTime(long timeGap, long firstTradeTime){
 
-//        if(timeGap < Times.HOUR_1){
-//            long hourStart = firstTradeTime - firstTradeTime%Times.HOUR_1;
-//
-//            long gap = firstTradeTime - hourStart;
-//
-//
-//            long startTime = hourStart + gap - gap%timeGap;
-//
-//            return startTime;
-//
-//        }else
 
         Calendar calendar = Calendar.getInstance();
 

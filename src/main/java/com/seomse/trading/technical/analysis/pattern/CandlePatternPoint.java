@@ -30,8 +30,8 @@ public class CandlePatternPoint {
 
     /**
      * 생성자
-     * @param candle 캔들
-     * @param score 점수
+     * @param candle TradeCandle 캔들
+     * @param score double 점수
      */
     public CandlePatternPoint(TradeCandle candle, double score){
         this.candle = candle;
@@ -41,7 +41,7 @@ public class CandlePatternPoint {
 
     /**
      * 캔들얻기
-     * @return 트레이드 캔들(거래에 필요한 정보들이 추가로 있는 캔들)
+     * @return TradeCandle 트레이드 캔들(거래에 필요한 정보들이 추가로 있는 캔들)
      */
     public TradeCandle getCandle() {
         return candle;
@@ -49,7 +49,7 @@ public class CandlePatternPoint {
 
     /**
      * 점수 얻기
-     * @return 점수
+     * @return double 점수
      */
     public double getScore() {
         return score;

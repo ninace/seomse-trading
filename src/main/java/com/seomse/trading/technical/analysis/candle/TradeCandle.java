@@ -49,7 +49,7 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 평균가격 얻기
-     * @return 평균가격
+     * @return double 평균가격
      */
     public double getAverage() {
         return priceTotal / volume;
@@ -58,7 +58,7 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 거래량 얻기
-     * @return 거래량
+     * @return double 거래량
      */
     public double getVolume() {
         return volume;
@@ -66,7 +66,7 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 거래량 설정
-     * @param volume 거래량
+     * @param volume double 거래량
      */
     public void setVolume(double volume) {
         this.volume = volume;
@@ -86,7 +86,7 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 거래정보 추가
-     * @param trade 거래정보
+     * @param trade Trade 거래정보
      */
     public void addTrade(Trade trade){
 
@@ -121,7 +121,7 @@ public class TradeCandle extends CandleStick {
     /**
      * 거래 회수(건수) 얻기
      * 거래량과 다름 회수별 거래량이 존재
-     * @return 거래회수(건수)
+     * @return int 거래회수(건수)
      */
     public int getTradeCount() {
         return tradeCount;
@@ -186,8 +186,8 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 체결강도 얻기
-     * max -> MAX_STRENGTH
-     * @return 체결 강도
+     * max  MAX_STRENGTH
+     * @return double 체결 강도
      */
     public double strength(){
 
@@ -223,7 +223,7 @@ public class TradeCandle extends CandleStick {
     /**
      * 거래회수 설정
      * 거래량과 다름 회수별 거래량이 존재
-     * @param tradeCount 거래회수(건수)
+     * @param tradeCount int 거래회수(건수)
      */
     public void setTradeCount(int tradeCount) {
         this.tradeCount = tradeCount;
@@ -235,7 +235,7 @@ public class TradeCandle extends CandleStick {
 
     /**
      * 거래종료여부
-     * @return 거래종료여부
+     * @return boolean 거래종료여부
      */
     public boolean isEndTrade() {
         return isEndTrade;

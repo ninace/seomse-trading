@@ -25,10 +25,9 @@ import com.seomse.trading.technical.analysis.candle.TradeCandle;
  */
 public interface CandleChangeObserver {
     /**
-     * 캔들 변화
-     * 추가된 캔들과 마무리된 캔들은 같을 수 있음
-     * @param lastEndCandle 마지막으로 마무리된 캔들
-     * @param newCandle 추가된 캔들
+     * 캔들 변경
+     * @param lastEndCandle TradeCandle last
+     * @param newCandle TradeCandle new
      */
     void changeCandle(TradeCandle lastEndCandle, TradeCandle newCandle);
 }

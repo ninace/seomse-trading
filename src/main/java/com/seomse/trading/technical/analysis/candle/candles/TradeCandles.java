@@ -64,9 +64,10 @@ public class TradeCandles {
 
     private List<CandleChangeObserver> observerList = new LinkedList<>();
 
+
     /**
-     * 캔들 변화 인지 옵져버 추가
-     * @param candleChangeObserver candle change observer
+     *  캔들 변화 인지 옵져버 추가
+     * @param candleChangeObserver CandleChangeObserver  candle change observer
      */
     public void addChangeObserver(CandleChangeObserver candleChangeObserver){
         synchronized (observerLock) {
@@ -99,7 +100,7 @@ public class TradeCandles {
 
     /**
      * 캔들 변화 인지 옵저버 제거
-     * @param candleChangeObserver candle change observer
+     * @param candleChangeObserver CandleChangeObserver candle change observer
      */
     public void removeObserver(CandleChangeObserver candleChangeObserver){
         synchronized (observerLock) {
@@ -113,7 +114,7 @@ public class TradeCandles {
 
     /**
      * 생성자
-     * @param timeGap timeGap
+     * @param timeGap long timeGap
      */
     public TradeCandles(long timeGap ){
         //24시간 이하의 값에서는 24보다 낮은 값만 구할 수 있음
@@ -127,7 +128,7 @@ public class TradeCandles {
 
     /**
      * 빈켄들 정보로 이어지게 할지 여부 설정
-     *@param emptyCandleContinue isEmptyCandleContinue
+     *@param emptyCandleContinue boolean isEmptyCandleContinue
      */
     public void setEmptyCandleContinue(boolean emptyCandleContinue) {
         isEmptyCandleContinue = emptyCandleContinue;
@@ -136,8 +137,9 @@ public class TradeCandles {
     /**
      * 생성자
      * 처음부터 많은 켄들이 한번에 추가될 경우
-     * @param timeGap timeGap
-     * @param candles ready candles
+     * @param timeGap long timeGap
+     * @param candles TradeCandle ready candles
+     * @param saveCount int save count
      */
     public TradeCandles(long timeGap, TradeCandle [] candles, int saveCount ){
         if(timeGap < Times.DAY_1 &&
@@ -175,12 +177,12 @@ public class TradeCandles {
 
     /**
      * add candle
-     * @param tradeCandle add trade candle
+     * @param tradeCandle TradeCandle add trade candle
      */
     public void addCandle(TradeCandle tradeCandle){
         TradeCandle lastEndCandle = null;
 
-        if(candles.length  > 0){
+        if(candles.length > 0){
             candles[candles.length-1].setEndTrade();
 
             //캔들유형 설정
@@ -218,7 +220,7 @@ public class TradeCandles {
     /**
      * 거래정보 추가
      * trade add
-     * @param trade trade
+     * @param trade Trade trade
      */
     public void addTrade(Trade trade){
         tradeAdd.addTrade(trade);
@@ -227,7 +229,7 @@ public class TradeCandles {
     /**
      * 타임 갭 얻기
      * timeGap get
-     * @return timeGap
+     * @return long timeGap
      */
     public long getTimeGap() {
         return timeGap;
@@ -236,7 +238,7 @@ public class TradeCandles {
     /**
      * 캔들 저장 count 설정
      * candle save count set
-     * @param saveCount candle save count
+     * @param saveCount int candle save count
      */
     public void setSaveCount(int saveCount) {
         this.saveCount = saveCount;
@@ -244,9 +246,9 @@ public class TradeCandles {
 
     /**
      * 캔들을 추가로 생성하여 트레이드 정보 입력
-     * @param trade trade
-     * @param startTime startTime
-     * @param endTime endTime
+     * @param trade Trade trade
+     * @param startTime long startTime
+     * @param endTime long endTime
      */
     void addTradeNewCandle(Trade trade, long startTime, long endTime){
 
@@ -260,7 +262,7 @@ public class TradeCandles {
     /**
      * 설정된 캔들 저장 건수 얻기
      * candle save count get
-     * @return candle saveCount
+     * @return int candle saveCount
      */
     public int getSaveCount() {
         return saveCount;
@@ -269,7 +271,7 @@ public class TradeCandles {
     /**
      * 길어얻기
      * candles length
-     * @return candles length
+     * @return int candles length
      */
     public int length(){
         return candles.length;
@@ -278,7 +280,7 @@ public class TradeCandles {
     /**
      * 캔들 배열 얻기
      * candles get
-     * @return candles
+     * @return TradeCandle candles
      */
     public TradeCandle [] getCandles() {
         return candles;
@@ -286,7 +288,7 @@ public class TradeCandles {
 
     /**
      * 짧은캔들 기준 변화률 설정
-     * @param shortGapPercent 짧은 캔들 기준 변화률
+     * @param shortGapPercent double 짧은 캔들 기준 변화률
      */
     public void setShortGapPercent(double shortGapPercent) {
         this.shortGapPercent = shortGapPercent;
@@ -294,7 +296,7 @@ public class TradeCandles {
 
     /**
      * 보합 기준 변화률 설정
-     * @param steadyGapPercent 보합 기준 변화률
+     * @param steadyGapPercent double 보합 기준 변화률
      */
     public void setSteadyGapPercent(double steadyGapPercent) {
         this.steadyGapPercent = steadyGapPercent;
@@ -302,7 +304,7 @@ public class TradeCandles {
 
     /**
      * 짧은캔들 gap percent
-     * @return shot gap percent
+     * @return double shot gap percent
      */
     public double getShortGapPercent() {
         return shortGapPercent;
@@ -310,7 +312,7 @@ public class TradeCandles {
 
     /**
      * 보합 gap percent
-     * @return steady gap percent
+     * @return double steady gap percent
      */
     public double getSteadyGapPercent() {
         return steadyGapPercent;

@@ -28,7 +28,7 @@ public interface CandlePattern {
 
     /**
      * 캔들배열 설정
-     * @param tradeCandles 캔들배열
+     * @param tradeCandles TradeCandles 캔들배열
      */
     void setCandles(TradeCandles tradeCandles);
 
@@ -40,27 +40,27 @@ public interface CandlePattern {
     /**
      * 최근 발생 지점
      * 실시간 분석에 사용
-     * @return 최근 발생 지점 얻기
+     * @return CandlePatternPoint 최근 발생 지점 얻기
      */
     CandlePatternPoint  getLastPoint();
 
     /**
      * 캔들이 발생된 모든 지점 얻기
      * 시뮬레이터에 사용
-     * @return 캔슬이 발생된 모든 지점( 배열)
+     * @return CandlePatternPoint [] 캔슬이 발생된 모든 지점( 배열)
      */
     CandlePatternPoint [] getPoints();
 
 
     /**
      * 가격변화 예측유형
-     * @return 가격 변화 예층 유형( 상승, 하락, 보합)
+     * @return PriceChangeType 가격 변화 예층 유형( 상승, 하락, 보합)
      */
     PriceChangeType getPriceChangeType();
 
     /**
      * 추세 변환 예측 유형 얻기
-     * @return 추세 변환 예측유형 (지속, 반전)
+     * @return TrendChangeType 추세 변환 예측유형 (지속, 반전)
      */
     TrendChangeType getTrendChangeType();
 }

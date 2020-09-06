@@ -37,6 +37,7 @@ class NextTradeAdd implements TradeAdd {
         this.tradeCandles = tradeCandles;
     }
 
+    @Override
     public void addTrade(Trade trade){
         if(trade.getTime() < tradeCandles.lastCandle.getEndTime()){
             //트레이드 정보 추가

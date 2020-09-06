@@ -18,19 +18,8 @@ package com.seomse.trading.technical.analysis.trend.line;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 /**
- * <pre>
- *  파 일 명 : TrendLine.java
- *  설    명 : 추세선
- *
- *
- *  작 성 자 : macle
- *  작 성 일 : 2019.09.05
- *
- *  버    전 : 1.0
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
+ * 추세선
+ * @author macle
  */
 public class TrendLine {
 
@@ -40,13 +29,13 @@ public class TrendLine {
         , DOWN
     }
 
-    private Type type;
+    private final Type type;
 
     private TrendLineCase trendLineCase;
 
     /**
      * 생성자
-     * @param type 추세선 유형
+     * @param type Type 추세선 유형
      */
     public TrendLine(Type type){
         this.type = type;
@@ -67,11 +56,11 @@ public class TrendLine {
      * 하락 기울기
      * 1.0이면 하락 패턴
      * 1.0 보다 커지면 하락기울기가 가파름
-     * @param candles 캔듭배열
-     * @param index 기준인덱스
-     * @param leftCount 좌측 건수
-     * @param shortGapPercent 짧은캔들 확률
-     * @return 기울기
+     * @param candles TradeCandle[] 캔듭배열
+     * @param index int 기준인덱스
+     * @param leftCount int 좌측 건수
+     * @param shortGapPercent double 짧은캔들 확률
+     * @return double 기울기
      */
     public double score(TradeCandle[] candles, int index, int leftCount, double shortGapPercent ){
 
@@ -138,7 +127,7 @@ public class TrendLine {
     /**
      * 트렌드 라인 유형
      * 상승 하락
-     * @return type -> up or down
+     * @return type up or down
      */
     public Type getType() {
         return type;

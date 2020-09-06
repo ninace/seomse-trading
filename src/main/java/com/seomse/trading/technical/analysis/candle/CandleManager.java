@@ -37,7 +37,7 @@ public class CandleManager {
     private final TradeCandles [] tradeCandles;
     /**
      * 생성자
-     * @param candleTimes 캔들 생성을위한 캔들 생성 기준 타임 배열
+     * @param candleTimes long 캔들 생성을위한 캔들 생성 기준 타임 배열
      */
     public CandleManager( long [] candleTimes){
 
@@ -53,7 +53,7 @@ public class CandleManager {
 
     /**
      * 저장개수 설정
-     * @param saveCount 저장개수
+     * @param saveCount int 저장개수
      */
     public void setSaveCount(int saveCount) {
         for (TradeCandles tradeCandle : tradeCandles) {
@@ -64,7 +64,7 @@ public class CandleManager {
 
     /**
      * 거래정보 추가
-     * @param trade 거래 정보
+     * @param trade Trade 거래 정보
      */
     public void addTrade(Trade trade){
         for(TradeCandles tradeCandles : tradeCandles){
@@ -74,8 +74,8 @@ public class CandleManager {
 
     /**
      * 캔들배열관리정보 얻기
-     * @param time 기준시간
-     * @return 기준시간에 맞는 캔들배열관리정보
+     * @param time long 기준시간
+     * @return TradeCandles 기준시간에 맞는 캔들배열관리정보
      */
     public TradeCandles getCandles(long time){
         return candleMap.get(time);
@@ -84,7 +84,7 @@ public class CandleManager {
 
     /**
      * 캔들 기준 시간 배열 얻기
-     * @return 캔들 기준 시간 배열
+     * @return long [] 캔들 기준 시간 배열
      */
     public long [] getTimes(){
         long [] times = new long[candleMap.size()];

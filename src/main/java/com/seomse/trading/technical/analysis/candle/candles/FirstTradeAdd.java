@@ -31,12 +31,13 @@ class FirstTradeAdd implements TradeAdd {
 
     /**
      * 생성자
-     * @param tradeCandles tradeCandles
+     * @param tradeCandles TradeCandles
      */
     FirstTradeAdd(TradeCandles tradeCandles){
         this.tradeCandles = tradeCandles;
     }
 
+    @Override
     public void addTrade(Trade trade){
         if(tradeCandles.candleList.size() != 0){
             //이미 추가된 켄들이 있을경우

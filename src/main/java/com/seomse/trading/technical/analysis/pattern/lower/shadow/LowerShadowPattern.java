@@ -29,8 +29,8 @@ public class LowerShadowPattern {
 
     /**
      * 아래 그림자 캔들 유효성 검사
-     * @param tradeCandle 캔들
-     * @return 유효성 여부
+     * @param tradeCandle TradeCandle 캔들
+     * @return boolean 유효성 여부
      */
     public static boolean isValid(TradeCandle tradeCandle){
 
@@ -67,11 +67,11 @@ public class LowerShadowPattern {
      * 아래 그림자 캔들 발생여부 및 정형 점수 생성
      * 발생하지 않을경우 null
      * 발생한 패턴지점은 위 유효성을 통과한 걸로 비교한다
-     * @param trendLine 추세선
-     * @param candles 캔들 배열
-     * @param index 체크할 index
-     * @param shortGapPercent 짧은 캔들 기준 확률
-     * @return 패턴 발생 여부 및 정형점수 ( 발생하지 않을경우 null)
+     * @param trendLine TrendLine 추세선
+     * @param candles TradeCandle [] 캔들 배열
+     * @param index int 체크할 index
+     * @param shortGapPercent double 짧은 캔들 기준 확률
+     * @return CandlePatternPoint 패턴 발생 여부 및 정형점수 ( 발생하지 않을경우 null)
      */
     public static CandlePatternPoint makePoint(TrendLine trendLine, TradeCandle [] candles, int index, double shortGapPercent){
 
