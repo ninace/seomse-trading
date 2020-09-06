@@ -1,8 +1,24 @@
+/*
+ * Copyright (C) 2020 Seomse Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
-import com.seomse.trading.technical.analysis.candle.Candlestick;
+import com.seomse.trading.technical.analysis.candle.CandleStick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import com.seomse.trading.time.Times;
 import org.slf4j.Logger;
@@ -12,18 +28,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
- * <pre>
- *  파 일 명 : TradeCandles.java
- *  설    명 : TradeCandle N개의
- *
- *  작 성 자 : macle
- *  작 성 일 : 2019.08.05
- *  버    전 : 1.0
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
+ * 여러개의 TradeCandle 정보
+ * @author macle
  */
 public class TradeCandles {
 
@@ -36,7 +44,7 @@ public class TradeCandles {
     public static final TradeCandle [] EMPTY_CANDLES = new TradeCandle[0];
 
     //24시간으로 나눌 수 있는 값만 설정 가능
-    private long timeGap ;
+    private final long timeGap ;
 
     private int saveCount = DEFAULT_SAVE_COUNT;
 
@@ -176,7 +184,7 @@ public class TradeCandles {
             candles[candles.length-1].setEndTrade();
 
             //캔들유형 설정
-            if(shortGapPercent != -1.0 && steadyGapPercent != -1.0 && candles[candles.length-1].getType() == Candlestick.Type.UNDEFINED){
+            if(shortGapPercent != -1.0 && steadyGapPercent != -1.0 && candles[candles.length-1].getType() == CandleStick.Type.UNDEFINED){
                 candles[candles.length-1].setType(shortGapPercent, steadyGapPercent);
             }
 

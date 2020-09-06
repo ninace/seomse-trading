@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Seomse Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
 import com.seomse.trading.PriceChangeType;
@@ -7,23 +22,14 @@ import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 
-/**
- * <pre>
- *  파 일 명 : ShootingStarRise.java
- *  설    명 : 유성형 고점에서 발생하는 패턴
- *             역망치형(InvertedHammerPattern)과 동일한 형태이지만 상승세의 고점에서 출현한다.
- *             주식에서는 일반적으로 강력한 하락반전 신호로 알려져 있지만
- *             단기적으로 오히려 상승 신호가 될 수 있다
- *             몸통이 짧은 양봉일경우 보다 확실한 단기 상승 우세이고 윗꼬리가 적당히 길면 좋다
 
- *
- *  작 성 자 : macle
- *  작 성 일 :
- *  버    전 : 1.0
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
+/**
+ * 유성형 고점에서 발생하는 패턴
+ * 역망치형(InvertedHammerPattern)과 동일한 형태이지만 상승세의 고점에서 출현한다
+ * 주식에서는 일반적으로 강력한 하락반전 신호로 알려져 있지만
+ * 단기적으로 오히려 상승 신호가 될 수 있다
+ * 몸통이 짧은 양봉일경우 보다 확실한 단기 상승 우세이고 윗꼬리가 적당히 길면 좋다
+ * @author macle
  */
 public class ShootingStarRise extends CandlePatternDefault {
 

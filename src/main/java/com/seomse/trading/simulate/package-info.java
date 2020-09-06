@@ -1,13 +1,5 @@
 /**
- * <pre>
- *  설    명 :  검증관련 패키지
- *
- *  작 성 자 :
- *  작 성 일 :
- *  버    전 :
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2020 by ㈜섬세한사람들. All right reserved.
+ * 이패키지는 만들어진 기능들에 대하여 시뮬레이터 해서 검증 하는 기능을 제공 합니다.
+ * @author macle
  */
 package com.seomse.trading.simulate;

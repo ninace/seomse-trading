@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Seomse Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.Trade;
@@ -9,26 +24,17 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <pre>
- *  파 일 명 : CandleManager.java
- *  설    명 : 캔들 관리자
- *
- *  작 성 자 : macle
- *  작 성 일 : 2019.05
- *  버    전 : 1.0
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 by ㈜섬세한사람들. All right reserved.
+ * 캔들 관리자
+ * @author macle
  */
 public class CandleManager {
 
 
 
 
-    private Map<Long, TradeCandles> candleMap = new HashMap<>();
+    private final Map<Long, TradeCandles> candleMap = new HashMap<>();
 
-    private TradeCandles [] tradeCandles;
+    private final TradeCandles [] tradeCandles;
     /**
      * 생성자
      * @param candleTimes 캔들 생성을위한 캔들 생성 기준 타임 배열

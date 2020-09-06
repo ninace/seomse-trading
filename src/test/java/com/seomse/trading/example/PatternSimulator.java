@@ -29,10 +29,7 @@ public class PatternSimulator {
     public static void main(String[] args) {
 
 
-        int nextCount = 3;
-
         CandleManager candleManager = CandleManagerExample.makeCandleManager();
-
 
         candleManager.setSaveCount(5000);
 
