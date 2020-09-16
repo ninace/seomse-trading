@@ -6,7 +6,7 @@
 
     <groupId>com.seomse.trading</groupId>
     <artifactId>seomse-trading</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <name>seomse-trading</name>
@@ -136,7 +136,7 @@
         <dependency>
             <groupId>com.seomse.commons</groupId>
             <artifactId>seomse-commons</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
         </dependency>
 
 

@@ -16,11 +16,11 @@
 
 package com.seomse.trading.technical.analysis.candle.candles;
 
+import com.seomse.commons.utils.time.Times;
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
 import com.seomse.trading.technical.analysis.candle.CandleStick;
 import com.seomse.trading.technical.analysis.candle.TradeCandle;
-import com.seomse.trading.time.Times;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ public class TradeCandles {
     private final Object observerLock = new Object();
     private CandleChangeObserver [] observers = EMPTY_OBSERVER;
 
-    private List<CandleChangeObserver> observerList = new LinkedList<>();
+    private final List<CandleChangeObserver> observerList = new LinkedList<>();
 
 
     /**

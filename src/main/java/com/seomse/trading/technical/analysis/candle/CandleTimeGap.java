@@ -15,7 +15,8 @@
  */
 package com.seomse.trading.technical.analysis.candle;
 
-import com.seomse.trading.time.Times;
+
+import com.seomse.commons.utils.time.Times;
 
 import java.util.Calendar;
 
