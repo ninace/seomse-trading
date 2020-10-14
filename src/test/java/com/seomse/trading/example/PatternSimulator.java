@@ -51,21 +51,21 @@ public class PatternSimulator {
             if(time < Times.HOUR_4) {
 
                 //0.2% 보합
-                tradeCandles.setSteadyGapPercent(0.002);
+                tradeCandles.setSteadyGapRatio(0.002);
                 //0.5% 짧은 캔들 기준은 0.5%
-                tradeCandles.setShortGapPercent(0.005);
+                tradeCandles.setShortGapRatio(0.005);
             }else if(time < Times.HOUR_12) {
 
                 //0.2% 보합
-                tradeCandles.setSteadyGapPercent(0.002);
+                tradeCandles.setSteadyGapRatio(0.002);
                 //1.5% 짧은 캔들 기준은 1.5%
-                tradeCandles.setShortGapPercent(0.015);
+                tradeCandles.setShortGapRatio(0.015);
             }else{
 
                 //0.5% 보합
-                tradeCandles.setSteadyGapPercent(0.005);
+                tradeCandles.setSteadyGapRatio(0.005);
                 //3% 짧은 캔들 기준은 0.5%
-                tradeCandles.setShortGapPercent(0.03);
+                tradeCandles.setShortGapRatio(0.03);
             }
             tradeCandles.setCandleType();
 

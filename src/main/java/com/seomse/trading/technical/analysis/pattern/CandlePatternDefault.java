@@ -52,7 +52,7 @@ public abstract class CandlePatternDefault implements CandlePattern{
         lastCheckCandle = candles[candles.length-1];
 
         for(int i=candles.length-1 ; i > -1 ; i--){
-            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapRatio());
             if(point != null){
                 lastPoint = point;
                 return ;
@@ -107,7 +107,7 @@ public abstract class CandlePatternDefault implements CandlePattern{
         for (int i = candles.length - 1; i > -1; i--) {
             TradeCandle tradeCandle = candles[i];
             if(tradeCandle == lastEndCandle){
-                CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+                CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapRatio());
                 if(point != null){
                     //캔들 발생했을때 알림 받게 해야함
                     //매수 시점을 알려줘야함
@@ -125,7 +125,7 @@ public abstract class CandlePatternDefault implements CandlePattern{
         List<CandlePatternPoint> pointList = null;
 
         for (int i = 5; i <candles.length ; i++) {
-            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapPercent());
+            CandlePatternPoint point = getPoint(candles, i, tradeCandles.getShortGapRatio());
 
             if(point == null)
                 continue;

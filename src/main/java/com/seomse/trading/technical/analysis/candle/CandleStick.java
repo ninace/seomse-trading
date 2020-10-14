@@ -75,7 +75,7 @@ public class CandleStick {
 
         double absChange = Math.abs(change);
 
-        if(absChange < open*steadyGap){
+        if(absChange < steadyGap){
             priceChangeType = PriceChangeType.HOLD;
         }else{
             if(change > 0){

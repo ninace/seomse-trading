@@ -15,10 +15,10 @@
 - simulate(시뮬레이터)
 
 # gradle
-implementation 'com.seomse.trading:seomse-trading:0.1.1'
+implementation 'com.seomse.trading:seomse-trading:0.1.2'
 
 # etc
-https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.1
+https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.2
 
 
 # communication

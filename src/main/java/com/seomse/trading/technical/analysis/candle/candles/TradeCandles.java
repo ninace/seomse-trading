@@ -37,7 +37,7 @@ public class TradeCandles {
 
     private static final Logger logger = LoggerFactory.getLogger(TradeCandles.class);
 
-    public static final int DEFAULT_SAVE_COUNT = 1000;
+    public static final int DEFAULT_COUNT = 1000;
 
     private static final CandleChangeObserver [] EMPTY_OBSERVER = new CandleChangeObserver[0];
 
@@ -46,7 +46,7 @@ public class TradeCandles {
     //24시간으로 나눌 수 있는 값만 설정 가능
     private final long timeGap ;
 
-    private int saveCount = DEFAULT_SAVE_COUNT;
+    private int count = DEFAULT_COUNT;
 
     TradeAdd tradeAdd ;
 
@@ -54,8 +54,8 @@ public class TradeCandles {
     TradeCandle [] candles = EMPTY_CANDLES;
 
     TradeCandle lastCandle = null;
-    double shortGapPercent = -1.0;
-    double steadyGapPercent = -1.0;
+    double shortGapRatio = -1.0;
+    double steadyGapRatio = -1.0;
 
     boolean isEmptyCandleContinue = false;
 
@@ -86,14 +86,14 @@ public class TradeCandles {
      * 설정하고 실행하여야 한다.
      */
     public void setCandleType(){
-        if(steadyGapPercent == -1.0 || shortGapPercent == -1.0){
-            logger.error("shortGapPercent, steadyGapPercent set: " +shortGapPercent +", " + steadyGapPercent);
+        if(steadyGapRatio == -1.0 || shortGapRatio == -1.0){
+            logger.error("shortGapPercent, steadyGapPercent set: " + shortGapRatio +", " + steadyGapRatio);
             return;
         }
 
         TradeCandle [] candles = this.candles;
         for(TradeCandle candle : candles){
-            candle.setType(shortGapPercent, steadyGapPercent );
+            candle.setType(shortGapRatio, steadyGapRatio);
         }
 
     }
@@ -148,7 +148,7 @@ public class TradeCandles {
         }
 
         this.timeGap = timeGap;
-        this.saveCount = saveCount;
+        this.count = saveCount;
 
 
         if(candles == null || candles.length == 0){
@@ -183,26 +183,29 @@ public class TradeCandles {
         TradeCandle lastEndCandle = null;
 
         if(candles.length > 0){
-            candles[candles.length-1].setEndTrade();
 
-            //캔들유형 설정
-            if(shortGapPercent != -1.0 && steadyGapPercent != -1.0 && candles[candles.length-1].getType() == CandleStick.Type.UNDEFINED){
-                candles[candles.length-1].setType(shortGapPercent, steadyGapPercent);
+            lastEndCandle = candles[candles.length-1];
+
+            //마지막 캔들이 더이상 변화가 없는상태로 변환
+            lastEndCandle.setEndTrade();
+
+            //캔들유형을
+            if(shortGapRatio != -1.0 && steadyGapRatio != -1.0 && lastEndCandle.getType() == CandleStick.Type.UNDEFINED){
+                lastEndCandle.setType(lastEndCandle.getOpen() * shortGapRatio, lastEndCandle.getOpen() * steadyGapRatio);
             }
-
+            
+            //새로 들어온 캔들이 변화가 없는 캔들일 경우
             if(tradeCandle.isEndTrade()){
-                if(shortGapPercent != -1.0 && steadyGapPercent != -1.0){
-                    candles[candles.length-1].setType(shortGapPercent, steadyGapPercent);
+                if(shortGapRatio != -1.0 && steadyGapRatio != -1.0 && tradeCandle.getType() == CandleStick.Type.UNDEFINED){
+                    tradeCandle.setType(tradeCandle.getOpen() * shortGapRatio, tradeCandle.getOpen() * steadyGapRatio);
                 }
                 lastEndCandle = tradeCandle;
-            }else{
-                lastEndCandle =  candles[candles.length-1];
             }
         }
 
         candleList.add(tradeCandle);
 
-        while(candleList.size() >= saveCount) {
+        while(candleList.size() >= count) {
             candleList.remove(0);
         }
         this.candles = candleList.toArray(new TradeCandle[0]);
@@ -237,11 +240,11 @@ public class TradeCandles {
 
     /**
      * 캔들 저장 count 설정
-     * candle save count set
-     * @param saveCount int candle save count
+     * candle count set
+     * @param count int candle  count
      */
-    public void setSaveCount(int saveCount) {
-        this.saveCount = saveCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 
     /**
@@ -261,11 +264,11 @@ public class TradeCandles {
 
     /**
      * 설정된 캔들 저장 건수 얻기
-     * candle save count get
-     * @return int candle saveCount
+     * candle count get
+     * @return int candle count
      */
-    public int getSaveCount() {
-        return saveCount;
+    public int getCount() {
+        return count;
     }
 
     /**
@@ -288,33 +291,35 @@ public class TradeCandles {
 
     /**
      * 짧은캔들 기준 변화률 설정
-     * @param shortGapPercent double 짧은 캔들 기준 변화률
+     * 시작기 기준의 비율
+     * @param shortGapRatio double 짧은 캔들 기준 변화률
      */
-    public void setShortGapPercent(double shortGapPercent) {
-        this.shortGapPercent = shortGapPercent;
+    public void setShortGapRatio(double shortGapRatio) {
+        this.shortGapRatio = shortGapRatio;
     }
 
     /**
      * 보합 기준 변화률 설정
-     * @param steadyGapPercent double 보합 기준 변화률
+     * 시작가 기준의 비율
+     * @param steadyGapRatio double 보합 기준 변화률
      */
-    public void setSteadyGapPercent(double steadyGapPercent) {
-        this.steadyGapPercent = steadyGapPercent;
+    public void setSteadyGapRatio(double steadyGapRatio) {
+        this.steadyGapRatio = steadyGapRatio;
     }
 
     /**
      * 짧은캔들 gap percent
      * @return double shot gap percent
      */
-    public double getShortGapPercent() {
-        return shortGapPercent;
+    public double getShortGapRatio() {
+        return shortGapRatio;
     }
 
     /**
      * 보합 gap percent
      * @return double steady gap percent
      */
-    public double getSteadyGapPercent() {
-        return steadyGapPercent;
+    public double getSteadyGapRatio() {
+        return steadyGapRatio;
     }
 }

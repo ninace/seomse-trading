@@ -57,7 +57,7 @@ public class CandleManager {
      */
     public void setSaveCount(int saveCount) {
         for (TradeCandles tradeCandle : tradeCandles) {
-            tradeCandle.setSaveCount(saveCount);
+            tradeCandle.setCount(saveCount);
         }
     }
 
