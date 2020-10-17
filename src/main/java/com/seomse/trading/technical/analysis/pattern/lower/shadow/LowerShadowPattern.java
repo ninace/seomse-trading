@@ -15,8 +15,8 @@
  */
 package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
-import com.seomse.trading.technical.analysis.candle.CandleStick;
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.candle.CandleStick;
+import com.seomse.trading.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 

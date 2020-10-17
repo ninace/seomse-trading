@@ -17,7 +17,7 @@ package com.seomse.trading.technical.analysis.pattern.lower.shadow;
 
 import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.TrendChangeType;
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
@@ -51,7 +51,7 @@ public class HangingMan extends CandlePatternDefault {
      * @param shortGapPercent double 짧은 캔들 기준 확률
      * @return CandlePatternPoint 패턴결과
      */
-    public CandlePatternPoint getPoint(TradeCandle [] candles, int index, double shortGapPercent){
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent){
         TrendLine trendLine = new TrendLine(TrendLine.Type.UP);
         return LowerShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
     }

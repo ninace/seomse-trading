@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.seomse.trading.technical.analysis.candle;
+package com.seomse.trading.candle;
 
 
 import com.seomse.commons.utils.time.Times;

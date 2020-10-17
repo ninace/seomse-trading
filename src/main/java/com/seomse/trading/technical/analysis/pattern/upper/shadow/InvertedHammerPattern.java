@@ -17,7 +17,7 @@ package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
 import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.TrendChangeType;
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternDefault;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
@@ -59,7 +59,7 @@ public class InvertedHammerPattern extends CandlePatternDefault {
 
         TrendLine trendLine = new TrendLine(TrendLine.Type.DOWN);
 
-        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
+//        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
         return UpperShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
     }
 

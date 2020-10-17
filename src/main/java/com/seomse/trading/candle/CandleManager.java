@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.seomse.trading.technical.analysis.candle;
+package com.seomse.trading.candle;
 
 import com.seomse.trading.Trade;
-import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
+import com.seomse.trading.candle.candles.TradeCandles;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,14 +34,14 @@ public class CandleManager {
 
     private final Map<Long, TradeCandles> candleMap = new HashMap<>();
 
-    private final TradeCandles [] tradeCandles;
+    private final TradeCandles[] tradeCandles;
     /**
      * 생성자
      * @param candleTimes long 캔들 생성을위한 캔들 생성 기준 타임 배열
      */
     public CandleManager( long [] candleTimes){
 
-        TradeCandles [] tradeCandles = new TradeCandles[candleTimes.length];
+        TradeCandles[] tradeCandles = new TradeCandles[candleTimes.length];
 
         for (int i = 0; i <candleTimes.length ; i++) {
             tradeCandles[i] = new TradeCandles(candleTimes[i]);

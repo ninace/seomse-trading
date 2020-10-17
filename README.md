@@ -4,6 +4,7 @@
 - open jdk 1.8
 
 # 개요
+- 기술적 분석을 활용한 다양한 매매기법
 - 아직 초기 단계로 개발된 부분이 많지 않습니다..
 - 주식, 선물, 비트코인 에서 사용할 수 있는 기술적 분석을 만들고자 시작 하였으며, 아직 많은 부분이 개발되지는 않은 상태입니다.
 - 다양한 알고리즘을 만들고 만들어진 알고리즘을 지수화 하여 머신런닝의 임베딩 모델도 활용 하고자 합니다.
@@ -15,14 +16,15 @@
 - simulate(시뮬레이터)
 
 # gradle
-implementation 'com.seomse.trading:seomse-trading:0.1.2'
+implementation 'com.seomse.trading:seomse-trading:0.1.3'
 
 # etc
-https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.2
+https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.3
 
 
 # communication
 ### blog, homepage
+- seomse.github.io
 - seomse.tistory.com
 - www.seomse.com
 - seomse.com

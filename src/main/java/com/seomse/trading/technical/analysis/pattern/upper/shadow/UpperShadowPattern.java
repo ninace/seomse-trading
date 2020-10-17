@@ -15,8 +15,8 @@
  */
 package com.seomse.trading.technical.analysis.pattern.upper.shadow;
 
-import com.seomse.trading.technical.analysis.candle.CandleStick;
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.candle.CandleStick;
+import com.seomse.trading.candle.TradeCandle;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.trend.line.TrendLine;
 
@@ -69,7 +69,7 @@ public class UpperShadowPattern {
      * @param shortGapPercent double 짧은 캔들 기준 확률
      * @return CandlePatternPoint 패턴 발생 여부 및 정형점수 ( 발생하지 않을경우 null)
      */
-   public static CandlePatternPoint makePoint(TrendLine trendLine, TradeCandle [] candles, int index, double shortGapPercent){
+   public static CandlePatternPoint makePoint(TrendLine trendLine, TradeCandle[] candles, int index, double shortGapPercent){
 
         TradeCandle tradeCandle = candles[index];
 

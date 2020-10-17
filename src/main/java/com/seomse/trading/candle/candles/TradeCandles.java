@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.candle.candles;
+package com.seomse.trading.candle.candles;
 
 import com.seomse.commons.utils.time.Times;
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
-import com.seomse.trading.technical.analysis.candle.CandleStick;
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.candle.CandleStick;
+import com.seomse.trading.candle.TradeCandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +39,9 @@ public class TradeCandles {
 
     public static final int DEFAULT_COUNT = 1000;
 
-    private static final CandleChangeObserver [] EMPTY_OBSERVER = new CandleChangeObserver[0];
+    private static final CandleChangeObserver[] EMPTY_OBSERVER = new CandleChangeObserver[0];
 
-    public static final TradeCandle [] EMPTY_CANDLES = new TradeCandle[0];
+    public static final TradeCandle[] EMPTY_CANDLES = new TradeCandle[0];
 
     //24시간으로 나눌 수 있는 값만 설정 가능
     private final long timeGap ;
@@ -51,7 +51,7 @@ public class TradeCandles {
     TradeAdd tradeAdd ;
 
     List<TradeCandle> candleList = new LinkedList<>();
-    TradeCandle [] candles = EMPTY_CANDLES;
+    TradeCandle[] candles = EMPTY_CANDLES;
 
     TradeCandle lastCandle = null;
     double shortGapRatio = -1.0;
@@ -60,7 +60,7 @@ public class TradeCandles {
     boolean isEmptyCandleContinue = false;
 
     private final Object observerLock = new Object();
-    private CandleChangeObserver [] observers = EMPTY_OBSERVER;
+    private CandleChangeObserver[] observers = EMPTY_OBSERVER;
 
     private final List<CandleChangeObserver> observerList = new LinkedList<>();
 
@@ -91,7 +91,7 @@ public class TradeCandles {
             return;
         }
 
-        TradeCandle [] candles = this.candles;
+        TradeCandle[] candles = this.candles;
         for(TradeCandle candle : candles){
             candle.setType(shortGapRatio, steadyGapRatio);
         }
@@ -141,7 +141,7 @@ public class TradeCandles {
      * @param candles TradeCandle ready candles
      * @param saveCount int save count
      */
-    public TradeCandles(long timeGap, TradeCandle [] candles, int saveCount ){
+    public TradeCandles(long timeGap, TradeCandle[] candles, int saveCount ){
         if(timeGap < Times.DAY_1 &&
                 Times.DAY_1%timeGap != 0){
             throw new RuntimeException("24 hour % timeGap 0: "  +  Times.DAY_1%timeGap );
@@ -169,17 +169,36 @@ public class TradeCandles {
             for (int i = candles.length - saveCount ; i < candles.length; i++) {
                 candleList.add(candles[i]);
             }
-            this.candles = candleList.toArray(new  TradeCandle[0]);
+            this.candles = candleList.toArray(new TradeCandle[0]);
         }
     }
 
 
-
+    /**
+     * add trade candles
+     * @param tradeCandles TradeCandle []
+     */
+    public void addCandle(TradeCandle[] tradeCandles){
+        for(TradeCandle tradeCandle : tradeCandles){
+            addCandle(tradeCandle, false);
+        }
+        this.candles = candleList.toArray(new TradeCandle[0]);
+    }
+    
     /**
      * add candle
      * @param tradeCandle TradeCandle add trade candle
      */
     public void addCandle(TradeCandle tradeCandle){
+        addCandle(tradeCandle, true);
+    }
+
+    /**
+     * add candle
+     * @param tradeCandle TradeCandle add trade candle
+     * @param isNewCandles boolean candles array change flag
+     */
+    public void addCandle(TradeCandle tradeCandle, boolean isNewCandles){
         TradeCandle lastEndCandle = null;
 
         if(candles.length > 0){
@@ -208,10 +227,12 @@ public class TradeCandles {
         while(candleList.size() >= count) {
             candleList.remove(0);
         }
-        this.candles = candleList.toArray(new TradeCandle[0]);
+        if(isNewCandles ) {
+            this.candles = candleList.toArray(new TradeCandle[0]);
+        }
         lastCandle = tradeCandle;
 
-        CandleChangeObserver [] observers = this.observers;
+        CandleChangeObserver[] observers = this.observers;
 
         for(CandleChangeObserver observer : observers){
 
@@ -285,7 +306,7 @@ public class TradeCandles {
      * candles get
      * @return TradeCandle candles
      */
-    public TradeCandle [] getCandles() {
+    public TradeCandle[] getCandles() {
         return candles;
     }
 

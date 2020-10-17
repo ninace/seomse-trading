@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.candle.candles;
+package com.seomse.trading.candle.candles;
 
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
-import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
+import com.seomse.trading.candle.CandleTimeGap;
 
 
 /**

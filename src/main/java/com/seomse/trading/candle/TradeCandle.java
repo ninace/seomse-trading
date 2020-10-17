@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.candle;
+package com.seomse.trading.candle;
 
 import com.seomse.trading.Trade;
 import org.slf4j.Logger;
@@ -181,8 +181,8 @@ public class TradeCandle extends CandleStick {
         setLow(low);
     }
 
-    //1.0 == 100% , 100.0 == 10000%
-    public static final double MAX_STRENGTH = 100.0;
+    //1.0 == 100% , 5.0 == 500%
+    public static final double MAX_STRENGTH = 5.0;
 
     /**
      * 체결강도 얻기
@@ -192,7 +192,7 @@ public class TradeCandle extends CandleStick {
     public double strength(){
 
         if(sellVolume <= 0){
-            //10000%
+            //500%
             return MAX_STRENGTH;
         }
 

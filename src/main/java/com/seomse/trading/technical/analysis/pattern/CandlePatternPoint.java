@@ -15,7 +15,8 @@
  */
 package com.seomse.trading.technical.analysis.pattern;
 
-import com.seomse.trading.technical.analysis.candle.TradeCandle;
+
+import com.seomse.trading.candle.TradeCandle;
 
 /**
  * 캔들패턴 발생지점
