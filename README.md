@@ -1,7 +1,7 @@
 # seomse-trading
 
 # 개발환경
-- open jdk 1.8
+- open jdk 15
 
 # 개요
 - 기술적 분석을 활용한 다양한 매매기법
@@ -16,10 +16,10 @@
 - simulate(시뮬레이터)
 
 # gradle
-implementation 'com.seomse.trading:seomse-trading:0.1.3'
+implementation 'com.seomse.trading:seomse-trading:0.1.4'
 
 # etc
-https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.3
+https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.4
 
 
 # communication

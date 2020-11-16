@@ -25,8 +25,6 @@ import com.seomse.trading.PriceChangeType;
  */
 public class CandleStick {
 
-
-
     //자세한 모양은 구글시트 참조
     //https://docs.google.com/spreadsheets/d/13T8OR02ESmGTsD6uAI5alYPdRg6ekrfnVnkCdqpoAvE/edit#gid=1228683334
     public enum Type {
@@ -39,10 +37,7 @@ public class CandleStick {
         , HIGH_WAVE //위 아래에 그림자가 있는캔들 (긴거)
         , SPINNING_TOPS //위 아래에 그림자가 있는 캔들 (짧은거)
         , @SuppressWarnings({"SpellCheckingInspection", "RedundantSuppression"}) DOJI // 십자캔들
-
     }
-
-
     /**
      * 캔들 유형
      */
@@ -64,14 +59,12 @@ public class CandleStick {
      */
     public void setType(double shortGap, double steadyGap){
 
-        double height = height();
+        double height = getHeight();
         //길이가 보합세보다 작을때
         if(height <= steadyGap){
             type = Type.STEADY;
             return;
         }
-
-        double change = change();
 
         double absChange = Math.abs(change);
 
@@ -233,6 +226,16 @@ public class CandleStick {
     protected double low = -1.0;
 
     /**
+     * 변화랑
+     */
+    protected double change = -1.0;
+
+    /**
+     * 전 candle 가격
+     */
+    protected double previous = -1.0;
+
+    /**
      * 시가 얻기
      * 설정되지않으면 -1.0
      * @return double 시가
@@ -302,8 +305,32 @@ public class CandleStick {
      * 높이 얻기 (세로길이)
      * @return double 높이(세로길이)
      */
-    public double height() {
+    public double getHeight() {
         return high - low;
+    }
+
+    /**
+     * 변화가격 설정
+     * @param change double 변화가격
+     */
+    public void setChange(double change) {
+        this.change = change;
+    }
+
+    /**
+     * 전봉가격 얻기
+     * @return double 전 봉 가격
+     */
+    public double getPrevious() {
+        return previous;
+    }
+
+    /**
+     * 전봉 가격 설정
+     * @param previous double 전봉가격
+     */
+    public void setPrevious(double previous) {
+        this.previous = previous;
     }
 
     /**
@@ -311,8 +338,8 @@ public class CandleStick {
      *
      * @return double 변화량
      */
-    public double change() {
-        return close - open;
+    public double getChange() {
+        return change;
     }
 
     /**
@@ -320,7 +347,7 @@ public class CandleStick {
      * @return double 가격 변화량 절대값
      */
     public double changeAbs(){
-        return Math.abs(change());
+        return Math.abs(change);
     }
 
     /**
@@ -328,7 +355,7 @@ public class CandleStick {
      * @return double 가격 변화율
      */
     public double getChangePercent(){
-        return change()/open;
+        return change/open;
     }
 
     /**

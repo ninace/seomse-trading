@@ -191,6 +191,10 @@ public class TradeCandle extends CandleStick {
      */
     public double strength(){
 
+        if(sellVolume == 0 && buyVolume == 0){
+            return 1.0;
+        }
+
         if(sellVolume <= 0){
             //500%
             return MAX_STRENGTH;

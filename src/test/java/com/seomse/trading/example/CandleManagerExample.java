@@ -104,7 +104,7 @@ public class CandleManagerExample {
 
             System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getStartTime()))
                     +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow() + ", " + candles[i].getVolume() + ", " + candles[i].getTradeCount() + ", "
-                    +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].change() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " +  String.format("%.2f",candles[i].strength()*100.0)  + "%, " + candles[i].getType().toString());
+                    +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].getChange() + " "+ String.format("%.5f", candles[i].getChangePercent()*100.0) + "%, " +  String.format("%.2f",candles[i].strength()*100.0)  + "%, " + candles[i].getType().toString());
 
         }
 
