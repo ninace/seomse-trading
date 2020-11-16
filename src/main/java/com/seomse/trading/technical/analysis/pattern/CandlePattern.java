@@ -17,7 +17,7 @@ package com.seomse.trading.technical.analysis.pattern;
 
 import com.seomse.trading.PriceChangeType;
 import com.seomse.trading.TrendChangeType;
-import com.seomse.trading.candle.candles.TradeCandles;
+import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
 /**
  * 캔들형 패턴

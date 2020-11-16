@@ -15,7 +15,7 @@
  */
 package com.seomse.trading.technical.analysis.trend.line;
 
-import com.seomse.trading.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 /**
  * 추세선 유형

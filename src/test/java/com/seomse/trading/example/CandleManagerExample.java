@@ -17,10 +17,10 @@ package com.seomse.trading.example;
 
 import com.seomse.commons.utils.time.Times;
 import com.seomse.trading.Trade;
-import com.seomse.trading.candle.CandleManager;
-import com.seomse.trading.candle.CandleTimeGap;
-import com.seomse.trading.candle.TradeCandle;
-import com.seomse.trading.candle.candles.TradeCandles;
+import com.seomse.trading.technical.analysis.candle.CandleManager;
+import com.seomse.trading.technical.analysis.candle.CandleTimeGap;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
 
 import java.io.BufferedReader;

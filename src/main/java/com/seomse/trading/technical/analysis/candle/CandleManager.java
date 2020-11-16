@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.seomse.trading.candle;
+package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.Trade;
-import com.seomse.trading.candle.candles.TradeCandles;
+import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
 import java.util.Arrays;
 import java.util.HashMap;

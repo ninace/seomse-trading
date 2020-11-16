@@ -16,9 +16,9 @@
 package com.seomse.trading.technical.analysis.pattern;
 
 
-import com.seomse.trading.candle.TradeCandle;
-import com.seomse.trading.candle.candles.CandleChangeObserver;
-import com.seomse.trading.candle.candles.TradeCandles;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.candles.CandleChangeObserver;
+import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
 import java.util.ArrayList;
 import java.util.List;

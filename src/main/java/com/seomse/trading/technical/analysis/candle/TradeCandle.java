@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.candle;
+package com.seomse.trading.technical.analysis.candle;
 
 import com.seomse.trading.Trade;
 import org.slf4j.Logger;

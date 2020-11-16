@@ -10,16 +10,21 @@
 - 다양한 알고리즘을 만들고 만들어진 알고리즘을 지수화 하여 머신런닝의 임베딩 모델도 활용 하고자 합니다.
 - 이와 별개로 다양한 패턴 조합 자동 시뮬레이터 기능을 제공 하려고 합니다.
 - 다양한 기술적 분석을 공부하면서 구현중이므로 아직 구현되지 않은 부분이 많습니다.
+- seomse-stock, seomse-bitcoin 프로젝트에서 사용됩니다.
+
+- 최근 주식 자동매매에 사용되기 위해 많은 기능이 업데이트 예정입니다
+
 # 구성
-- technical analysis (기술적분석)
-- learn(학습)
-- simulate(시뮬레이터)
+- technical analysis (기술적분석) (진행중)
+- learn(학습) (예정)
+- simulate(시뮬레이터) (예정)
+- 위구성은 버젼이 올라가면 각 모듈로 분리될 수 있습니다.
 
 # gradle
-implementation 'com.seomse.trading:seomse-trading:0.1.4'
+implementation 'com.seomse.trading:seomse-trading:0.1.5'
 
 # etc
-https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.4
+https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.5
 
 
 # communication

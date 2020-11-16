@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.candle.candles;
+package com.seomse.trading.technical.analysis.candle.candles;
 
-import com.seomse.trading.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
 
 
 /**

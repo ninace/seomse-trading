@@ -16,9 +16,9 @@
 package com.seomse.trading.example;
 
 import com.seomse.commons.utils.time.Times;
-import com.seomse.trading.candle.CandleManager;
-import com.seomse.trading.candle.TradeCandle;
-import com.seomse.trading.candle.candles.TradeCandles;
+import com.seomse.trading.technical.analysis.candle.CandleManager;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 import com.seomse.trading.technical.analysis.pattern.CandlePatternPoint;
 import com.seomse.trading.technical.analysis.pattern.lower.shadow.HammerPattern;
 import org.slf4j.Logger;

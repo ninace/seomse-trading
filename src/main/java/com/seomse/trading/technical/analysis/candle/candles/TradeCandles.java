@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.candle.candles;
+package com.seomse.trading.technical.analysis.candle.candles;
 
 import com.seomse.commons.utils.time.Times;
 import com.seomse.trading.Trade;
 import com.seomse.trading.TradeAdd;
-import com.seomse.trading.candle.CandleStick;
-import com.seomse.trading.candle.TradeCandle;
+import com.seomse.trading.technical.analysis.candle.CandleStick;
+import com.seomse.trading.technical.analysis.candle.TradeCandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
