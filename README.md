@@ -29,9 +29,10 @@ https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.5
 
 # communication
 ### blog, homepage
-- seomse.github.io
-- seomse.tistory.com
 - www.seomse.com
+- github.com/seomse/
+- seomse.tistory.com
+- seomse.github.io
 - seomse.com
 
 ### 카카오톡 오픈톡
@@ -42,3 +43,7 @@ https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.5
 
 ### email (협업, 외주)
  - comseomse@gmail.com
+ 
+ # dev
+ - macle
+    -  github.com/macle86/
