@@ -181,8 +181,19 @@ public class TradeCandle extends CandleStick {
         setLow(low);
     }
 
-    //1.0 == 100% , 5.0 == 500%
-    public static final double MAX_STRENGTH = 5.0;
+    //100.0 == 100% , 500.0 == 500%
+    public static final double MAX_STRENGTH = 500.0;
+
+
+    private Double strength = null;
+
+    /**
+     * 체결강도 설정
+     * @param strength 체결강도
+     */
+    public void setStrength(Double strength) {
+        this.strength = strength;
+    }
 
     /**
      * 체결강도 얻기
@@ -191,8 +202,12 @@ public class TradeCandle extends CandleStick {
      */
     public double strength(){
 
+        if(isEndTrade && strength != null){
+            return strength;
+        }
+
         if(sellVolume == 0 && buyVolume == 0){
-            return 1.0;
+            return 100.0;
         }
 
         if(sellVolume <= 0){
@@ -200,15 +215,16 @@ public class TradeCandle extends CandleStick {
             return MAX_STRENGTH;
         }
 
-        double strength = buyVolume/sellVolume;
-        //noinspection ManualMinMaxCalculation
-        if(strength > MAX_STRENGTH){
+        double strength = buyVolume/sellVolume * 100.0;
 
+        if(strength > MAX_STRENGTH){
+            this.strength = MAX_STRENGTH;
             return MAX_STRENGTH;
         }
 
-        return strength;
+        this.strength = strength;
 
+        return strength;
     }
 
     /**
@@ -234,21 +250,4 @@ public class TradeCandle extends CandleStick {
     }
 
 
-
-    private boolean isEndTrade = false;
-
-    /**
-     * 거래종료여부
-     * @return boolean 거래종료여부
-     */
-    public boolean isEndTrade() {
-        return isEndTrade;
-    }
-
-    /**
-     * 거래종료여부 설정
-     */
-    public void setEndTrade() {
-        isEndTrade = true;
-    }
 }

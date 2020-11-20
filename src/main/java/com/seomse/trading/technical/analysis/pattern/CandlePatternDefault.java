@@ -158,8 +158,8 @@ public abstract class CandlePatternDefault implements CandlePattern{
      * 패턴결과 패턴이 유효하지 않을경우 null 을 리턴
      * @param candles TradeCandle [] 캔들 배열
      * @param index int 기준위치
-     * @param shortGapPercent double 짧은 캔들 기준 확률
+     * @param shortGapRate double 짧은 캔들 기준 비율
      * @return CandlePatternPoint 패턴결과
      */
-    public abstract CandlePatternPoint getPoint(TradeCandle [] candles, int index, double shortGapPercent);
+    public abstract CandlePatternPoint getPoint(TradeCandle [] candles, int index, double shortGapRate);
 }

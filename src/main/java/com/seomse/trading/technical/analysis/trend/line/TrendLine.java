@@ -60,10 +60,10 @@ public class TrendLine {
      * @param candles TradeCandle[] 캔듭배열
      * @param index int 기준인덱스
      * @param leftCount int 좌측 건수
-     * @param shortGapPercent double 짧은캔들 확률
+     * @param shortGapRate double 짧은캔들 비율
      * @return double 기울기
      */
-    public double score(TradeCandle[] candles, int index, int leftCount, double shortGapPercent ){
+    public double score(TradeCandle[] candles, int index, int leftCount, double shortGapRate ){
 
         if(index < 5){
             //기울기를 파악하려고하는 최소건수
@@ -86,12 +86,12 @@ public class TrendLine {
 
 
         //평균 하락율 구하기
-        double changePercentSum = 0.0;
+        double changeRateSum = 0.0;
 
 
         for(int i=startIndex ; i<index ; i++){
 
-            changePercentSum += candles[i].getChangePercent();
+            changeRateSum += candles[i].getChangeRate();
 
             if(!trendLineCase.isCountValid(candles[i])){
                continue;
@@ -99,7 +99,7 @@ public class TrendLine {
 
             //유효하면
             validCount++;
-            if(Math.abs(candles[i].getChangePercent()) > shortGapPercent){
+            if(Math.abs(candles[i].getChangeRate()) > shortGapRate){
                 //종가가 shortGap보다 하락률이 클경우
                 shortGapCount++;
             }
@@ -115,8 +115,8 @@ public class TrendLine {
         int count = index - startIndex;
 
 
-        double avg = Math.abs(changePercentSum)/(double)(count);
-        double half = shortGapPercent*0.5;
+        double avg = Math.abs(changeRateSum)/(double)(count);
+        double half = shortGapRate*0.5;
 
         if(half >  avg){
             return -1.0;

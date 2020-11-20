@@ -54,10 +54,10 @@ public class ShootingStar extends CandlePatternDefault {
      * 캔들의 배열이 바뀔 수 있으므로 array 로 직접 받음
      * @param candles 캔들 배열
      * @param index 기준위치
-     * @param shortGapPercent 짧은 캔들 기준 확률
+     * @param shortGapRate 짧은 캔들 기준 확률
      * @return 패턴결과
      */
-    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent){
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapRate){
         TradeCandle tradeCandle = candles[index];
 
         //음봉이어야하고
@@ -79,14 +79,14 @@ public class ShootingStar extends CandlePatternDefault {
             return null;
         }
 
-        double shortGapPrice = tradeCandle.getOpen()*shortGapPercent;
+        double shortGapPrice = tradeCandle.getOpen()* shortGapRate;
         if(shortGapPrice*2.0 > upperTail){
             //위꼬리가 짧은 기준의 2배보다 커야한다
             return null;
         }
 
         TrendLine trendLine = new TrendLine(TrendLine.Type.UP);
-        return UpperShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
+        return UpperShadowPattern.makePoint(trendLine,candles,index, shortGapRate);
     }
 
 

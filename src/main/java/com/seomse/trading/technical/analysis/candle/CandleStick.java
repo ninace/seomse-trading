@@ -230,10 +230,17 @@ public class CandleStick {
      */
     protected double change = -1.0;
 
+
+    /**
+     * 가격 변화율
+     */
+    protected Double changeRate = null;
+
     /**
      * 전 candle 가격
      */
     protected double previous = -1.0;
+
 
     /**
      * 시가 얻기
@@ -343,6 +350,15 @@ public class CandleStick {
     }
 
     /**
+     * 가격 변화율 설정
+     * @param changeRate 가격변화율
+     */
+    public void setChangeRate(Double changeRate) {
+        this.changeRate = changeRate;
+    }
+
+
+    /**
      * 가격 변화량 절대값 얻기
      * @return double 가격 변화량 절대값
      */
@@ -354,18 +370,14 @@ public class CandleStick {
      * 가격 변화율 얻기
      * @return double 가격 변화율
      */
-    public double getChangePercent(){
-        return change/open;
-    }
+    public double getChangeRate(){
+        if(isEndTrade && changeRate != null){
+            return changeRate;
+        }
 
-    /**
-     * 가격 변화율 절대값 얻기
-     * @return double 가격 변화율 절대값
-     */
-    public double getChangeAbsPercent(){
-        return Math.abs(getChangePercent());
+        changeRate =  change/previous * 100.0;
+        return changeRate;
     }
-
 
     /**
      * 위꼬리 길이 얻기
@@ -448,6 +460,23 @@ public class CandleStick {
         this.standardTime = standardTime;
     }
 
+
+    protected boolean isEndTrade = false;
+
+    /**
+     * 거래종료여부
+     * @return boolean 거래종료여부
+     */
+    public boolean isEndTrade() {
+        return isEndTrade;
+    }
+
+    /**
+     * 거래종료여부 설정
+     */
+    public void setEndTrade() {
+        isEndTrade = true;
+    }
 
 }
 

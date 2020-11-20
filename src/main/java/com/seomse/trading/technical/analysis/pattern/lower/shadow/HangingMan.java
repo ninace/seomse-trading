@@ -48,12 +48,12 @@ public class HangingMan extends CandlePatternDefault {
      * 캔들의 배열이 바뀔 수 있으므로 array 로 직접 받음
      * @param candles TradeCandle [] 캔들 배열
      * @param index int 기준위치
-     * @param shortGapPercent double 짧은 캔들 기준 확률
+     * @param shortGapRate double 짧은 캔들 기준 확률
      * @return CandlePatternPoint 패턴결과
      */
-    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent){
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapRate){
         TrendLine trendLine = new TrendLine(TrendLine.Type.UP);
-        return LowerShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
+        return LowerShadowPattern.makePoint(trendLine,candles,index, shortGapRate);
     }
 
 

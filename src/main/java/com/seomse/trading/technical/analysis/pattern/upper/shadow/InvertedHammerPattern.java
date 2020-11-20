@@ -46,7 +46,7 @@ public class InvertedHammerPattern extends CandlePatternDefault {
 
 
     @Override
-    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent) {
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapRate) {
 
         TradeCandle tradeCandle = candles[index];
 
@@ -60,7 +60,7 @@ public class InvertedHammerPattern extends CandlePatternDefault {
         TrendLine trendLine = new TrendLine(TrendLine.Type.DOWN);
 
 //        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
-        return UpperShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
+        return UpperShadowPattern.makePoint(trendLine,candles,index, shortGapRate);
     }
 
 

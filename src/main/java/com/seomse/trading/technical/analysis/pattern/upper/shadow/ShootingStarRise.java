@@ -45,7 +45,7 @@ public class ShootingStarRise extends CandlePatternDefault {
 
 
     @Override
-    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent) {
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapRate) {
 
         TradeCandle tradeCandle = candles[index];
 
@@ -56,7 +56,7 @@ public class ShootingStarRise extends CandlePatternDefault {
             return null;
         }
 
-        if(tradeCandle.getChangeAbsPercent() > shortGapPercent){
+        if(Math.abs(tradeCandle.getChangeRate()) > shortGapRate){
             //몸통은 짧은캔들보다 작아야함
             return null;
         }
@@ -64,7 +64,7 @@ public class ShootingStarRise extends CandlePatternDefault {
         double change = tradeCandle.changeAbs();
         double upperTail = tradeCandle.getUpperTail();
 
-        double shortGapPrice = tradeCandle.getOpen()*shortGapPercent;
+        double shortGapPrice = tradeCandle.getOpen()* shortGapRate;
         if(shortGapPrice*4.0 < upperTail){
             //위꼬리가 너무 길면 유효하지 않음
             return null;
@@ -72,8 +72,8 @@ public class ShootingStarRise extends CandlePatternDefault {
 
         TrendLine trendLine = new TrendLine(TrendLine.Type.UP);
 
-        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
-        return UpperShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
+        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapRate);
+        return UpperShadowPattern.makePoint(trendLine,candles,index, shortGapRate);
     }
 
 }

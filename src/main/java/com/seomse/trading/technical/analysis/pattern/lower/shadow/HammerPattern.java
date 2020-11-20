@@ -46,15 +46,9 @@ public class HammerPattern extends CandlePatternDefault {
     public TrendChangeType getTrendChangeType() {
         return TrendChangeType.REVERSE;
     }
-    /**
-     * 캔들의 배열이 바뀔 수 있으므로 array 로 직접 받음
-     * @param candles TradeCandle 캔들 배열
-     * @param index int 기준위치
-     * @param shortGapPercent double 짧은 캔들 기준 확률
-     * @return CandlePatternPoint 패턴결과
-     */
+
     @Override
-    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapPercent){
+    public CandlePatternPoint getPoint(TradeCandle[] candles, int index, double shortGapRate){
 
         TradeCandle tradeCandle = candles[index];
 
@@ -67,14 +61,14 @@ public class HammerPattern extends CandlePatternDefault {
         }
 
         //몸통이 약간은 있어야하므로 너무작은경우 체크 추가
-        if(tradeCandle.getChangeAbsPercent() * 2 < shortGapPercent){
+        if(Math.abs(tradeCandle.getChangeRate()) * 2 < shortGapRate){
             //몸통길이가 짧은 캔들 기준값을 절반은 되어야함
             return null;
         }
 
         TrendLine trendLine = new TrendLine(TrendLine.Type.DOWN);
 
-        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapPercent);
-        return LowerShadowPattern.makePoint(trendLine,candles,index,shortGapPercent);
+        double downTrendLineScore= trendLine.score(candles, index, 7 , shortGapRate);
+        return LowerShadowPattern.makePoint(trendLine,candles,index, shortGapRate);
     }
 }
