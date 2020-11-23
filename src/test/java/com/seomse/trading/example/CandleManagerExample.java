@@ -102,7 +102,7 @@ public class CandleManagerExample {
 
             candles[i].setType(shortGap,steadyGap );
 
-            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getStartTime()))
+            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(candles[i].getOpenTime()))
                     +" " + candles[i].getOpen() +", " + candles[i].getClose() + ", " + candles[i].getHigh() + ", " + candles[i].getLow() + ", " + candles[i].getVolume() + ", " + candles[i].getTradeCount() + ", "
                     +       String.format("%.2f", candles[i].getAverage())+ ", "  + candles[i].getChange() + " "+ String.format("%.5f", candles[i].getChangeRate()) + "%, " +  String.format("%.2f",candles[i].strength())  + "%, " + candles[i].getType().toString());
 

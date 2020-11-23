@@ -148,9 +148,6 @@ public class TradeCandle extends CandleStick {
         setOpen(firstTrade.getPrice());
         setClose(endTrade.getPrice());
 
-//        setStartTime(firstTrade.getTime());
-//        setEndTime(endTrade.getTime());
-
         volume = 0.0;
         double high = firstTrade.getPrice();
         double low = firstTrade.getPrice();

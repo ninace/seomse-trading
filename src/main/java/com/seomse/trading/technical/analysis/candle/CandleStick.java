@@ -399,12 +399,12 @@ public class CandleStick {
     /**
      * 시작시간
      */
-    private long startTime;
+    private long openTime;
 
     /**
      * 끝시간
      */
-    private long endTime;
+    private long closeTime;
 
     /**
      * 기준시간
@@ -415,32 +415,32 @@ public class CandleStick {
      * 시작시간 얻기
      * @return long 시작시간
      */
-    public long getStartTime() {
-        return startTime;
+    public long getOpenTime() {
+        return openTime;
     }
 
     /**
      * 시작시간 설정
-     * @param startTime long 시작시간
+     * @param openTime long 시작시간
      */
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void setOpenTime(long openTime) {
+        this.openTime = openTime;
     }
 
     /**
      * 끝시간 얻기
      * @return long 끝시간
      */
-    public long getEndTime() {
-        return endTime;
+    public long getCloseTime() {
+        return closeTime;
     }
 
     /**
      * 끝시간 설정
-     * @param endTime long 끝시간
+     * @param closeTime long 끝시간
      */
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
+    public void setCloseTime(long closeTime) {
+        this.closeTime = closeTime;
     }
 
     /**

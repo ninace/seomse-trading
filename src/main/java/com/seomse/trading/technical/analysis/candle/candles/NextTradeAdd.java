@@ -39,13 +39,13 @@ class NextTradeAdd implements TradeAdd {
 
     @Override
     public void addTrade(Trade trade){
-        if(trade.getTime() < tradeCandles.lastCandle.getEndTime()){
+        if(trade.getTime() < tradeCandles.lastCandle.getCloseTime()){
             //트레이드 정보 추가
             tradeCandles.lastCandle.addTrade(trade);
             return;
         }
         long timeGap = tradeCandles.getTimeGap();
-        long nextStartTime =  tradeCandles.lastCandle.getEndTime();
+        long nextStartTime =  tradeCandles.lastCandle.getCloseTime();
         long nextEndTime  = nextStartTime + timeGap;
         if(trade.getTime() < nextEndTime){
             tradeCandles.addTradeNewCandle(trade, nextStartTime, nextEndTime);
@@ -62,8 +62,8 @@ class NextTradeAdd implements TradeAdd {
                 nextTradeCandle.setClose(lastPrice);
                 nextTradeCandle.setHigh(lastPrice);
                 nextTradeCandle.setLow(lastPrice);
-                nextTradeCandle.setStartTime(nextStartTime);
-                nextTradeCandle.setEndTime(nextEndTime);
+                nextTradeCandle.setOpenTime(nextStartTime);
+                nextTradeCandle.setCloseTime(nextEndTime);
 
                 tradeCandles.addCandle(nextTradeCandle);
                 nextStartTime = nextEndTime;

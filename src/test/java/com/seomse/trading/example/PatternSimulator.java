@@ -112,11 +112,11 @@ public class PatternSimulator {
                 if(patternCandle.getClose() < nextCandle.getClose()){
                     upCount++;
 
-                    logger.info("패턴 성공: " + patternCandle.getEndTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
+                    logger.info("패턴 성공: " + patternCandle.getCloseTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
 
 
                 }else{
-                    logger.info("패턴 실패: " + patternCandle.getEndTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
+                    logger.info("패턴 실패: " + patternCandle.getCloseTime() + ", " + patternCandle.getClose() + ", " + nextCandle.getClose());
                 }
 
             }

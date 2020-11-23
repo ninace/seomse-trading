@@ -277,8 +277,8 @@ public class TradeCandles {
     void addTradeNewCandle(Trade trade, long startTime, long endTime){
 
         TradeCandle tradeCandle = new TradeCandle();
-        tradeCandle.setStartTime(startTime);
-        tradeCandle.setEndTime(endTime);
+        tradeCandle.setOpenTime(startTime);
+        tradeCandle.setCloseTime(endTime);
         tradeCandle.addTrade(trade);
         addCandle(tradeCandle);
     }
