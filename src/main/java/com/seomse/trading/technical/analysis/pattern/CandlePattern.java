@@ -15,7 +15,7 @@
  */
 package com.seomse.trading.technical.analysis.pattern;
 
-import com.seomse.trading.PriceChangeType;
+import com.seomse.trading.PriceChangeAnalysis;
 import com.seomse.trading.TrendChangeType;
 import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
 
@@ -23,7 +23,7 @@ import com.seomse.trading.technical.analysis.candle.candles.TradeCandles;
  * 캔들형 패턴
  * @author macle
  */
-public interface CandlePattern {
+public interface CandlePattern extends PriceChangeAnalysis {
 
 
     /**
@@ -51,12 +51,6 @@ public interface CandlePattern {
      */
     CandlePatternPoint [] getPoints();
 
-
-    /**
-     * 가격변화 예측유형
-     * @return PriceChangeType 가격 변화 예층 유형( 상승, 하락, 보합)
-     */
-    PriceChangeType getPriceChangeType();
 
     /**
      * 추세 변환 예측 유형 얻기

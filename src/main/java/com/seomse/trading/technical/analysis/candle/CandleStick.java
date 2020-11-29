@@ -15,6 +15,7 @@
  */
 package com.seomse.trading.technical.analysis.candle;
 
+import com.seomse.trading.PriceChange;
 import com.seomse.trading.PriceChangeType;
 
 
@@ -23,7 +24,7 @@ import com.seomse.trading.PriceChangeType;
  * - 더 많은 요소 클래스는 상속받아서 구현
  * @author macle
  */
-public class CandleStick {
+public class CandleStick implements PriceChange {
 
     //자세한 모양은 구글시트 참조
     //https://docs.google.com/spreadsheets/d/13T8OR02ESmGTsD6uAI5alYPdRg6ekrfnVnkCdqpoAvE/edit#gid=1228683334

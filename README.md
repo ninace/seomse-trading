@@ -21,11 +21,9 @@
 - 위구성은 버젼이 올라가면 각 모듈로 분리될 수 있습니다.
 
 # gradle
-implementation 'com.seomse.trading:seomse-trading:0.1.7'
-
-# etc
-https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.7
-
+implementation 'com.seomse.trading:seomse-trading:0.1.8'
+- etc
+    - https://mvnrepository.com/artifact/com.seomse.trading/seomse-trading/0.1.8
 
 # communication
 ### blog, homepage
