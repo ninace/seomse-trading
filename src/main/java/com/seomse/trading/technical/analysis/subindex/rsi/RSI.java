@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Wigo Inc.
+ * Copyright (C) 2020 Seomse Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.seomse.trading.technical.analysis.subindex.rsi;
 
-import com.seomse.trading.PriceChange;
+import com.seomse.trading.PriceChangeRate;
 
 /**
  * RSI는 일정 기간 동안 주가가 전일 가격에 비해 상승한 변화량과 하락한 변화량의 평균값을 구하여, 상승한 변화량이 크면 과매수로, 하락한 변화량이 크면 과매도로 판단하는 방식이다.
@@ -39,7 +39,7 @@ import com.seomse.trading.PriceChange;
  *
  * RSI 그래프는 이동평균선을 함께 나타내는 것이 보통이며, 이동평균선을 며칠선으로 할 것인가 역시 파라메터로 주어진다. RSI를 15일에 대하여 구하고 5일 이동평균선을 함께 표시하는 경우 그래프에 (15, 5)라고 표시해주는 것이 일반적이다.
  *
- * 유사한 지표로는 스토캐스틱이 있다. RSI 그래프의 형태는 fast stochastic과 비슷하게 나온다.
+ * 유사한 지표로는 스토캐스틱이 있다. RSI 그래프의 형태는 fast stochastic 과 비슷하게 나온다.
  *
  * 참고자료
  *  -https://ko.wikipedia.org/wiki/RSI_(%ED%88%AC%EC%9E%90%EC%A7%80%ED%91%9C)
@@ -84,24 +84,25 @@ public class RSI {
     //전부 하락 또는 전부 상승 일 때
     public static final double NOT_VALID =-1.0;
 
+
     /**
      * rsi 점수 얻기
      * 특정기간 n은 14일을 권장하므로 기본값 14를 세팅한 값
-     * @param priceChanges 가격 변화 배열
-     * @return rsi score (0~1)
+     * @param priceChangeRates 가격 변화율 배열
+     * @return rsi score (0~100)
      */
-    public static double getScore(PriceChange[] priceChanges) {
-        return getScore(priceChanges, 14);
+    public static double getScore(PriceChangeRate[] priceChangeRates) {
+        return getScore(priceChangeRates, 14);
     }
 
     /**
      * rsi 점수 얻기
      * 구할 수 없을때 -1.0
-     * @param priceChanges 가격 변화 배열
+     * @param priceChangeRates 가격 변화율 배열
      * @param n 특정기간 n
-     * @return rsi score ( 0~1)
+     * @return rsi score ( 0~100)
      */
-    public static double getScore(PriceChange[] priceChanges, int n){
+    public static double getScore(PriceChangeRate[] priceChangeRates, int n){
         int upCount = 0;
         int downCount = 0;
 
@@ -109,21 +110,21 @@ public class RSI {
         double downSum = 0.0;
 
 
-        int start = priceChanges.length - n;
+        int start = priceChangeRates.length - n;
         if(start < 0){
             start = 0;
         }
 
-        for (int i = start; i < priceChanges.length; i++) {
-            PriceChange priceChange = priceChanges[i];
+        for (int i = start; i < priceChangeRates.length; i++) {
+            PriceChangeRate priceChangeRate = priceChangeRates[i];
 
-            if(priceChange.getChangeRate() > 0.0){
+            if(priceChangeRate.getChangeRate() > 0.0){
                 upCount ++;
-                upSum += priceChange.getChangeRate();
+                upSum += priceChangeRate.getChangeRate();
 
-            }else if(priceChange.getChangeRate() < 0.0){
+            }else if(priceChangeRate.getChangeRate() < 0.0){
                 downCount++;
-                downSum += priceChange.getChangeRate();
+                downSum += priceChangeRate.getChangeRate();
             }
         }
 
@@ -139,7 +140,8 @@ public class RSI {
         double rsi = rs / (1.0 + rs);
 
         //소수점 4재짜리 까지만 사용하기
-        return Math.round(rsi * 10000.0) / 10000.0;
+        //백분율 이기때문에  * 100의 효과
+        return Math.round(rsi * 10000.0) / 100.0;
     }
 
 }

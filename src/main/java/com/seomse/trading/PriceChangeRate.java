@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-
 package com.seomse.trading;
 
 /**
- * 가격과 가격 변화
+ * 가격 변화율
+ * 가격 변화율만 활용하는 패턴이 있음
  * @author macle
  */
-public interface PriceChange extends PriceChangeRate{
-
-
-    /**
-     * @return 종가
-     */
-    double getClose();
-
+public interface PriceChangeRate {
     /**
      * previous 기준
      * (일별이면 전 거래일, 분봉이면 전봉))
-     * @return 변동가격
+     * @return 변동율
      */
-    double getChange();
-
-
-
-    /**
-     * (일별이면 전 거래일, 분봉이면 전봉)
-     * @return 전 거래 가격
-     */
-    double getPrevious();
+    double getChangeRate();
 }

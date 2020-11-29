@@ -6,7 +6,7 @@
 
     <groupId>com.seomse.trading</groupId>
     <artifactId>seomse-trading</artifactId>
-    <version>0.1.8</version>
+    <version>0.1.9</version>
     <packaging>jar</packaging>
 
     <name>seomse-trading</name>
