@@ -14,29 +14,40 @@
  * limitations under the License.
  */
 
-
-package com.seomse.trading;
+package com.seomse.trading.technical.analysis.subindex.cross;
 
 /**
- * 가격과 가격 변화
+ * 골든크로스 혹은 데드크로스 발생 유형과 위치
  * @author macle
  */
-public interface PriceChange extends PriceChangeRate, Price{
+public class CrossIndex {
 
+    Cross.Type type;
+    int index;
 
+    int length;
+    
+    /**
+     * 크로스 유형얻기
+     * @return 골드크로스 or 데드 크로스
+     */
+    public Cross.Type type() {
+        return type;
+    }
 
     /**
-     * previous 기준
-     * (일별이면 전 거래일, 분봉이면 전봉))
-     * @return 변동가격
+     * 최근 크로스 발생지점 얻기
+     * @return 최근 크로스 발생지점
      */
-    double getChange();
-
-
+    public int index() {
+        return index;
+    }
 
     /**
-     * (일별이면 전 거래일, 분봉이면 전봉)
-     * @return 전 거래 가격
+     * 길이얻기
+     * @return 마지막 전환 시점으로 부터의 길이
      */
-    double getPrevious();
+    public int length() {
+        return length;
+    }
 }

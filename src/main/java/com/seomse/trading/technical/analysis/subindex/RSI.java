@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.subindex.rsi;
+package com.seomse.trading.technical.analysis.subindex;
 
 import com.seomse.trading.PriceChangeRate;
+import com.seomse.trading.technical.analysis.subindex.ma.MovingAverage;
 
 /**
  * RSI는 일정 기간 동안 주가가 전일 가격에 비해 상승한 변화량과 하락한 변화량의 평균값을 구하여, 상승한 변화량이 크면 과매수로, 하락한 변화량이 크면 과매도로 판단하는 방식이다.
@@ -81,18 +82,51 @@ import com.seomse.trading.PriceChangeRate;
  */
 public class RSI {
 
-    //전부 하락 또는 전부 상승 일 때
-    public static final double NOT_VALID =-1.0;
-
 
     /**
      * rsi 점수 얻기
      * 특정기간 n은 14일을 권장하므로 기본값 14를 세팅한 값
+     * 9, 25도 많이 사용함
      * @param priceChangeRates 가격 변화율 배열
      * @return rsi score (0~100)
      */
     public static double getScore(PriceChangeRate[] priceChangeRates) {
-        return getScore(priceChangeRates, 14);
+
+        double [] doubles = new double[priceChangeRates.length];
+        for (int i = 0; i < doubles.length; i++) {
+            doubles[i] = priceChangeRates[i].getChangeRate();
+        }
+
+        return getScore(doubles, 14, doubles.length);
+    }
+
+
+    /**
+     * rsi 점수 얻기
+     * 구할 수 없을때 -1.0
+     * @param priceChangeRates 가격 변화율 배열
+     * @param n 특정기간 n
+     * @param end 배열의 끝지점
+     * @return rsi score ( 0~100)
+     */
+
+    public static double getScore(PriceChangeRate [] priceChangeRates, int n, int end){
+        double [] doubles = new double[priceChangeRates.length];
+        for (int i = 0; i < doubles.length; i++) {
+            doubles[i] = priceChangeRates[i].getChangeRate();
+        }
+
+        return getScore(doubles, n, doubles.length);
+    }
+    /**
+     * rsi 점수 얻기
+     * 특정기간 n은 14일을 권장하므로 기본값 14를 세팅한 값
+     * 9, 25도 많이 사용함
+     * @param priceChangeRates 가격 변화율 배열
+     * @return rsi score (0~100)
+     */
+    public static double getScore(double[] priceChangeRates) {
+        return getScore(priceChangeRates, 14, priceChangeRates.length);
     }
 
     /**
@@ -100,9 +134,10 @@ public class RSI {
      * 구할 수 없을때 -1.0
      * @param priceChangeRates 가격 변화율 배열
      * @param n 특정기간 n
+     * @param end 배열의 끝지점
      * @return rsi score ( 0~100)
      */
-    public static double getScore(PriceChangeRate[] priceChangeRates, int n){
+    public static double getScore(double [] priceChangeRates, int n, int end){
         int upCount = 0;
         int downCount = 0;
 
@@ -110,26 +145,28 @@ public class RSI {
         double downSum = 0.0;
 
 
-        int start = priceChangeRates.length - n;
+        int start = end - n;
         if(start < 0){
             start = 0;
         }
 
-        for (int i = start; i < priceChangeRates.length; i++) {
-            PriceChangeRate priceChangeRate = priceChangeRates[i];
+        for (int i = start; i < end; i++) {
 
-            if(priceChangeRate.getChangeRate() > 0.0){
+            if(priceChangeRates[i] > 0.0){
                 upCount ++;
-                upSum += priceChangeRate.getChangeRate();
+                upSum += priceChangeRates[i];
 
-            }else if(priceChangeRate.getChangeRate() < 0.0){
+            }else if(priceChangeRates[i] < 0.0){
                 downCount++;
-                downSum += priceChangeRate.getChangeRate();
+                downSum += priceChangeRates[i];
             }
         }
 
-        if(upCount == 0 || downCount == 0){
-            return NOT_VALID;
+        if(upCount == 0 ){
+            return 0.0;
+        }
+        if(downCount == 0){
+            return 100.0;
         }
 
         double averageUps = upSum/(double)upCount;
@@ -142,6 +179,54 @@ public class RSI {
         //소수점 4재짜리 까지만 사용하기
         //백분율 이기때문에  * 100의 효과
         return Math.round(rsi * 10000.0) / 100.0;
+    }
+
+    /**
+     * 최신 데이터 기준으로 rsi 배열읃 얻는다.
+     *
+     * @param priceChangeRates 가격 변화율 배열
+     * @param n 특정기간
+     * @param rsiCount 얻고 싶은 rsi 개수
+     * @return rsi 배열
+     */
+    public static double [] getScores(PriceChangeRate[] priceChangeRates, int n, int rsiCount){
+
+        if(rsiCount > priceChangeRates.length){
+            rsiCount = priceChangeRates.length;
+        }
+
+        double [] rsiScores = new double[rsiCount];
+        
+        int endGap = 0;
+        for (int i = 0; i <rsiCount ; i++) {
+            rsiScores[i] = getScore(priceChangeRates, n, priceChangeRates.length - endGap--);
+        }
+        
+        return rsiScores;
+    }
+
+    /**
+     * rsi signal
+     * 이평선
+     * 보통 6일을 많이 사용함
+     * @param rsiArray rsi 배열
+     * @return rsi signal 배열
+     */
+    public static double [] getSignal(double [] rsiArray){
+        return MovingAverage.getArray(rsiArray, 6, rsiArray.length-5);
+    }
+
+    /**
+     * rsi signal 
+     * 이평선 
+     * 보통 6일을 많이 사용함
+     * @param rsiArray rsi 배열
+     * @param n 특정기간 ( 몇일로 평균을 만들건지) 보통 6일을 많이 사용함
+     * @param signalCount 얻고 싶은 signal 개수
+     * @return rsi signal 배열
+     */
+    public static double [] getSignal(double [] rsiArray, int n, int signalCount){
+        return MovingAverage.getArray(rsiArray, n, signalCount);
     }
 
 }
