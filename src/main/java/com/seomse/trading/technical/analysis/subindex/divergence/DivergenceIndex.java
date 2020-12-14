@@ -14,24 +14,38 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.subindex.cross;
+package com.seomse.trading.technical.analysis.subindex.divergence;
+
+import com.seomse.trading.PriceChangeType;
 
 /**
- * 골든크로스 혹은 데드크로스 발생 유형과 위치
  * @author macle
  */
-public class CrossIndex {
+public class DivergenceIndex {
 
-    Cross.Type type;
+    //가겨변화유형
+    //상승하락
+    PriceChangeType priceChangeType;
+
+    Divergence.Type type;
+
     int index;
 
-    int gap;
-    
+    int length;
+
     /**
-     * 크로스 유형얻기
-     * @return 골드크로스 or 데드 크로스
+     * 가격변화유형
+     * @return 상승, 하락
      */
-    public Cross.Type type() {
+    public PriceChangeType getPriceChangeType() {
+        return priceChangeType;
+    }
+
+    /**
+     * 다이버젼스 유형
+     * @return 일반, 히든, 과장된
+     */
+    public Divergence.Type getType() {
         return type;
     }
 
@@ -44,10 +58,10 @@ public class CrossIndex {
     }
 
     /**
-     * 마지막 발생시점으로 부터의 거리 얻기
-     * @return 마지막 발생시점으로 부터의 거리
+     * 길이얻기
+     * @return 마지막 전환 시점으로 부터의 길이
      */
-    public int gap() {
-        return gap;
+    public int length() {
+        return length;
     }
 }

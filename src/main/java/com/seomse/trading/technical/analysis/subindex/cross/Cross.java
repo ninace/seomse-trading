@@ -34,7 +34,7 @@ public class Cross {
      * 두 배열의 크기는 반드시 일치 할것
      * @param shotArray 짧은 배열
      * @param longArray 긴배열
-     * @return 크로스 발생 지점과 위치
+     * @return 크로스 발생 유형과 위치
      */
     public static CrossIndex getIndex(double [] shotArray, double [] longArray ){
 
@@ -44,22 +44,22 @@ public class Cross {
             if(shotArray[i] > longArray[i]){
                 //상향돌파 골든크로스
 
-                int length = length(longArray, shotArray, i);
+                int gap = gap(longArray, shotArray, i);
 
-                if(length == -1){
+                if(gap == -1){
                     continue;
                 }
 
                 CrossIndex crossIndex = new CrossIndex();
                 crossIndex.type = Type.GOLDEN;
                 crossIndex.index = i;
-                crossIndex.length = length;
+                crossIndex.gap = gap;
                 return crossIndex;
 
 
             }else if(shotArray[i] < longArray[i]){
                 //하향돌바 데드크로스
-                int length = length(shotArray, longArray, i);
+                int length = gap(shotArray, longArray, i);
 
                 if(length == -1){
                     continue;
@@ -67,7 +67,7 @@ public class Cross {
                 CrossIndex crossIndex = new CrossIndex();
                 crossIndex.type = Type.DEAD;
                 crossIndex.index = i;
-                crossIndex.length = length;
+                crossIndex.gap = length;
                 return crossIndex;
             }
 
@@ -81,9 +81,9 @@ public class Cross {
      * @param small 작은값
      * @param large 큰값
      * @param index 기준위치
-     * @return 길이, 유효하지 않을경우 -1
+     * @return 이전에 발생한 지점부터의 gap, 유효하지 않을경우 -1
      */
-    private static int length(double [] small, double [] large, int index){
+    private static int gap(double [] small, double [] large, int index){
 
         int count = 0;
 
@@ -106,9 +106,5 @@ public class Cross {
 
         return index - last;
     }
-
-
-
-
 
 }

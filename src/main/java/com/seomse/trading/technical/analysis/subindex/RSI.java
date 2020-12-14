@@ -17,7 +17,11 @@
 package com.seomse.trading.technical.analysis.subindex;
 
 import com.seomse.trading.PriceChangeRate;
+import com.seomse.trading.technical.analysis.subindex.cross.Cross;
+import com.seomse.trading.technical.analysis.subindex.cross.CrossIndex;
 import com.seomse.trading.technical.analysis.subindex.ma.MovingAverage;
+
+import java.util.Arrays;
 
 /**
  * RSI는 일정 기간 동안 주가가 전일 가격에 비해 상승한 변화량과 하락한 변화량의 평균값을 구하여, 상승한 변화량이 크면 과매수로, 하락한 변화량이 크면 과매도로 판단하는 방식이다.
@@ -82,6 +86,8 @@ import com.seomse.trading.technical.analysis.subindex.ma.MovingAverage;
  */
 public class RSI {
 
+    public static final int DEFAULT_N = 14;
+    public static final int DEFAULT_SIGNAL = 6;
 
     /**
      * rsi 점수 얻기
@@ -97,7 +103,7 @@ public class RSI {
             doubles[i] = priceChangeRates[i].getChangeRate();
         }
 
-        return getScore(doubles, 14, doubles.length);
+        return getScore(doubles, DEFAULT_N, doubles.length);
     }
 
 
@@ -189,7 +195,7 @@ public class RSI {
      * @param rsiCount 얻고 싶은 rsi 개수
      * @return rsi 배열
      */
-    public static double [] getScores(PriceChangeRate[] priceChangeRates, int n, int rsiCount){
+    public static double [] getScores(double[] priceChangeRates, int n, int rsiCount){
 
         if(rsiCount > priceChangeRates.length){
             rsiCount = priceChangeRates.length;
@@ -227,6 +233,38 @@ public class RSI {
      */
     public static double [] getSignal(double [] rsiArray, int n, int signalCount){
         return MovingAverage.getArray(rsiArray, n, signalCount);
+    }
+
+    /**
+     * rsi 와 rsi signal 의 골든 크로스와 데드크로스 지점 얻기
+     * @param priceChangeRates 가격 변화율 배열
+     * @param n 특정기간 N
+     * @param signalN 시그널 특정기간 N
+     * @return 크로스 발생 유형과 위치
+     */
+    public static CrossIndex cross(PriceChangeRate [] priceChangeRates, int n, int signalN){
+        //rsi 배열
+        double [] doubles = new double[priceChangeRates.length];
+        for (int i = 0; i < doubles.length; i++) {
+            doubles[i] = priceChangeRates[i].getChangeRate();
+        }
+        return cross(doubles, n , signalN);
+    }
+
+
+    /**
+     * rsi 와 rsi signal 의 골든 크로스와 데드크로스 지점 얻기
+     * @param priceChangeRates 가격 변화율 배열
+     * @param n 특정기간 N
+     * @param signalN 시그널 특정기간 N
+     * @return 크로스 발생 유형과 위치
+     */
+    public static CrossIndex cross(double [] priceChangeRates, int n, int signalN){
+        //rsi 배열
+        double [] rsiArray = getScores(priceChangeRates, n, priceChangeRates.length - n);
+        double [] signal =  getSignal(rsiArray, signalN, rsiArray.length -signalN + 1);
+        rsiArray = Arrays.copyOfRange(rsiArray, signalN - 1, rsiArray.length);
+        return Cross.getIndex(rsiArray, signal);
     }
 
 }
