@@ -19,6 +19,7 @@ package com.seomse.trading.technical.analysis.subindex.divergence;
 import com.seomse.trading.PriceChangeType;
 
 /**
+ * 다이버젼스 발생지점
  * @author macle
  */
 public class DivergenceIndex {
@@ -32,7 +33,8 @@ public class DivergenceIndex {
     int index;
 
     int length;
-
+    
+    int gap;
     /**
      * 가격변화유형
      * @return 상승, 하락
@@ -58,10 +60,18 @@ public class DivergenceIndex {
     }
 
     /**
-     * 길이얻기
-     * @return 마지막 전환 시점으로 부터의 길이
+     * 다이버 젼스 길이  다이버젼스 시작점부터 의 길이
+     * @return 다이버젼스 길이
      */
     public int length() {
         return length;
+    }
+
+    /**
+     * 마지막 발생시점으로 부터의 거리 얻기
+     * @return 마지막 발생시점으로 부터의 거리
+     */
+    public int gap() {
+        return gap;
     }
 }

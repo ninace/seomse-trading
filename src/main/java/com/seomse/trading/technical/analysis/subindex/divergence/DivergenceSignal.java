@@ -16,6 +16,8 @@
 
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
+import com.seomse.trading.technical.analysis.candle.CandleStick;
+
 /**
  * 다이버젼스 신호
  * @author macle
@@ -24,18 +26,18 @@ public interface DivergenceSignal {
 
     /**
      * 상승 신호
-     * @param priceArray 가격배열
+     * @param candleSticks 캔들 배열
      * @param subIndexArray 보조지표 배열
      * @return 다이버젼스 정보
      */
-    DivergenceIndex rise(double [] priceArray, double [] subIndexArray);
+    DivergenceIndex rise(CandleStick[] candleSticks, double [] subIndexArray);
 
     /**
      * 하락신호
-     * @param priceArray 가격배열
+     * @param candleSticks 캔들 배열
      * @param subIndexArray 보조지표 배열
      * @return 다이버젼스 정보
      */
-    DivergenceIndex fall(double [] priceArray, double [] subIndexArray);
+    DivergenceIndex fall(CandleStick[] candleSticks, double [] subIndexArray);
 
 }

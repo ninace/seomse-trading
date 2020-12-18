@@ -16,18 +16,31 @@
 
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
+import com.seomse.trading.technical.analysis.candle.CandleStick;
+
 /**
- * 과장된 다이버젼스
+ * 3. 과장된 다이버전스
+ *  - 과장된 하락 다이버전스
+ *  주가가 비슷한 높이의 고점을 형성하는 동안, 보조지표 고점이 하락하는 현상
+ *  하락추세로 전환가능성이 높음
+ *
+ *  - 과장된 상승 다이버전스
+ *   주가가 비슷한 높이의 저점을 형성하는 동안,, 보조지표 저점이 상승하는 현상
+ *   상승추세로 전환 가능성이 높음
+ *
+ *
+ * 참고자료
+ * https://m.blog.naver.com/PostView.nhn?blogId=pengyou_&logNo=221267419722&targetKeyword=&targetRecommendationCode=1
  * @author macle
  */
 public class ExaggeratedDivergence implements DivergenceSignal{
     @Override
-    public DivergenceIndex rise(double[] priceArray, double[] subIndexArray) {
+    public DivergenceIndex rise(CandleStick[] candleSticks, double[] subIndexArray) {
         return null;
     }
 
     @Override
-    public DivergenceIndex fall(double[] priceArray, double[] subIndexArray) {
+    public DivergenceIndex fall(CandleStick[] candleSticks, double[] subIndexArray) {
         return null;
     }
 }

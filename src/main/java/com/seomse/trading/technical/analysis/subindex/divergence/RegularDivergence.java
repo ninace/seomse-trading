@@ -16,6 +16,11 @@
 
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
+import com.seomse.trading.technical.analysis.candle.CandleStick;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 1.일반 다이버전스
  * - 일반하락 다이버전스
@@ -29,16 +34,69 @@ package com.seomse.trading.technical.analysis.subindex.divergence;
  *  주가의 저점이 횡보하고 있고, 보조지표 저점이 상승하고 있는 상태도 상승 다이버전스임
  *  상승추세로 전환 가능성 높음
  *
+ * 참고자료
+ * https://m.blog.naver.com/PostView.nhn?blogId=pengyou_&logNo=221267419722&targetKeyword=&targetRecommendationCode=1
  * @author macle
  */
 public class RegularDivergence implements DivergenceSignal{
+
+
+
+
+
     @Override
-    public DivergenceIndex rise(double[] priceArray, double[] subIndexArray) {
+    public DivergenceIndex rise(CandleStick[] candleSticks, double[] subIndexArray) {
+
+
+        // 최근에 주가의 저점이 하락하고 있는 구간 찾기
+        //
+
+
+        // 기간대비 하락률로 해야하나..
+        // 기울기와 두점사이의 거리 활용하기
+        // 기울기
+        // https://terms.naver.com/entry.nhn?docId=3350308&cid=60210&categoryId=60210
+
+
+
+        //긴구간 부터 체크한다
+        for(int candleCount : Divergence.CANDLE_COUNT_ARRAY){
+
+
+
+            if(candleCount >= candleSticks.length + 5){
+                continue;
+            }
+
+
+
+            List<Integer> indexList = new ArrayList<>();
+
+            for (int i = 0; i <candleSticks.length; i++) {
+
+            }
+            
+
+
+            //구간별 최저점 찾기
+
+        }
+
+
+
+
+        CandleStick candleStick = candleSticks[candleSticks.length-1];
+        for (int i = candleSticks.length - 2; i > -1 ; i--) {
+            candleSticks[i].getLow();
+
+
+        }
+
         return null;
     }
 
     @Override
-    public DivergenceIndex fall(double[] priceArray, double[] subIndexArray) {
+    public DivergenceIndex fall(CandleStick[] candleSticks, double[] subIndexArray) {
         return null;
     }
 }
