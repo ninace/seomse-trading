@@ -16,7 +16,7 @@
 
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
-import com.seomse.trading.technical.analysis.candle.CandleStick;
+import com.seomse.trading.technical.analysis.candle.Candle;
 
 /**
  * 3. 과장된 다이버전스
@@ -33,14 +33,16 @@ import com.seomse.trading.technical.analysis.candle.CandleStick;
  * https://m.blog.naver.com/PostView.nhn?blogId=pengyou_&logNo=221267419722&targetKeyword=&targetRecommendationCode=1
  * @author macle
  */
-public class ExaggeratedDivergence implements DivergenceSignal{
+public class ExaggeratedDivergence implements DivergenceSignalSearch {
+
+
     @Override
-    public DivergenceIndex rise(CandleStick[] candleSticks, double[] subIndexArray) {
+    public DivergenceSignal rise(Candle[] priceCandles, Candle [] subIndexCandles, double steadyRate, int candleCount) {
         return null;
     }
 
     @Override
-    public DivergenceIndex fall(CandleStick[] candleSticks, double[] subIndexArray) {
+    public DivergenceSignal fall(Candle[] priceCandles, Candle [] subIndexCandles, double steadyRate, int candleCount) {
         return null;
     }
 }

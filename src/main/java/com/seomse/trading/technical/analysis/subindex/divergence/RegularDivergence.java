@@ -16,6 +16,7 @@
 
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
+import com.seomse.trading.technical.analysis.candle.Candle;
 import com.seomse.trading.technical.analysis.candle.CandleStick;
 
 import java.util.ArrayList;
@@ -38,14 +39,14 @@ import java.util.List;
  * https://m.blog.naver.com/PostView.nhn?blogId=pengyou_&logNo=221267419722&targetKeyword=&targetRecommendationCode=1
  * @author macle
  */
-public class RegularDivergence implements DivergenceSignal{
+public class RegularDivergence implements DivergenceSignalSearch {
 
 
 
 
 
     @Override
-    public DivergenceIndex rise(CandleStick[] candleSticks, double[] subIndexArray) {
+    public DivergenceSignal rise(Candle[] priceCandles, Candle [] subIndexCandles, double steadyRate, int candleCount) {
 
 
         // 최근에 주가의 저점이 하락하고 있는 구간 찾기
@@ -56,47 +57,69 @@ public class RegularDivergence implements DivergenceSignal{
         // 기울기와 두점사이의 거리 활용하기
         // 기울기
         // https://terms.naver.com/entry.nhn?docId=3350308&cid=60210&categoryId=60210
+        
 
-
-
-        //긴구간 부터 체크한다
-        for(int candleCount : Divergence.CANDLE_COUNT_ARRAY){
-
-
-
-            if(candleCount >= candleSticks.length + 5){
-                continue;
-            }
-
-
-
-            List<Integer> indexList = new ArrayList<>();
-
-            for (int i = 0; i <candleSticks.length; i++) {
-
-            }
-            
-
-
-            //구간별 최저점 찾기
-
-        }
-
-
-
-
-        CandleStick candleStick = candleSticks[candleSticks.length-1];
-        for (int i = candleSticks.length - 2; i > -1 ; i--) {
-            candleSticks[i].getLow();
-
-
-        }
-
+        //01 케이스
+        // 주가의 저점이 하락하고 있고, 보조지표 저점이 상승하고 있는 상태
+//        List<DivergenceSignal> divergenceList = new ArrayList<>();
+//
+//        //캔들 저점 모음
+//        List<Integer> candleIndexList = new ArrayList<>();
+//
+//
+//        //캔들 건수로 봤을때 최저점인 지점 찾기
+//        List<Integer> candleIndexList = new ArrayList<>();
+//
+//
+//
+//
+//        int lastIndex = 0;
+//        double lastLow = candleSticks[0].getLow();
+//        for (int i = 1; i <candleSticks.length; i++) {
+//            //저점이 낮아지는지 체크한다
+//            if(lastIndex + candleCount < i  ){
+//                if(continueIndexList.size() > 2) {
+//                    DivergenceCommon.addDivergenceIndex(riseSubIndexLowUp(subIndexArray, continueIndexList, steadyRate,  candleCount), divergenceList);
+//                }
+//            }
+//
+//            //기간내 저점이 갱신된 정보
+//            if(candleSticks[0].getLow() < lastLow){
+//                continueIndexList.add(i);
+//                lastLow = candleSticks[0].getLow();
+//                lastIndex = i;
+//            }
+//        }
+//
+//
         return null;
     }
 
+    //보조지표 저점 횡보 및 상승구간 찾기
+    private DivergenceSignal riseSubIndexLowUp(double[] subIndexArray, List<Integer> indexList, double steadyRate, int candleCount){
+        
+        //전체 구간의 상승률
+        //기간내 보조지표 저점 상승기간이 있는지
+
+
+        for (int i = subIndexArray.length -2; i > -1 ; i--) {
+            
+        }
+        
+
+
+
+
+
+
+        indexList.clear();
+        return null;
+    }
+
+ 
+
     @Override
-    public DivergenceIndex fall(CandleStick[] candleSticks, double[] subIndexArray) {
+    public DivergenceSignal fall(Candle[] priceCandles, Candle [] subIndexCandles, double steadyRate, int candleCount) {
         return null;
     }
 }

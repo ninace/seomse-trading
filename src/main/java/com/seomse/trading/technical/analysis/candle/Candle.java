@@ -14,30 +14,33 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.subindex.divergence;
-
-import com.seomse.trading.technical.analysis.candle.CandleStick;
+package com.seomse.trading.technical.analysis.candle;
 
 /**
- * 다이버젼스 신호
  * @author macle
  */
-public interface DivergenceSignal {
+public interface Candle {
 
     /**
-     * 상승 신호
-     * @param candleSticks 캔들 배열
-     * @param subIndexArray 보조지표 배열
-     * @return 다이버젼스 정보
+     * 시가 얻기
+     * @return 시가 (시작가)
      */
-    DivergenceIndex rise(CandleStick[] candleSticks, double [] subIndexArray);
+    double getOpen();
 
     /**
-     * 하락신호
-     * @param candleSticks 캔들 배열
-     * @param subIndexArray 보조지표 배열
-     * @return 다이버젼스 정보
+     * 종가 얻기
+     * @return 종가
      */
-    DivergenceIndex fall(CandleStick[] candleSticks, double [] subIndexArray);
+    double getClose();
 
+    /**
+     * 고가 얻기
+     * @return 고가
+     */
+    double getHigh();
+    /**
+     * 저가 얻기
+     * @return 저가
+     */
+    double getLow();
 }
