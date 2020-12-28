@@ -17,7 +17,6 @@
 package com.seomse.trading.technical.analysis.subindex.divergence;
 
 import com.seomse.trading.technical.analysis.candle.Candle;
-import com.seomse.trading.technical.analysis.candle.CandleStick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,48 +50,83 @@ public class RegularDivergence implements DivergenceSignalSearch {
 
         // 최근에 주가의 저점이 하락하고 있는 구간 찾기
         //
-
-
         // 기간대비 하락률로 해야하나..
         // 기울기와 두점사이의 거리 활용하기
         // 기울기
         // https://terms.naver.com/entry.nhn?docId=3350308&cid=60210&categoryId=60210
-        
 
-        //01 케이스
-        // 주가의 저점이 하락하고 있고, 보조지표 저점이 상승하고 있는 상태
-//        List<DivergenceSignal> divergenceList = new ArrayList<>();
-//
-//        //캔들 저점 모음
-//        List<Integer> candleIndexList = new ArrayList<>();
-//
-//
-//        //캔들 건수로 봤을때 최저점인 지점 찾기
-//        List<Integer> candleIndexList = new ArrayList<>();
-//
-//
-//
-//
-//        int lastIndex = 0;
-//        double lastLow = candleSticks[0].getLow();
-//        for (int i = 1; i <candleSticks.length; i++) {
-//            //저점이 낮아지는지 체크한다
-//            if(lastIndex + candleCount < i  ){
-//                if(continueIndexList.size() > 2) {
-//                    DivergenceCommon.addDivergenceIndex(riseSubIndexLowUp(subIndexArray, continueIndexList, steadyRate,  candleCount), divergenceList);
-//                }
-//            }
-//
-//            //기간내 저점이 갱신된 정보
-//            if(candleSticks[0].getLow() < lastLow){
-//                continueIndexList.add(i);
-//                lastLow = candleSticks[0].getLow();
-//                lastIndex = i;
-//            }
-//        }
-//
-//
+
+        int [] priceLowIndexes = getLowIndexes(priceCandles, candleCount);
+        int [] subLowIndexes = getLowIndexes( subIndexCandles, candleCount);
+        
+        
+        // 주가의 저점이 하락하고 있고 보조지표 저점이 상승하고 있는 상태
+        // 보조지표의 저점이 호이보하고 있는 상태도 상승 다이버젼스
+        //위에 내용 구현하기
+        int end = priceLowIndexes.length -1;
+        for (int i = priceLowIndexes.length -1; i >0 ; i--) {
+            //주가의 저점이 하락하고 있는구간
+            if(priceCandles[priceLowIndexes[i-1]].getLow() < priceCandles[priceLowIndexes[i]].getLow()){
+                // 주가의 저점이 상승 했다면 하락 구간이 아님
+               
+                int start = i;
+                if(start == end){
+                    //구간이 존재하지 않으면
+                    continue;
+                }
+                
+                //보조지표 저짐이 횡보하거나 상승하는 구간 찾기 
+               
+
+            }
+
+        }
+
+
         return null;
+    }
+
+    private DivergenceSignal lowUpCheck(int [] priceLowIndexes, int [] subLowIndexes, int startIndex, int end){
+
+
+
+        return null;
+
+    }
+
+
+    private int [] getLowIndexes(Candle[] candles, int candleCount){
+        List<Integer> indexList = new ArrayList<>();
+        outer:
+        for (int i = 1; i <candles.length; i++) {
+            //저점이 낮아지는지 체크한다
+
+            int start = i-candleCount;
+            if(start < 0){
+                start = 0;
+            }
+
+            double low = candles[i].getLow();
+
+
+            for (int j = start; j < i ; j++) {
+                if(low > candles[i].getLow()){
+                    continue outer;
+                }
+
+            }
+
+            indexList.add(i);
+        }
+
+        int [] indexes = new int[indexList.size()];
+
+        for (int i = 0; i <indexes.length ; i++) {
+            indexes[i] = indexList.get(i);
+        }
+
+        return indexes;
+
     }
 
     //보조지표 저점 횡보 및 상승구간 찾기
@@ -100,8 +134,6 @@ public class RegularDivergence implements DivergenceSignalSearch {
         
         //전체 구간의 상승률
         //기간내 보조지표 저점 상승기간이 있는지
-
-
         for (int i = subIndexArray.length -2; i > -1 ; i--) {
             
         }

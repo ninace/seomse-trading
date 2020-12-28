@@ -122,7 +122,7 @@ public class RSI {
             doubles[i] = priceChangeRates[i].getChangeRate();
         }
 
-        return getScore(doubles, n, doubles.length);
+        return getScore(doubles, n, end);
     }
     /**
      * rsi 점수 얻기

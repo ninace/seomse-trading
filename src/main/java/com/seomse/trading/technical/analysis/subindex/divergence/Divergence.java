@@ -92,6 +92,8 @@ public class Divergence {
         this.steadyRate = steadyRate;
     }
 
+    
+    
     /**
      * 다이버젼스 신호 얻기
      * @param priceCandles 가격정보 캔들 배열
