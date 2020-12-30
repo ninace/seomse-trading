@@ -34,9 +34,10 @@ public class Cross {
      * 두 배열의 크기는 반드시 일치 할것
      * @param shotArray 짧은 배열
      * @param longArray 긴배열
+     * @param rate 돌파를 확인하는 비율 (겹친 정도로는 돌파로 보기 어려움))
      * @return 크로스 발생 유형과 위치
      */
-    public static CrossIndex getIndex(double [] shotArray, double [] longArray ){
+    public static CrossIndex getIndex(double [] shotArray, double [] longArray, double rate ){
 
 
         for (int i = longArray.length -1 ; i > 2 ; i--) {

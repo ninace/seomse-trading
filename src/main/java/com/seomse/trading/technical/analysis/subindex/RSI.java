@@ -240,15 +240,16 @@ public class RSI {
      * @param priceChangeRates 가격 변화율 배열
      * @param n 특정기간 N
      * @param signalN 시그널 특정기간 N
+     * @param rate 돞파기준 비율
      * @return 크로스 발생 유형과 위치
      */
-    public static CrossIndex cross(PriceChangeRate [] priceChangeRates, int n, int signalN){
+    public static CrossIndex cross(PriceChangeRate [] priceChangeRates, int n, int signalN, double rate){
         //rsi 배열
         double [] doubles = new double[priceChangeRates.length];
         for (int i = 0; i < doubles.length; i++) {
             doubles[i] = priceChangeRates[i].getChangeRate();
         }
-        return cross(doubles, n , signalN);
+        return cross(doubles, n , signalN, rate);
     }
 
 
@@ -257,14 +258,15 @@ public class RSI {
      * @param priceChangeRates 가격 변화율 배열
      * @param n 특정기간 N
      * @param signalN 시그널 특정기간 N
+     * @param rate 돞파기준 비율
      * @return 크로스 발생 유형과 위치
      */
-    public static CrossIndex cross(double [] priceChangeRates, int n, int signalN){
+    public static CrossIndex cross(double [] priceChangeRates, int n, int signalN, double rate){
         //rsi 배열
         double [] rsiArray = getScores(priceChangeRates, n, priceChangeRates.length - n);
         double [] signal =  getSignal(rsiArray, signalN, rsiArray.length -signalN + 1);
         rsiArray = Arrays.copyOfRange(rsiArray, signalN - 1, rsiArray.length);
-        return Cross.getIndex(rsiArray, signal);
+        return Cross.getIndex(rsiArray, signal, rate);
     }
 
 }
