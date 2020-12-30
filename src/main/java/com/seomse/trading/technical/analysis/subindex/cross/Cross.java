@@ -34,21 +34,30 @@ public class Cross {
      * 두 배열의 크기는 반드시 일치 할것
      * @param shotArray 짧은 배열
      * @param longArray 긴배열
-     * @param rate 돌파를 확인하는 비율 (겹친 정도로는 돌파로 보기 어려움))
+     * @param rate 돌파를 확인하는 비율 (겹친 정도로는 돌파로 보기 어려움) 백분율 percent
      * @return 크로스 발생 유형과 위치
      */
     public static CrossIndex getIndex(double [] shotArray, double [] longArray, double rate ){
 
 
-        for (int i = longArray.length -1 ; i > 2 ; i--) {
+        int lastIndex = longArray.length -1;
+        //트레이딩에서는 백분율을 많이쓰므로 계산할때 /100을 해준다
+        rate = rate/100.0;
 
-            if(shotArray[i] > longArray[i]){
-                //상향돌파 골든크로스
-
+        if( shotArray[lastIndex] > longArray[lastIndex]){
+            //골득 크로스 검색
+            for (int i = lastIndex ; i > 4 ; i--) {
+                if(shotArray[i] <= longArray[i] ){
+                    return null;
+                }
                 int gap = gap(longArray, shotArray, i);
 
                 if(gap == -1){
                     continue;
+                }
+
+                if(!isRate(longArray, shotArray, i, rate)){
+                    return null;
                 }
 
                 CrossIndex crossIndex = new CrossIndex();
@@ -57,26 +66,43 @@ public class Cross {
                 crossIndex.gap = gap;
                 return crossIndex;
 
+            }
 
-            }else if(shotArray[i] < longArray[i]){
-                //하향돌바 데드크로스
-                int length = gap(shotArray, longArray, i);
+        }else if(shotArray[lastIndex] < longArray[lastIndex]){
+            //데드 크로스 검색
+            for (int i = lastIndex ; i > 4 ; i--) {
+                if(shotArray[i] >= longArray[i] ){
+                    return null;
+                }
 
-                if(length == -1){
-                    continue;
+                int gap = gap(shotArray, longArray, i);
+
+                if(!isRate(shotArray, longArray, i, rate)){
+                    return null;
                 }
                 CrossIndex crossIndex = new CrossIndex();
                 crossIndex.type = Type.DEAD;
                 crossIndex.index = i;
-                crossIndex.gap = length;
+                crossIndex.gap = gap;
                 return crossIndex;
-            }
 
+            }
         }
 
         return null;
     }
+    
+    private static boolean isRate(double [] small, double [] large, int index, double rate){
+        for (int i = index; i <small.length ; i++) {
+            double length = large[i] -  small[i];
+            if(length/small[i] >= rate){
+                return true;
+            }
+        }
 
+        return false;
+    }
+    
     /**
      *
      * @param small 작은값
@@ -101,7 +127,9 @@ public class Cross {
             last = i;
         }
 
-        if(count < 3){
+
+        //값이 교차된 전 개수가 최소 5개는 되어야 함
+        if(count < 5){
             return -1;
         }
 
