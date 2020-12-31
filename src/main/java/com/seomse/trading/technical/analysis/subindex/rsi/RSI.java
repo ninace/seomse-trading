@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.seomse.trading.technical.analysis.subindex;
+package com.seomse.trading.technical.analysis.subindex.rsi;
 
 import com.seomse.trading.PriceChangeRate;
 import com.seomse.trading.technical.analysis.subindex.cross.Cross;
