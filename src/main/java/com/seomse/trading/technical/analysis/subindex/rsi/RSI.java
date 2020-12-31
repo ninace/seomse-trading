@@ -17,11 +17,7 @@
 package com.seomse.trading.technical.analysis.subindex.rsi;
 
 import com.seomse.trading.PriceChangeRate;
-import com.seomse.trading.technical.analysis.subindex.cross.Cross;
-import com.seomse.trading.technical.analysis.subindex.cross.CrossIndex;
 import com.seomse.trading.technical.analysis.subindex.ma.MovingAverage;
-
-import java.util.Arrays;
 
 /**
  * RSI는 일정 기간 동안 주가가 전일 가격에 비해 상승한 변화량과 하락한 변화량의 평균값을 구하여, 상승한 변화량이 크면 과매수로, 하락한 변화량이 크면 과매도로 판단하는 방식이다.
@@ -203,7 +199,7 @@ public class RSI {
 
         double [] rsiScores = new double[rsiCount];
         
-        int endGap = 0;
+        int endGap = rsiCount;
         for (int i = 0; i <rsiCount ; i++) {
             rsiScores[i] = getScore(priceChangeRates, n, priceChangeRates.length - endGap--);
         }
@@ -235,38 +231,6 @@ public class RSI {
         return MovingAverage.getArray(rsiArray, n, signalCount);
     }
 
-    /**
-     * rsi 와 rsi signal 의 골든 크로스와 데드크로스 지점 얻기
-     * @param priceChangeRates 가격 변화율 배열
-     * @param n 특정기간 N
-     * @param signalN 시그널 특정기간 N
-     * @param rate 돞파기준 비율
-     * @return 크로스 발생 유형과 위치
-     */
-    public static CrossIndex cross(PriceChangeRate [] priceChangeRates, int n, int signalN, double rate){
-        //rsi 배열
-        double [] doubles = new double[priceChangeRates.length];
-        for (int i = 0; i < doubles.length; i++) {
-            doubles[i] = priceChangeRates[i].getChangeRate();
-        }
-        return cross(doubles, n , signalN, rate);
-    }
 
-
-    /**
-     * rsi 와 rsi signal 의 골든 크로스와 데드크로스 지점 얻기
-     * @param priceChangeRates 가격 변화율 배열
-     * @param n 특정기간 N
-     * @param signalN 시그널 특정기간 N
-     * @param rate 돞파기준 비율
-     * @return 크로스 발생 유형과 위치
-     */
-    public static CrossIndex cross(double [] priceChangeRates, int n, int signalN, double rate){
-        //rsi 배열
-        double [] rsiArray = getScores(priceChangeRates, n, priceChangeRates.length - n);
-        double [] signal =  getSignal(rsiArray, signalN, rsiArray.length -signalN + 1);
-        rsiArray = Arrays.copyOfRange(rsiArray, signalN - 1, rsiArray.length);
-        return Cross.getIndex(rsiArray, signal, rate);
-    }
 
 }
