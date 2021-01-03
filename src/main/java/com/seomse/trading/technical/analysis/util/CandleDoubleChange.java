@@ -16,6 +16,7 @@
 
 package com.seomse.trading.technical.analysis.util;
 
+import com.seomse.trading.PriceChangeRate;
 import com.seomse.trading.technical.analysis.candle.Candle;
 
 /**
@@ -40,4 +41,22 @@ public class CandleDoubleChange {
 
     }
 
+    /**
+     * 가격 변화율 배열로 변환
+     * @param priceChangeRateArray 가격 변화율 배열
+     * @return 가격 변화율 double 배열
+     */
+    public static double [] getChangeRateArray(PriceChangeRate[] priceChangeRateArray){
+        double [] doubles = new double[priceChangeRateArray.length];
+
+        for (int i = 0; i <doubles.length ; i++) {
+            doubles[i] = priceChangeRateArray[i].getChangeRate();
+        }
+        return doubles;
+
+    }
+
+
 }
+
+

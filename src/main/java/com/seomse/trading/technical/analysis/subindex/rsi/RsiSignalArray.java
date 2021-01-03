@@ -128,4 +128,21 @@ public class RsiSignalArray {
     public CrossIndex cross(double rate){
         return Cross.getIndex(rsiArray, signalArray, rate);
     }
+
+    /**
+     *
+     * @return last rsi
+     */
+    public double getLastRsi(){
+        return rsiArray[rsiArray.length-1];
+    }
+
+    /**
+     * 
+     * @return last signal
+     */
+    public double getLastSignal(){
+        return signalArray[signalArray.length-1];
+    }
+
 }

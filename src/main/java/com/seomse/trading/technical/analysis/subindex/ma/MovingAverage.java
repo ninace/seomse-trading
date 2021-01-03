@@ -16,6 +16,9 @@
 
 package com.seomse.trading.technical.analysis.subindex.ma;
 
+import com.seomse.trading.technical.analysis.candle.Candle;
+import com.seomse.trading.technical.analysis.util.CandleDoubleChange;
+
 /**
  * 이평선
  * @author macle
@@ -24,10 +27,20 @@ public class MovingAverage {
 
     /**
      * 평균 배열 얻기
+     * @param candles 캔들 배여
+     * @param n 평균을 구하기위한 개수 N
+     * @param averageCount 평균 배열 카운드 (얻고자 하는 수)
+     * @return 평균 배열
+     */
+    public static double[] getArray(Candle[] candles, int n, int averageCount) {
+        return getArray(CandleDoubleChange.getCloseArray(candles), n, averageCount);
+    }
+    /**
+     * 평균 배열 얻기
      *
      * @param doubles      보통 종가 배열을 많이사용 함
-     * @param n            평균
-     * @param averageCount 평균 배열 카운드
+     * @param n            평균을 구하기위한 개수 N
+     * @param averageCount 평균 배열 카운드 (얻고자 하는 수)
      * @return 평균 배열
      */
     public static double[] getArray(double[] doubles, int n, int averageCount) {

@@ -18,6 +18,7 @@ package com.seomse.trading.technical.analysis.subindex.rsi;
 
 import com.seomse.trading.PriceChangeRate;
 import com.seomse.trading.technical.analysis.subindex.ma.MovingAverage;
+import com.seomse.trading.technical.analysis.util.CandleDoubleChange;
 
 /**
  * RSI는 일정 기간 동안 주가가 전일 가격에 비해 상승한 변화량과 하락한 변화량의 평균값을 구하여, 상승한 변화량이 크면 과매수로, 하락한 변화량이 크면 과매도로 판단하는 방식이다.
@@ -94,11 +95,7 @@ public class RSI {
      */
     public static double getScore(PriceChangeRate[] priceChangeRates) {
 
-        double [] doubles = new double[priceChangeRates.length];
-        for (int i = 0; i < doubles.length; i++) {
-            doubles[i] = priceChangeRates[i].getChangeRate();
-        }
-
+        double [] doubles= CandleDoubleChange.getChangeRateArray(priceChangeRates);
         return getScore(doubles, DEFAULT_N, doubles.length);
     }
 
@@ -113,11 +110,7 @@ public class RSI {
      */
 
     public static double getScore(PriceChangeRate [] priceChangeRates, int n, int end){
-        double [] doubles = new double[priceChangeRates.length];
-        for (int i = 0; i < doubles.length; i++) {
-            doubles[i] = priceChangeRates[i].getChangeRate();
-        }
-
+        double [] doubles= CandleDoubleChange.getChangeRateArray(priceChangeRates);
         return getScore(doubles, n, end);
     }
     /**
